@@ -1053,6 +1053,10 @@ PrefabInstance:
       value: 141.569
       objectReference: {fileID: 0}
     - target: {fileID: 4832673044540129541, guid: 2edd16c9f06c9d8458f1270286e62995, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832673044540129541, guid: 2edd16c9f06c9d8458f1270286e62995, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -1093,8 +1097,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5618652817176732316, guid: 2edd16c9f06c9d8458f1270286e62995, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 85f95abe1f0b3014285ac0ae04461c19, type: 2}
+    - target: {fileID: 5618652817176732316, guid: 2edd16c9f06c9d8458f1270286e62995, type: 3}
       propertyPath: m_UpdateMode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5618652817176732316, guid: 2edd16c9f06c9d8458f1270286e62995, type: 3}
+      propertyPath: m_CullingMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5618652817176732316, guid: 2edd16c9f06c9d8458f1270286e62995, type: 3}
       propertyPath: m_ApplyRootMotion

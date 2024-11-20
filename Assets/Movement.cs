@@ -20,11 +20,13 @@ public class Movement : MonoBehaviour
     private bool jumpPressed;
 
     private Animator animator;
+    private Vector3 playerScale;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        playerScale = gameObject.transform.localScale;
     }
     void Update()
     {
@@ -33,12 +35,11 @@ public class Movement : MonoBehaviour
             animator.SetBool("Move", true);
             animator.SetFloat("Horizontal Input", moveInput.x);
             Debug.Log(moveInput.x);
-            Vector3 temp = gameObject.transform.localScale;
             if (moveInput.x > 0) {
-                gameObject.transform.localScale = new Vector3(1, temp.y, temp.z);
+                gameObject.transform.localScale = new Vector3(playerScale.x, playerScale.y, playerScale.z);
             }
             else if (moveInput.x < 0) {
-                gameObject.transform.localScale = new Vector3(-1, temp.y, temp.z);
+                gameObject.transform.localScale = new Vector3(-playerScale.x, playerScale.y, playerScale.z);
             }
         }
         else {
