@@ -8,7 +8,6 @@ public class Movement : MonoBehaviour
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
-    public Animation moveAnimation;
 
     [Header("Ground Detection")]
     public Transform groundCheck;
@@ -21,13 +20,11 @@ public class Movement : MonoBehaviour
     private bool jumpPressed;
 
     private Animator animator;
-    private float moveAnimationDefaultSpeed;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        moveAnimationDefaultSpeed = 2.5f;
     }
     void Update()
     {
