@@ -14,8 +14,8 @@ TagManager:
   - Seizable
   - Player
   - Grabbed Layer
-  - 
-  - 
+  - Ledge Layer
+  - Seizable & Climbable
   - 
   - 
   - 

@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -86,6 +85,12 @@ public class Movement : MonoBehaviour
         //Debug.Log("OnMove Called");
         jumpPressed = true;
 
+    }
+
+    public bool checkGrounded() 
+    {
+        if (isGrounded) return true;
+        return false;
     }
 
     void OnDrawGizmosSelected()
