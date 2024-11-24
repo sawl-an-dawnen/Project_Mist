@@ -16,8 +16,8 @@ TagManager:
   - Grabbed Layer
   - Ledge Layer
   - Seizable & Climbable
-  - 
-  - 
+  - Draggable
+  - Draggable & Climbable
   - 
   - 
   - 

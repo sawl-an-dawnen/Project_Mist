@@ -796,7 +796,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5785482034319887692}
   m_Layer: 7
-  m_Name: grabPoint
+  m_Name: holdPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -896,8 +896,9 @@ GameObject:
   - component: {fileID: 7012979401527296226}
   - component: {fileID: 5618652817176732316}
   - component: {fileID: 7112013218673749765}
-  - component: {fileID: 6103518685399660636}
   - component: {fileID: 6462530191677806004}
+  - component: {fileID: 6103518685399660636}
+  - component: {fileID: 8190314943526491243}
   - component: {fileID: 7835106294316154783}
   m_Layer: 7
   m_Name: Player
@@ -930,6 +931,7 @@ Transform:
   - {fileID: 8010630373917695694}
   - {fileID: 1349635138098645765}
   - {fileID: 5785482034319887692}
+  - {fileID: 9073677300857649992}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &4452227189622965971
@@ -941,7 +943,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 6041864031518644582}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 8e259dbba7ac9c841bada71a185df3e3, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1045,7 +1047,26 @@ MonoBehaviour:
   groundCheckRadius: 0.05
   groundLayer:
     serializedVersion: 2
-    m_Bits: 520
+    m_Bits: 5640
+--- !u!114 &6462530191677806004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6041864031518644582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ccc13fc36341ca4ba3c638a1e743147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mantleDistance: 0.08
+  climbHeight: 0.23
+  forwardMove: 0.1
+  mantleSpeed: 1
+  ledgeLayer:
+    serializedVersion: 2
+    m_Bits: 5632
 --- !u!114 &6103518685399660636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1060,18 +1081,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   armBone01: {fileID: 4398918374541688348}
   armBone02: {fileID: 1229093006778376112}
-  grabPoint: {fileID: 5785482034319887692}
+  grabPoint: {fileID: 9073677300857649992}
+  holdPoint: {fileID: 5785482034319887692}
   animationArms:
   - {fileID: 8111648335657555787}
   - {fileID: 2608614979634506301}
   grabArms:
   - {fileID: 8101169375652624626}
   - {fileID: 4437096205202659031}
-  grabRange: 0.13
+  grabRange: 0.07
   grabbableLayer:
     serializedVersion: 2
     m_Bits: 1088
---- !u!114 &6462530191677806004
+--- !u!114 &8190314943526491243
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1080,18 +1102,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 6041864031518644582}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ccc13fc36341ca4ba3c638a1e743147, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ec5aac0937a9324f8884018ff3c55a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heightOffset: 0
-  mantleHeight: 0.2
-  mantleDistance: 0.08
-  climbHeight: 0.23
-  forwardMove: 0.1
-  mantleSpeed: 1
-  ledgeLayer:
+  damping: 10
+  frequency: 10
+  armBone01: {fileID: 4398918374541688348}
+  armBone02: {fileID: 1229093006778376112}
+  grabPoint: {fileID: 9073677300857649992}
+  holdPoint: {fileID: 5785482034319887692}
+  animationArms:
+  - {fileID: 8111648335657555787}
+  - {fileID: 2608614979634506301}
+  grabArms:
+  - {fileID: 8101169375652624626}
+  - {fileID: 4437096205202659031}
+  grabRange: 0.07
+  grabbableLayer:
     serializedVersion: 2
-    m_Bits: 1536
+    m_Bits: 6144
 --- !u!114 &7835106294316154783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1437,4 +1466,35 @@ Transform:
   - {fileID: 1229093006778376112}
   - {fileID: 4146417499361743111}
   m_Father: {fileID: 8010630373917695694}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9162927564929928679
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9073677300857649992}
+  m_Layer: 7
+  m_Name: grabPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9073677300857649992
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9162927564929928679}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0782, y: 0.0249, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4832673044540129541}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

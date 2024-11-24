@@ -15,18 +15,22 @@ public class Mantle : MonoBehaviour
     private Vector2 mantleTarget;
     private Vector2 upwardRayOrigin;
     private Movement moveScript;
+    private Pickup pickupScript;
+    private Grab grabScript;
     private Animator animator;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         moveScript = GetComponent<Movement>();
+        pickupScript = GetComponent<Pickup>();
+        grabScript = GetComponent<Grab>();
         animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
-        if (moveScript.checkGrounded() && !isMantling && Input.GetKey(KeyCode.Space)) // Check for mantle input (Space)
+        if (moveScript.CheckGrounded() && !isMantling && Input.GetKey(KeyCode.Space) && !pickupScript.HoldingObject() && !grabScript.HoldingObject()) // Check for mantle input (Space)
         {
             Debug.Log("Check for ledge");
             CheckForLedge();
@@ -59,15 +63,15 @@ public class Mantle : MonoBehaviour
 
     private void StartMantle(Vector2 ledgePoint)
     {
-        Debug.Log("Target Set.");
-        isMantling = true;
         animator.SetBool("Mantle", true);
-
         // Calculate target position for mantling
         mantleTarget = new Vector2(ledgePoint.x + (forwardMove * Mathf.Sign(transform.localScale.x)), ledgePoint.y + climbHeight); // Adjust height as needed
-        Debug.Log(mantleTarget);
+        Debug.Log("Target Set.");
+
         rb.gravityScale = 0f;
         rb.velocity = Vector2.zero; // Stop player movement during mantling
+
+        isMantling = true;
     }
 
     private void FixedUpdate()
@@ -79,9 +83,12 @@ public class Mantle : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, mantleTarget, mantleSpeed * Time.fixedDeltaTime);
             RaycastHit2D upwardHit = Physics2D.Raycast(mantleTarget, Vector2.up, 0f, ledgeLayer);
 
+            Debug.Log("Move to Target: " + mantleTarget);
+
             // Stop mantling when the target is reached
             if (Vector2.Distance(transform.position, mantleTarget) < 0.1f || upwardHit.collider != null)
             {
+                Debug.Log("Stop Mantle");
                 isMantling = false;
                 animator.SetBool("Mantle", false);
                 rb.gravityScale = 1f;

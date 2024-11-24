@@ -20,12 +20,16 @@ public class Movement : MonoBehaviour
 
     private Animator animator;
     private Vector3 playerScale;
+    private float moveSpeedMultiplier = 1f;
+
+    private Grab grabScript;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         playerScale = gameObject.transform.localScale;
+        grabScript = GetComponent<Grab>();
     }
     void Update()
     {
@@ -33,12 +37,16 @@ public class Movement : MonoBehaviour
         if (moveInput.magnitude > 0)  {
             animator.SetBool("Move", true);
             animator.SetFloat("Horizontal Input", moveInput.x);
-            Debug.Log(moveInput.x);
-            if (moveInput.x > 0) {
-                gameObject.transform.localScale = new Vector3(playerScale.x, playerScale.y, playerScale.z);
-            }
-            else if (moveInput.x < 0) {
-                gameObject.transform.localScale = new Vector3(-playerScale.x, playerScale.y, playerScale.z);
+            if (!grabScript.HoldingObject()) 
+            {
+                if (moveInput.x > 0)
+                {
+                    gameObject.transform.localScale = new Vector3(playerScale.x, playerScale.y, playerScale.z);
+                }
+                else if (moveInput.x < 0)
+                {
+                    gameObject.transform.localScale = new Vector3(-playerScale.x, playerScale.y, playerScale.z);
+                }
             }
         }
         else {
@@ -70,7 +78,7 @@ public class Movement : MonoBehaviour
     void FixedUpdate()
     {
         // Horizontal movement
-        rb.velocity = new Vector2(moveInput.x * moveSpeed, rb.velocity.y);
+        rb.velocity = new Vector2(moveInput.x * moveSpeed * moveSpeedMultiplier, rb.velocity.y);
     }
 
     public void OnMove(InputValue value)
@@ -87,11 +95,14 @@ public class Movement : MonoBehaviour
 
     }
 
-    public bool checkGrounded() 
+    public bool CheckGrounded() 
     {
         if (isGrounded) return true;
         return false;
     }
+
+    public void SetMoveSpeedMultiplier(float m) { moveSpeedMultiplier = m; }
+    public void ResetMoveSpeed() { moveSpeedMultiplier = 1f; }
 
     void OnDrawGizmosSelected()
     {
