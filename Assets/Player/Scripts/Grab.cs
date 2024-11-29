@@ -38,18 +38,6 @@ public class Grab : MonoBehaviour
                 ReleaseObject();
             }
         }
-
-        /*if (grabbedObject != null)
-        {
-            // Move the object with the grab point
-            grabbedObject.MovePosition(holdPoint.position);
-
-            if ((grabbedObject.transform.position.x - gameObject.transform.position.x) * Mathf.Sign(transform.localScale.x) <= 0)
-            {
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x - (.01f * Mathf.Sign(transform.localScale.x)), gameObject.transform.position.y, gameObject.transform.position.z);
-            }
-        }
-        */
     }
 
     private void LateUpdate()
@@ -90,8 +78,10 @@ public class Grab : MonoBehaviour
             if (hit.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
             {   
                 grabbedObject = rb;
+
                 objGravity = grabbedObject.gravityScale;
                 grabbedObject.gravityScale = 1f;
+
                 layerState = grabbedObject.gameObject.layer;
                 grabbedObject.gameObject.layer = LayerMask.NameToLayer("Grabbed Layer");
                 //grabbedObject.velocity = Vector2.zero; // Stop movement

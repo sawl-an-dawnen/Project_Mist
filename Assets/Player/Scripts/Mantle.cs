@@ -5,13 +5,14 @@ public class Mantle : MonoBehaviour
     //public float heightOffset = 0.1f;
     //public float mantleHeight = .2f;   // Height above the player to detect a ledge
     public float mantleDistance = 0.5f; // Distance in front of the player to detect a ledge
-    public float climbHeight = .2f;
+    public float climbHeight = .2f; // How high the player can jump up
     public float forwardMove = .2f;
     public float mantleSpeed = 5f;     // Speed of the mantling movement
     public LayerMask ledgeLayer;       // Layer for ledges
 
     private Rigidbody2D rb;
     private bool isMantling = false;
+    private float currentScale;
     private Vector2 mantleTarget;
     private Vector2 upwardRayOrigin;
     private Movement moveScript;
@@ -30,7 +31,7 @@ public class Mantle : MonoBehaviour
 
     private void Update()
     {
-        if (moveScript.CheckGrounded() && !isMantling && Input.GetKey(KeyCode.Space) && !pickupScript.HoldingObject() && !grabScript.HoldingObject()) // Check for mantle input (Space)
+        if (!isMantling && moveScript.CheckGrounded() && !pickupScript.HoldingObject() && !grabScript.HoldingObject() && Input.GetKey(KeyCode.Space)) // Check for mantle input (Space)
         {
             Debug.Log("Check for ledge");
             CheckForLedge();
@@ -40,21 +41,22 @@ public class Mantle : MonoBehaviour
     private void CheckForLedge()
     {
         // Cast a ray forward to detect the ledge
-        //Vector2 rayOrigin = new Vector2(transform.position.x + (.1f*Mathf.Sign(transform.localScale.x)), transform.position.y + heightOffset); // Start ray slightly above ground
-        Vector2 rayOrigin = new Vector2(transform.position.x + (.1f * Mathf.Sign(transform.localScale.x)), transform.position.y); // Start ray slightly above ground
+        Vector2 rayOrigin = new Vector2(transform.position.x, transform.position.y);
         Vector2 rayDirection = transform.right * Mathf.Sign(transform.localScale.x); // Ray direction depends on facing direction
 
-        Debug.DrawRay(rayOrigin, rayDirection * (mantleDistance+.1f), Color.red);
+        Debug.DrawRay(rayOrigin, rayDirection * (mantleDistance), Color.red);
 
         RaycastHit2D hit = Physics2D.Raycast(rayOrigin, rayDirection, mantleDistance, ledgeLayer);
         if (hit.collider != null)
         {
             Debug.Log("Climbable object detected.");
             // Cast another ray upward from the ledge to find the top
-            upwardRayOrigin = hit.point + Vector2.up * 0.1f;
+            upwardRayOrigin = hit.point + Vector2.up * climbHeight + (Vector2.right * .05f * Mathf.Sign(transform.localScale.x));
             RaycastHit2D upwardHit = Physics2D.Raycast(upwardRayOrigin, Vector2.up, 0f, ledgeLayer);
 
-            if (upwardHit.collider == null) // No collider above means it's climbable
+            //Debug.Log(upwardHit.collider.name);
+
+            if (upwardHit.collider == null && moveScript.CheckGrounded()) // No collider above means it's climbable
             {
                 StartMantle(hit.point);
             }
@@ -67,9 +69,10 @@ public class Mantle : MonoBehaviour
         // Calculate target position for mantling
         mantleTarget = new Vector2(ledgePoint.x + (forwardMove * Mathf.Sign(transform.localScale.x)), ledgePoint.y + climbHeight); // Adjust height as needed
         Debug.Log("Target Set.");
-
         rb.gravityScale = 0f;
         rb.velocity = Vector2.zero; // Stop player movement during mantling
+
+        currentScale = Mathf.Sign(transform.localScale.x);
 
         isMantling = true;
     }
@@ -81,12 +84,12 @@ public class Mantle : MonoBehaviour
             Debug.Log("Manteling");
             // Smoothly move the player to the mantle target
             transform.position = Vector2.MoveTowards(transform.position, mantleTarget, mantleSpeed * Time.fixedDeltaTime);
-            RaycastHit2D upwardHit = Physics2D.Raycast(mantleTarget, Vector2.up, 0f, ledgeLayer);
+            RaycastHit2D mantleHit = Physics2D.Raycast(mantleTarget, Vector2.up, 0f, ledgeLayer);
 
             Debug.Log("Move to Target: " + mantleTarget);
 
             // Stop mantling when the target is reached
-            if (Vector2.Distance(transform.position, mantleTarget) < 0.1f || upwardHit.collider != null)
+            if (Vector2.Distance(transform.position, mantleTarget) < 0.1f || mantleHit.collider != null || Mathf.Sign(transform.localScale.x) != currentScale)
             {
                 Debug.Log("Stop Mantle");
                 isMantling = false;
@@ -95,6 +98,8 @@ public class Mantle : MonoBehaviour
             }
         }
     }
+
+    public bool MantleEnabled { get { return isMantling; } }
 
     void OnDrawGizmos()
     {

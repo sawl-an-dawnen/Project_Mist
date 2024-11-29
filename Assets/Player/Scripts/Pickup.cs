@@ -14,6 +14,7 @@ public class Pickup : MonoBehaviour
     public float grabRange = 1f; // Maximum distance to grab objects
     public LayerMask grabbableLayer; // Layer for grabbable objects
 
+    private float objGravityScale;
     private Rigidbody2D grabbedObject; // Currently grabbed object's Rigidbody2D
     private LayerMask layerState;
 
@@ -41,11 +42,13 @@ public class Pickup : MonoBehaviour
         if (grabbedObject != null)
         {
             // Move the object with the grab point
-            grabbedObject.MovePosition(holdPoint.position);
+            grabbedObject.MovePosition(holdPoint.position + ( .1f * Vector3.forward * Mathf.Sign(transform.position.x)));
 
-            if ((grabbedObject.transform.position.x - gameObject.transform.position.x) * Mathf.Sign(transform.localScale.x) <= 0) 
+            if ((grabbedObject.transform.position.x - gameObject.transform.position.x) * Mathf.Sign(transform.localScale.x) <= 0.08f) 
             {
-                gameObject.transform.position = new Vector3 (gameObject.transform.position.x - (.01f * Mathf.Sign(transform.localScale.x)), gameObject.transform.position.y, gameObject.transform.position.z);
+                Debug.Log("TOO CLOSE!");
+                //gameObject.transform.position = new Vector3 (gameObject.transform.position.x - (.01f * Mathf.Sign(transform.localScale.x)), gameObject.transform.position.y, gameObject.transform.position.z);
+                gameObject.GetComponent<Rigidbody2D>().AddForce(12f * Vector3.right * -Mathf.Sign(transform.position.x));
             }
         }
     }
@@ -93,6 +96,7 @@ public class Pickup : MonoBehaviour
                 layerState = grabbedObject.gameObject.layer;  
                 Debug.Log(layerState);
                 grabbedObject.gameObject.layer = LayerMask.NameToLayer("Grabbed Layer");
+                objGravityScale = grabbedObject.gravityScale;     
                 grabbedObject.gravityScale = 0f; // Disable gravity
                 grabbedObject.velocity = Vector2.zero; // Stop movement
                 moveScript.SetMoveSpeedMultiplier(1 / grabbedObject.mass);
@@ -106,7 +110,7 @@ public class Pickup : MonoBehaviour
         {
             ToggleArmVisibility();
             grabbedObject.gameObject.layer = layerState; // Reset layer
-            grabbedObject.gravityScale = 1f; // Restore gravity
+            grabbedObject.gravityScale = objGravityScale; // Restore gravity
             grabbedObject = null;
             moveScript.ResetMoveSpeed();
         }

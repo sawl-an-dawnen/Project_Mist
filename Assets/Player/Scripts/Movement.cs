@@ -23,6 +23,7 @@ public class Movement : MonoBehaviour
     private float moveSpeedMultiplier = 1f;
 
     private Grab grabScript;
+    private Mantle mantle;
 
     void Awake()
     {
@@ -30,6 +31,7 @@ public class Movement : MonoBehaviour
         animator = GetComponent<Animator>();
         playerScale = gameObject.transform.localScale;
         grabScript = GetComponent<Grab>();
+        mantle = GetComponent<Mantle>();
     }
     void Update()
     {
@@ -58,7 +60,7 @@ public class Movement : MonoBehaviour
         animator.SetFloat("Vertical Velocity", rb.velocity.y);
 
         // Ground check
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer) && !mantle.MantleEnabled;
         if (isGrounded)   {
             animator.SetBool("Grounded", true);
         }
@@ -67,7 +69,7 @@ public class Movement : MonoBehaviour
         }
 
         // Jump logic
-        if (jumpPressed && isGrounded)
+        if (jumpPressed && isGrounded && !mantle.MantleEnabled)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
