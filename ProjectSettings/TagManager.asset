@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ladder
+  - HoldPoint
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Draggable
   - Draggable & Climbable
   - Platform
-  - 
+  - Interactable
   - 
   - 
   - 

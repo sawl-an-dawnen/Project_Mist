@@ -1,31 +1,40 @@
 using UnityEngine;
 
-public class Pickup : MonoBehaviour
+public class IPickup : Interactable
 {
+    private bool held = false;
 
     public Transform armBone01; // The main bone for the arm
     public Transform armBone02; // The main bone for the arm
-    public Transform grabPoint;
-    public Transform holdPoint; // A point near the character where the object will be held
     public GameObject[] animationArms;
     public GameObject[] grabArms;
 
-    public float grabRange = 1f; // Maximum distance to grab objects
-    public LayerMask grabbableLayer; // Layer for grabbable objects
 
     private float objGravityScale;
     private Rigidbody2D grabbedObject; // Currently grabbed object's Rigidbody2D
     private LayerMask layerState;
 
+    private Rigidbody2D player;
+    private Transform holdPoint; // A point near the character where the object will be held
     private Movement moveScript;
+
+
 
     private void Awake()
     {
-        moveScript = GetComponent<Movement>();
+        
+        grabbedObject = GetComponent<Rigidbody2D>();
+        objGravityScale = grabbedObject.gravityScale;
+        layerState = grabbedObject.gameObject.layer;
+
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
+        moveScript = player.gameObject.GetComponent<Movement>();
+        holdPoint = GameObject.FindGameObjectWithTag("HoldPoint").transform;
     }
 
     void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.E)) // Grab/Release toggle
         {
             if (grabbedObject == null)
@@ -37,17 +46,18 @@ public class Pickup : MonoBehaviour
                 ReleaseObject();
             }
         }
+        */
 
-        if (grabbedObject != null)
+        if (held)
         {
             // Move the object with the grab point
-            grabbedObject.MovePosition(holdPoint.position + ( .1f * Vector3.forward * Mathf.Sign(transform.position.x)));
+            grabbedObject.MovePosition(holdPoint.position + (.1f * Vector3.forward * Mathf.Sign(transform.position.x)));
 
-            if ((grabbedObject.transform.position.x - gameObject.transform.position.x) * Mathf.Sign(transform.localScale.x) <= 0.08f) 
+            if ((grabbedObject.transform.position.x - player.transform.position.x) * Mathf.Sign(transform.localScale.x) <= 0.08f)
             {
                 Debug.Log("TOO CLOSE!");
                 //gameObject.transform.position = new Vector3 (gameObject.transform.position.x - (.01f * Mathf.Sign(transform.localScale.x)), gameObject.transform.position.y, gameObject.transform.position.z);
-                gameObject.GetComponent<Rigidbody2D>().AddForce(12f * Vector3.right * -Mathf.Sign(transform.position.x));
+                player.AddForce(12f * Vector3.right * -Mathf.Sign(player.gameObject.transform.position.x));
             }
         }
     }
@@ -73,7 +83,7 @@ public class Pickup : MonoBehaviour
 
             // Apply rotation to the arm bone
             armBone01.rotation = Quaternion.Euler(0, 0, angle);
-            armBone02.rotation = Quaternion.Euler(0, 0, angle); 
+            armBone02.rotation = Quaternion.Euler(0, 0, angle);
 
             Debug.Log("Rotation Applied");
             Debug.DrawLine(armBone01.position, target.position, Color.red);  // First arm to target
@@ -81,43 +91,39 @@ public class Pickup : MonoBehaviour
         }
     }
 
-    void TryGrabObject()
+    public bool HoldingObject()
     {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(grabPoint.position, grabRange, grabbableLayer);
-
-        if (hits.Length > 0)
-        {
-            grabbedObject = hits[0].attachedRigidbody;
-
-            if (grabbedObject != null)
-            {
-                ToggleArmVisibility();
-                layerState = grabbedObject.gameObject.layer;  
-                Debug.Log(layerState);
-                grabbedObject.gameObject.layer = LayerMask.NameToLayer("Grabbed Layer");
-                objGravityScale = grabbedObject.gravityScale;     
-                grabbedObject.gravityScale = 0f; // Disable gravity
-                grabbedObject.velocity = Vector2.zero; // Stop movement
-                moveScript.SetMoveSpeedMultiplier(1 / grabbedObject.mass);
-            }
-        }
+        return held;
     }
 
-    void ReleaseObject()
+    public override void Interact() 
     {
-        if (grabbedObject != null)
-        {
-            ToggleArmVisibility();
-            grabbedObject.gameObject.layer = layerState; // Reset layer
-            grabbedObject.gravityScale = objGravityScale; // Restore gravity
-            grabbedObject = null;
-            moveScript.ResetMoveSpeed();
-        }
+        held = true;
+
+        ToggleArmVisibility();
+
+        grabbedObject.gameObject.layer = LayerMask.NameToLayer("Grabbed Layer");
+        grabbedObject.gravityScale = 0f; // Disable gravity
+        grabbedObject.velocity = Vector2.zero; // Stop movement
+
+        moveScript.SetMoveSpeedMultiplier(1 / grabbedObject.mass);
     }
 
-    void ToggleArmVisibility() 
+    public override void Release() 
     {
-        foreach (GameObject arm in animationArms) 
+        held = false;
+
+        ToggleArmVisibility();
+
+        grabbedObject.gameObject.layer = layerState; // Reset layer
+        grabbedObject.gravityScale = objGravityScale; // Restore gravity
+
+        moveScript.ResetMoveSpeed();
+    }
+
+    void ToggleArmVisibility()
+    {
+        foreach (GameObject arm in animationArms)
         {
             arm.SetActive(!arm.activeSelf);
         }
@@ -125,21 +131,5 @@ public class Pickup : MonoBehaviour
         {
             arm.SetActive(!arm.activeSelf);
         }
-    }
-
-    public bool HoldingObject() 
-    {
-        if (grabbedObject != null) 
-        {
-            return true;
-        }
-        return false;
-    }
-
-    void OnDrawGizmos()
-    {
-        // Visualize grab range in the editor
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(grabPoint.position, grabRange);
     }
 }
