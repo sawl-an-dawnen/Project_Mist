@@ -63,7 +63,6 @@ public class Grab : MonoBehaviour
             armBone01.rotation = Quaternion.Euler(0, 0, angle);
             armBone02.rotation = Quaternion.Euler(0, 0, angle);
 
-            Debug.Log("Rotation Applied");
             Debug.DrawLine(armBone01.position, target.position, Color.red);  // First arm to target
             Debug.DrawLine(armBone02.position, target.position, Color.green); // Second arm to target
         }

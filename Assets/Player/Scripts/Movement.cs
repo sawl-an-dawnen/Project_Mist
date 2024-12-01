@@ -39,6 +39,7 @@ public class Movement : MonoBehaviour
         if (moveInput.magnitude > 0)  {
             animator.SetBool("Move", true);
             animator.SetFloat("Horizontal Input", moveInput.x);
+            animator.SetFloat("Move Speed Multiplyer", moveSpeedMultiplier * moveInput.x);
             if (!grabScript.HoldingObject()) 
             {
                 if (moveInput.x > 0)
@@ -103,8 +104,14 @@ public class Movement : MonoBehaviour
         return false;
     }
 
-    public void SetMoveSpeedMultiplier(float m) { moveSpeedMultiplier = m; }
-    public void ResetMoveSpeed() { moveSpeedMultiplier = 1f; }
+    public void SetMoveSpeedMultiplier(float m) 
+    { 
+        moveSpeedMultiplier = m;
+    }
+    public void ResetMoveSpeed() 
+    { 
+        moveSpeedMultiplier = 1f;
+    }
 
     void OnDrawGizmosSelected()
     {

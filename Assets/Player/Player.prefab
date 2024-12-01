@@ -177,8 +177,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1229093006778376112}
   m_Layer: 7
-  m_Name: Left_arm (1)
-  m_TagString: Untagged
+  m_Name: Left_arm_holding
+  m_TagString: Left_arm_bone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -210,8 +210,8 @@ GameObject:
   - component: {fileID: 4222494432025508373}
   - component: {fileID: 8259448805275412450}
   m_Layer: 7
-  m_Name: inside arm
-  m_TagString: Untagged
+  m_Name: right_arm
+  m_TagString: Arms_animation
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -662,12 +662,12 @@ GameObject:
   - component: {fileID: 19827204841782861}
   - component: {fileID: 4164618100522229857}
   m_Layer: 7
-  m_Name: inside arm holding
-  m_TagString: Untagged
+  m_Name: right_arm_holding
+  m_TagString: Arms_holding
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &904391440152293271
 Transform:
   m_ObjectHideFlags: 0
@@ -690,7 +690,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4437096205202659031}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -797,7 +797,7 @@ GameObject:
   - component: {fileID: 5785482034319887692}
   m_Layer: 7
   m_Name: holdPoint
-  m_TagString: Untagged
+  m_TagString: HoldPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -897,13 +897,13 @@ GameObject:
   - component: {fileID: 5618652817176732316}
   - component: {fileID: 7112013218673749765}
   - component: {fileID: 6462530191677806004}
-  - component: {fileID: 6103518685399660636}
   - component: {fileID: 8190314943526491243}
   - component: {fileID: 7835106294316154783}
   - component: {fileID: 437987150564362286}
+  - component: {fileID: 210973699331760946}
   m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -923,12 +923,12 @@ Transform:
   m_Children:
   - {fileID: 7325214795019863728}
   - {fileID: 8205924239074981027}
+  - {fileID: 58972253973757387}
   - {fileID: 1744275457535547863}
+  - {fileID: 904391440152293271}
   - {fileID: 4421504419968900119}
   - {fileID: 6532619927939854718}
   - {fileID: 2714336026955113785}
-  - {fileID: 58972253973757387}
-  - {fileID: 904391440152293271}
   - {fileID: 8010630373917695694}
   - {fileID: 1349635138098645765}
   - {fileID: 5785482034319887692}
@@ -1061,39 +1061,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ccc13fc36341ca4ba3c638a1e743147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mantleDistance: 0.08
-  climbHeight: 0.23
+  mantleDistance: 0.14
+  climbHeight: 0.19
   forwardMove: 0.1
-  mantleSpeed: 1
+  mantleSpeed: 1.4
   ledgeLayer:
     serializedVersion: 2
     m_Bits: 5632
---- !u!114 &6103518685399660636
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6041864031518644582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 087e03cd157b0ce45a7d78f138609740, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  armBone01: {fileID: 4398918374541688348}
-  armBone02: {fileID: 1229093006778376112}
-  grabPoint: {fileID: 9073677300857649992}
-  holdPoint: {fileID: 5785482034319887692}
-  animationArms:
-  - {fileID: 8111648335657555787}
-  - {fileID: 2608614979634506301}
-  grabArms:
-  - {fileID: 8101169375652624626}
-  - {fileID: 4437096205202659031}
-  grabRange: 0.07
-  grabbableLayer:
-    serializedVersion: 2
-    m_Bits: 1088
 --- !u!114 &8190314943526491243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1172,10 +1146,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d63a4aad9b33c948bd40df4c12e8512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  climbSpeed: 2
+  climbSpeed: 1
   platformLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
+--- !u!114 &210973699331760946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6041864031518644582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc5bbcdfb38866747a11ca4cfe3dd3fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactPoint: {fileID: 9073677300857649992}
+  interactRange: 0.07
+  interactionLayer:
+    serializedVersion: 2
+    m_Bits: 16384
 --- !u!1 &6225096126687542425
 GameObject:
   m_ObjectHideFlags: 0
@@ -1202,7 +1193,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.12520441, w: 0.992131}
   m_LocalPosition: {x: 0.040233478, y: -0.00043950276, z: 0}
-  m_LocalScale: {x: 0.9999999, y: 0.9999999, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5762079387392891059}
@@ -1217,8 +1208,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4398918374541688348}
   m_Layer: 7
-  m_Name: Right_arm (1)
-  m_TagString: Untagged
+  m_Name: Right_arm_holding
+  m_TagString: Right_arm_bone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1250,12 +1241,12 @@ GameObject:
   - component: {fileID: 7293523313421759283}
   - component: {fileID: 3335336546400813781}
   m_Layer: 7
-  m_Name: outside arm holding
-  m_TagString: Untagged
+  m_Name: left_arm_holding
+  m_TagString: Arms_holding
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1744275457535547863
 Transform:
   m_ObjectHideFlags: 0
@@ -1278,7 +1269,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8101169375652624626}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -1355,8 +1346,8 @@ GameObject:
   - component: {fileID: 1738563971928462305}
   - component: {fileID: 2122316752080511536}
   m_Layer: 7
-  m_Name: outside arm
-  m_TagString: Untagged
+  m_Name: left_arm
+  m_TagString: Arms_animation
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

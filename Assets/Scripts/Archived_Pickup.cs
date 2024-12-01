@@ -1,6 +1,8 @@
 using UnityEngine;
 
-public class Pickup : MonoBehaviour
+
+//Archived script - Originally designed to exist on player character. Changed to use abstract class and moved to objects
+public class Archived_Pickup : MonoBehaviour
 {
 
     public Transform armBone01; // The main bone for the arm

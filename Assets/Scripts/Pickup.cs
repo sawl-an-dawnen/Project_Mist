@@ -1,28 +1,24 @@
 using UnityEngine;
 
-public class IPickup : Interactable
+public class Pickup : Interactable
 {
+    public float weight = 1f;
+    
     private bool held = false;
-
-    public Transform armBone01; // The main bone for the arm
-    public Transform armBone02; // The main bone for the arm
-    public GameObject[] animationArms;
-    public GameObject[] grabArms;
-
-
-    private float objGravityScale;
+    private Transform rightArmBoneHolding; // The main bone for the arm
+    private Transform leftArmBoneHolding; // bone for left arm
+    private GameObject[] animationArmSprites; //array arms used for animation
+    private GameObject[] holdingArmSprites; //array arms used for holding obj
+    private float objGravityScale; //objs original gravity scale
+    private LayerMask layerState; //objs orignal layerstate
     private Rigidbody2D grabbedObject; // Currently grabbed object's Rigidbody2D
-    private LayerMask layerState;
-
-    private Rigidbody2D player;
+    private Rigidbody2D player; // players rigidbody 2D
     private Transform holdPoint; // A point near the character where the object will be held
-    private Movement moveScript;
-
-
+    private Movement moveScript; //plauers movescript
 
     private void Awake()
     {
-        
+        oneShot = false;
         grabbedObject = GetComponent<Rigidbody2D>();
         objGravityScale = grabbedObject.gravityScale;
         layerState = grabbedObject.gameObject.layer;
@@ -30,32 +26,23 @@ public class IPickup : Interactable
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
         moveScript = player.gameObject.GetComponent<Movement>();
         holdPoint = GameObject.FindGameObjectWithTag("HoldPoint").transform;
+
+        rightArmBoneHolding = GameObject.FindGameObjectWithTag("Left_arm_bone").transform;
+        leftArmBoneHolding = GameObject.FindGameObjectWithTag("Right_arm_bone").transform;
+
+        animationArmSprites = GameObject.FindGameObjectsWithTag("Arms_animation");
+        holdingArmSprites = GameObject.FindGameObjectsWithTag("Arms_holding");
     }
 
     void Update()
     {
-        /*
-        if (Input.GetKeyDown(KeyCode.E)) // Grab/Release toggle
-        {
-            if (grabbedObject == null)
-            {
-                TryGrabObject();
-            }
-            else
-            {
-                ReleaseObject();
-            }
-        }
-        */
-
         if (held)
         {
             // Move the object with the grab point
             grabbedObject.MovePosition(holdPoint.position + (.1f * Vector3.forward * Mathf.Sign(transform.position.x)));
 
-            if ((grabbedObject.transform.position.x - player.transform.position.x) * Mathf.Sign(transform.localScale.x) <= 0.08f)
+            if ((grabbedObject.transform.position.x - player.transform.position.x) * Mathf.Sign(player.gameObject.transform.localScale.x) <= 0.08f)
             {
-                Debug.Log("TOO CLOSE!");
                 //gameObject.transform.position = new Vector3 (gameObject.transform.position.x - (.01f * Mathf.Sign(transform.localScale.x)), gameObject.transform.position.y, gameObject.transform.position.z);
                 player.AddForce(12f * Vector3.right * -Mathf.Sign(player.gameObject.transform.position.x));
             }
@@ -64,30 +51,27 @@ public class IPickup : Interactable
 
     private void LateUpdate()
     {
-        if (grabbedObject != null)
+        if (held)
         {
             Transform target = grabbedObject.gameObject.transform;
+
             // Calculate direction from arm bone to the object
-            Vector2 direction = target.position - armBone01.position;
+            Vector2 direction = target.position - rightArmBoneHolding.position;
             float facingMultiplier = gameObject.transform.localScale.x >= 0 ? 1 : -1; // Check if facing right (positive scale) or left (negative scale)
-            bool isFacingRight = gameObject.transform.localScale.x >= 0;
+            bool isFacingRight = player.transform.localScale.x >= 0;
 
             // Convert direction to an angle
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            if (!isFacingRight)
-            {
-                angle = 180 - angle; // Adjust the angle for flipping
-            }
+            // Adjust the angle for flipping
+            if (!isFacingRight) {angle = 180 - angle;}
             angle *= facingMultiplier;
-            //Debug.Log(angle);
 
             // Apply rotation to the arm bone
-            armBone01.rotation = Quaternion.Euler(0, 0, angle);
-            armBone02.rotation = Quaternion.Euler(0, 0, angle);
+            rightArmBoneHolding.rotation = Quaternion.Euler(0, 0, angle);
+            leftArmBoneHolding.rotation = Quaternion.Euler(0, 0, angle);
 
-            Debug.Log("Rotation Applied");
-            Debug.DrawLine(armBone01.position, target.position, Color.red);  // First arm to target
-            Debug.DrawLine(armBone02.position, target.position, Color.green); // Second arm to target
+            Debug.DrawLine(rightArmBoneHolding.position, target.position, Color.red);  // First arm to target
+            Debug.DrawLine(leftArmBoneHolding.position, target.position, Color.green); // Second arm to target
         }
     }
 
@@ -106,7 +90,7 @@ public class IPickup : Interactable
         grabbedObject.gravityScale = 0f; // Disable gravity
         grabbedObject.velocity = Vector2.zero; // Stop movement
 
-        moveScript.SetMoveSpeedMultiplier(1 / grabbedObject.mass);
+        moveScript.SetMoveSpeedMultiplier(1/weight);
     }
 
     public override void Release() 
@@ -123,13 +107,15 @@ public class IPickup : Interactable
 
     void ToggleArmVisibility()
     {
-        foreach (GameObject arm in animationArms)
+        foreach (GameObject arm in animationArmSprites)
         {
-            arm.SetActive(!arm.activeSelf);
+            SpriteRenderer sprite = arm.GetComponent<SpriteRenderer>(); 
+            sprite.enabled = !sprite.enabled;
         }
-        foreach (GameObject arm in grabArms)
+        foreach (GameObject arm in holdingArmSprites)
         {
-            arm.SetActive(!arm.activeSelf);
+            SpriteRenderer sprite = arm.GetComponent<SpriteRenderer>();
+            sprite.enabled = !sprite.enabled;
         }
     }
 }

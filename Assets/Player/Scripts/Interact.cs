@@ -2,7 +2,8 @@ using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour
 {
-    public bool oneShot;
+    [HideInInspector]
+    public bool oneShot = false;
     public abstract void Interact();
     public abstract void Release();
 
@@ -11,7 +12,6 @@ public class Interact : MonoBehaviour
 {
     public Transform interactPoint;
     public float interactRange = 3f;
-    public LayerMask interactionLayer;
 
     private bool interacting = false;
     private Interactable interactable;
@@ -29,18 +29,22 @@ public class Interact : MonoBehaviour
                 return;
             }
 
-            Collider2D[] hits = Physics2D.OverlapCircleAll(interactPoint.position, interactRange, interactionLayer);
+            Collider2D[] hits = Physics2D.OverlapCircleAll(interactPoint.position, interactRange);
 
-            if (hits[0].gameObject.TryGetComponent(out Interactable obj) && !interacting)
+            foreach (Collider2D hit in hits)
             {
-                Action(obj);
+                if (hit.gameObject.TryGetComponent(out Interactable obj) && !interacting)
+                {
+                    Action(obj);
+                    break;
+                }
             }
         }
     }
 
     private void Action(Interactable interactObj)
     {
-        Debug.Log("Interaction called.");
+        Debug.Log("Action called.");
         if (!interactObj.oneShot) 
         {
             interacting = true;
