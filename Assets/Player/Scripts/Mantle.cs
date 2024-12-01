@@ -18,6 +18,7 @@ public class Mantle : MonoBehaviour
     private Movement moveScript;
     private Grab grabScript;
     private Animator animator;
+    private Interact interactor;
 
     private void Awake()
     {
@@ -25,11 +26,12 @@ public class Mantle : MonoBehaviour
         moveScript = GetComponent<Movement>();
         grabScript = GetComponent<Grab>();
         animator = GetComponent<Animator>();
+        interactor = GetComponent<Interact>();
     }
 
     private void Update()
     {
-        if (!isMantling && moveScript.CheckGrounded() && !grabScript.HoldingObject() && Input.GetKey(KeyCode.Space)) // Check for mantle input (Space)
+        if (!isMantling && moveScript.CheckGrounded() && !interactor.Interacting() && Input.GetKey(KeyCode.Space)) // Check for mantle input (Space)
         {
             CheckForLedge();
         }

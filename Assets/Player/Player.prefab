@@ -897,7 +897,6 @@ GameObject:
   - component: {fileID: 5618652817176732316}
   - component: {fileID: 7112013218673749765}
   - component: {fileID: 6462530191677806004}
-  - component: {fileID: 8190314943526491243}
   - component: {fileID: 7835106294316154783}
   - component: {fileID: 437987150564362286}
   - component: {fileID: 210973699331760946}
@@ -1068,34 +1067,6 @@ MonoBehaviour:
   ledgeLayer:
     serializedVersion: 2
     m_Bits: 5632
---- !u!114 &8190314943526491243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6041864031518644582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ec5aac0937a9324f8884018ff3c55a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damping: 10
-  frequency: 10
-  armBone01: {fileID: 4398918374541688348}
-  armBone02: {fileID: 1229093006778376112}
-  grabPoint: {fileID: 9073677300857649992}
-  holdPoint: {fileID: 5785482034319887692}
-  animationArms:
-  - {fileID: 8111648335657555787}
-  - {fileID: 2608614979634506301}
-  grabArms:
-  - {fileID: 8101169375652624626}
-  - {fileID: 4437096205202659031}
-  grabRange: 0.07
-  grabbableLayer:
-    serializedVersion: 2
-    m_Bits: 6144
 --- !u!114 &7835106294316154783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1164,9 +1135,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactPoint: {fileID: 9073677300857649992}
   interactRange: 0.07
-  interactionLayer:
-    serializedVersion: 2
-    m_Bits: 16384
 --- !u!1 &6225096126687542425
 GameObject:
   m_ObjectHideFlags: 0

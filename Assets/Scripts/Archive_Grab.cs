@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Profiling;
 
-public class Grab : MonoBehaviour
+public class Archive_Grab : MonoBehaviour
 {
     public float damping = 2f; // Resistance for smoother dragging
     public float frequency = 5f; // Frequency for spring-like effect

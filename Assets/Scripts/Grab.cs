@@ -1,38 +1,34 @@
 using UnityEngine;
 using UnityEngine.Profiling;
 
-public class IGrab : Interactable
+public class Grab : Interactable
 {
     public float damping = 2f; // Resistance for smoother dragging
     public float frequency = 5f; // Frequency for spring-like effect
+    public float weight = 1f;
 
     private bool held = false;
+    private Transform holdPoint; // A point near the character where the object will be held
 
     private Transform rightArmBoneHolding; // The main bone for the arm
     private Transform leftArmBoneHolding; // The main bone for the arm
-    public Transform grabPoint;
-    public Transform holdPoint; // A point near the character where the object will be held
-    public GameObject[] animationArmSprites;
-    public GameObject[] holdingArmSprites;
 
-    public float grabRange = 1f; // Maximum distance to grab objects
-    public LayerMask grabbableLayer; // Layer for grabbable objects
+    private GameObject[] animationArmSprites;
+    private GameObject[] holdingArmSprites;
+
     private Rigidbody2D grabbedObject; // Currently grabbed object's Rigidbody2D
-    private float objGravityScale;
-    private LayerMask layerState;
-    private Movement moveScript;
-    private SpringJoint2D joint;
+    private float gravityScaleDefaultValue;
+    private LayerMask layerStateDefaultValue;
     private Rigidbody2D player;
+    private Movement moveScript;
+    private HingeJoint2D joint;
 
     private void Awake()
     {
-
-        moveScript = GetComponent<Movement>();
-
         oneShot = false;
         grabbedObject = GetComponent<Rigidbody2D>();
-        objGravityScale = grabbedObject.gravityScale;
-        layerState = grabbedObject.gameObject.layer;
+        gravityScaleDefaultValue = grabbedObject.gravityScale;
+        layerStateDefaultValue = grabbedObject.gameObject.layer;
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
         moveScript = player.gameObject.GetComponent<Movement>();
@@ -45,11 +41,6 @@ public class IGrab : Interactable
         holdingArmSprites = GameObject.FindGameObjectsWithTag("Arms_holding");
     }
 
-    void Update()
-    {
-        
-    }
-
     private void LateUpdate()
     {
         if (held)
@@ -57,8 +48,8 @@ public class IGrab : Interactable
             Transform target = grabbedObject.gameObject.transform;
             // Calculate direction from arm bone to the object
             Vector2 direction = target.position - rightArmBoneHolding.position;
-            float facingMultiplier = gameObject.transform.localScale.x >= 0 ? 1 : -1; // Check if facing right (positive scale) or left (negative scale)
-            bool isFacingRight = gameObject.transform.localScale.x >= 0;
+            float facingMultiplier = player.gameObject.transform.localScale.x >= 0 ? 1 : -1; // Check if facing right (positive scale) or left (negative scale)
+            bool isFacingRight = player.gameObject.transform.localScale.x >= 0;
 
             // Convert direction to an angle
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -82,25 +73,27 @@ public class IGrab : Interactable
     {
         held = true;
         ToggleArmVisibility();
-        grabbedObject = GetComponent<Rigidbody2D>();
-        objGravityScale = grabbedObject.gravityScale;
+        //grabbedObject = GetComponent<Rigidbody2D>();
+        //objGravityScale = grabbedObject.gravityScale;
         grabbedObject.gravityScale = 1f;
-        layerState = grabbedObject.gameObject.layer;
+        //layerState = grabbedObject.gameObject.layer;
         grabbedObject.gameObject.layer = LayerMask.NameToLayer("Grabbed Layer");
-        moveScript.SetMoveSpeedMultiplier(1 / grabbedObject.mass);
+        moveScript.SetMoveSpeedMultiplier(1 / weight);
+        moveScript.SetInteraction(GetComponent<Grab>());
         CreateJoint(grabbedObject.ClosestPoint(player.gameObject.transform.position));
     }
 
     public override void Release()
     {
         held = false;
-
         ToggleArmVisibility();
-        grabbedObject.gameObject.layer = layerState; // Reset layer
-        grabbedObject.gravityScale = objGravityScale; // Restore gravity
-        Destroy(joint);
-        grabbedObject = null;
+        grabbedObject.gameObject.layer = layerStateDefaultValue; // Reset layer
+        grabbedObject.gravityScale = gravityScaleDefaultValue; // Restore gravity
         moveScript.ResetMoveSpeed();
+        moveScript.SetInteraction(null);
+        Destroy(joint);
+        //grabbedObject = null;
+
     }
 
     void ToggleArmVisibility()
@@ -117,37 +110,30 @@ public class IGrab : Interactable
         }
     }
 
-    public bool HoldingObject()
-    {
-        return held;
-    }
-
     void CreateJoint(Vector2 latchPoint)
     {
         if (grabbedObject == null) return;
 
         // Add a Distance Joint to the player
-        joint = player.gameObject.AddComponent<SpringJoint2D>();
+        joint = player.gameObject.AddComponent<HingeJoint2D>();
         joint.connectedBody = grabbedObject;
 
         // Set the joint anchor to the player's position
-        joint.anchor = grabPoint.transform.InverseTransformPoint(grabPoint.transform.position);
+        joint.anchor = holdPoint.transform.InverseTransformPoint(holdPoint.transform.position);
 
         // Set the connected anchor to the latch point
         joint.connectedAnchor = grabbedObject.transform.InverseTransformPoint(latchPoint);
 
+        // Configure angle limits
+        JointAngleLimits2D limits = new JointAngleLimits2D();
+        limits.min = -30f; // Limit rotation to -30 degrees
+        limits.max = 30f;  // Limit rotation to +30 degrees
+        joint.limits = limits;
+        joint.useLimits = true;
         // Configure the joint for smooth dragging
-        joint.autoConfigureDistance = true;
-        joint.distance = .05f; // No distance between the player and the latch point
-        joint.dampingRatio = damping; // Smooth movement
-        joint.frequency = frequency; // Spring-like effect
-    }
-
-    void OnDrawGizmos()
-    {
-        // Visualize grab range in the editor
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(grabPoint.position, grabRange);
-        //Gizmos.DrawWireSphere(holdPoint.position, grabRange);
+        //joint.autoConfigureDistance = false;
+        //joint.distance = .05f; // No distance between the player and the latch point
+        //joint.dampingRatio = damping; // Smooth movement
+        //joint.frequency = frequency; // Spring-like effect
     }
 }

@@ -24,6 +24,7 @@ public class Movement : MonoBehaviour
 
     private Grab grabScript;
     private Mantle mantle;
+    private Interactable interactable;
 
     void Awake()
     {
@@ -40,7 +41,8 @@ public class Movement : MonoBehaviour
             animator.SetBool("Move", true);
             animator.SetFloat("Horizontal Input", moveInput.x);
             animator.SetFloat("Move Speed Multiplyer", moveSpeedMultiplier * moveInput.x);
-            if (!grabScript.HoldingObject()) 
+
+            if (interactable == null || interactable.GetType() != typeof(Grab)) 
             {
                 if (moveInput.x > 0)
                 {
@@ -111,6 +113,11 @@ public class Movement : MonoBehaviour
     public void ResetMoveSpeed() 
     { 
         moveSpeedMultiplier = 1f;
+    }
+
+    public void SetInteraction(Interactable interaction) 
+    {
+        interactable = interaction;
     }
 
     void OnDrawGizmosSelected()

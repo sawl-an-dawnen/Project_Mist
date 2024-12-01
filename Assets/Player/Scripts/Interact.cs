@@ -62,6 +62,13 @@ public class Interact : MonoBehaviour
         interactObj.Release();
     }
 
+    public Interactable GetInteraction() 
+    {
+        return interactable;
+    }
+
+    public bool Interacting() { return interacting; }
+
     void OnDrawGizmos()
     {
         // Visualize grab range in the editor

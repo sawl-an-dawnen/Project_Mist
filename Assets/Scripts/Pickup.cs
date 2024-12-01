@@ -16,6 +16,8 @@ public class Pickup : Interactable
     private Transform holdPoint; // A point near the character where the object will be held
     private Movement moveScript; //plauers movescript
 
+    private DistanceJoint2D joint;
+
     private void Awake()
     {
         oneShot = false;
@@ -39,13 +41,16 @@ public class Pickup : Interactable
         if (held)
         {
             // Move the object with the grab point
-            grabbedObject.MovePosition(holdPoint.position + (.1f * Vector3.forward * Mathf.Sign(transform.position.x)));
+            //grabbedObject.MovePosition(holdPoint.position + (.1f * Vector3.forward * Mathf.Sign(transform.position.x)));
 
+            /*
             if ((grabbedObject.transform.position.x - player.transform.position.x) * Mathf.Sign(player.gameObject.transform.localScale.x) <= 0.08f)
             {
-                //gameObject.transform.position = new Vector3 (gameObject.transform.position.x - (.01f * Mathf.Sign(transform.localScale.x)), gameObject.transform.position.y, gameObject.transform.position.z);
+                Debug.Log("Too close");
                 player.AddForce(12f * Vector3.right * -Mathf.Sign(player.gameObject.transform.position.x));
             }
+            */
+            grabbedObject.position = holdPoint.position;
         }
     }
 
@@ -75,33 +80,29 @@ public class Pickup : Interactable
         }
     }
 
-    public bool HoldingObject()
-    {
-        return held;
-    }
-
     public override void Interact() 
     {
         held = true;
-
         ToggleArmVisibility();
-
         grabbedObject.gameObject.layer = LayerMask.NameToLayer("Grabbed Layer");
         grabbedObject.gravityScale = 0f; // Disable gravity
         grabbedObject.velocity = Vector2.zero; // Stop movement
-
+        grabbedObject.position = holdPoint.position;
+        joint = player.gameObject.AddComponent<DistanceJoint2D>();
+        joint.connectedBody = grabbedObject;
+        //joint.autoConfigureDistance = false;
+        //joint.distance = Vector2.Distance(holdPoint.position, grabbedObject.position);
+        joint.enableCollision = true;
         moveScript.SetMoveSpeedMultiplier(1/weight);
     }
 
     public override void Release() 
     {
         held = false;
-
         ToggleArmVisibility();
-
         grabbedObject.gameObject.layer = layerState; // Reset layer
         grabbedObject.gravityScale = objGravityScale; // Restore gravity
-
+        Destroy(joint);
         moveScript.ResetMoveSpeed();
     }
 
