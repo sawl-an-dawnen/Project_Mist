@@ -30,13 +30,12 @@ public class Grab : Interactable
         gravityScaleDefaultValue = grabbedObject.gravityScale;
         layerStateDefaultValue = grabbedObject.gameObject.layer;
 
+        holdPoint = GameObject.FindGameObjectWithTag("HoldPoint").transform;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
         moveScript = player.gameObject.GetComponent<Movement>();
-        holdPoint = GameObject.FindGameObjectWithTag("HoldPoint").transform;
 
         rightArmBoneHolding = GameObject.FindGameObjectWithTag("Left_arm_bone").transform;
         leftArmBoneHolding = GameObject.FindGameObjectWithTag("Right_arm_bone").transform;
-
         animationArmSprites = GameObject.FindGameObjectsWithTag("Arms_animation");
         holdingArmSprites = GameObject.FindGameObjectsWithTag("Arms_holding");
     }
@@ -58,7 +57,6 @@ public class Grab : Interactable
                 angle = 180 - angle; // Adjust the angle for flipping
             }
             angle *= facingMultiplier;
-            //Debug.Log(angle);
 
             // Apply rotation to the arm bone
             rightArmBoneHolding.rotation = Quaternion.Euler(0, 0, angle);
@@ -73,10 +71,7 @@ public class Grab : Interactable
     {
         held = true;
         ToggleArmVisibility();
-        //grabbedObject = GetComponent<Rigidbody2D>();
-        //objGravityScale = grabbedObject.gravityScale;
         grabbedObject.gravityScale = 1f;
-        //layerState = grabbedObject.gameObject.layer;
         grabbedObject.gameObject.layer = LayerMask.NameToLayer("Grabbed Layer");
         moveScript.SetMoveSpeedMultiplier(1 / weight);
         moveScript.SetInteraction(GetComponent<Grab>());
@@ -92,8 +87,6 @@ public class Grab : Interactable
         moveScript.ResetMoveSpeed();
         moveScript.SetInteraction(null);
         Destroy(joint);
-        //grabbedObject = null;
-
     }
 
     void ToggleArmVisibility()
@@ -130,10 +123,5 @@ public class Grab : Interactable
         limits.max = 30f;  // Limit rotation to +30 degrees
         joint.limits = limits;
         joint.useLimits = true;
-        // Configure the joint for smooth dragging
-        //joint.autoConfigureDistance = false;
-        //joint.distance = .05f; // No distance between the player and the latch point
-        //joint.dampingRatio = damping; // Smooth movement
-        //joint.frequency = frequency; // Spring-like effect
     }
 }

@@ -897,9 +897,9 @@ GameObject:
   - component: {fileID: 5618652817176732316}
   - component: {fileID: 7112013218673749765}
   - component: {fileID: 6462530191677806004}
-  - component: {fileID: 7835106294316154783}
   - component: {fileID: 437987150564362286}
   - component: {fileID: 210973699331760946}
+  - component: {fileID: 7835106294316154783}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -1047,7 +1047,7 @@ MonoBehaviour:
   groundCheckRadius: 0.05
   groundLayer:
     serializedVersion: 2
-    m_Bits: 13832
+    m_Bits: 1544
 --- !u!114 &6462530191677806004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1062,11 +1062,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mantleDistance: 0.14
   climbHeight: 0.19
-  forwardMove: 0.1
+  forwardMove: 1.66
   mantleSpeed: 1.4
-  ledgeLayer:
+--- !u!114 &437987150564362286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6041864031518644582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d63a4aad9b33c948bd40df4c12e8512, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  climbSpeed: 1
+  platformLayer:
     serializedVersion: 2
-    m_Bits: 5632
+    m_Bits: 1
+--- !u!114 &210973699331760946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6041864031518644582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc5bbcdfb38866747a11ca4cfe3dd3fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactPoint: {fileID: 9073677300857649992}
+  interactRange: 0.07
 --- !u!114 &7835106294316154783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1105,36 +1132,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &437987150564362286
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6041864031518644582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d63a4aad9b33c948bd40df4c12e8512, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  climbSpeed: 1
-  platformLayer:
-    serializedVersion: 2
-    m_Bits: 1
---- !u!114 &210973699331760946
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6041864031518644582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc5bbcdfb38866747a11ca4cfe3dd3fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactPoint: {fileID: 9073677300857649992}
-  interactRange: 0.07
 --- !u!1 &6225096126687542425
 GameObject:
   m_ObjectHideFlags: 0
@@ -1468,7 +1465,7 @@ Transform:
   m_GameObject: {fileID: 9162927564929928679}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0782, y: 0.0249, z: 0}
+  m_LocalPosition: {x: 0.0526, y: 0.0222, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

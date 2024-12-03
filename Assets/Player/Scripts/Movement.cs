@@ -15,6 +15,7 @@ public class Movement : MonoBehaviour
 
     private Rigidbody2D rb;
     private Vector2 moveInput;
+    private float jumpYCoordinate;
     private bool isGrounded;
     private bool jumpPressed;
 
@@ -65,6 +66,7 @@ public class Movement : MonoBehaviour
         // Ground check
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer) && !mantle.MantleEnabled;
         if (isGrounded)   {
+            jumpYCoordinate = transform.position.y;
             animator.SetBool("Grounded", true);
         }
         else {
@@ -118,6 +120,11 @@ public class Movement : MonoBehaviour
     public void SetInteraction(Interactable interaction) 
     {
         interactable = interaction;
+    }
+
+    public float GetLastYCoordinate() 
+    {
+        return jumpYCoordinate;
     }
 
     void OnDrawGizmosSelected()

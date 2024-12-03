@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 23200102}
   - component: {fileID: 23200104}
   - component: {fileID: 23200103}
+  - component: {fileID: 23200105}
   m_Layer: 9
   m_Name: Wall (2)
   m_TagString: Untagged
@@ -253,6 +254,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &23200105
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23200101}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &275352616
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,6 +417,7 @@ GameObject:
   - component: {fileID: 726309082}
   - component: {fileID: 726309084}
   - component: {fileID: 726309083}
+  - component: {fileID: 726309085}
   m_Layer: 9
   m_Name: Wall (3)
   m_TagString: Untagged
@@ -508,6 +537,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &726309085
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726309081}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
 --- !u!1 &766927680
 GameObject:
   m_ObjectHideFlags: 0
@@ -916,7 +972,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!212 &962509207
 SpriteRenderer:
@@ -1287,7 +1343,7 @@ GameObject:
   - component: {fileID: 1427769363}
   - component: {fileID: 1427769362}
   - component: {fileID: 1427769364}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1526,7 +1582,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!212 &1631235171
 SpriteRenderer:
@@ -2272,24 +2328,32 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 6462530191677806004, guid: 2edd16c9f06c9d8458f1270286e62995, type: 3}
+      propertyPath: climbHeight
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462530191677806004, guid: 2edd16c9f06c9d8458f1270286e62995, type: 3}
+      propertyPath: forwardMove
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462530191677806004, guid: 2edd16c9f06c9d8458f1270286e62995, type: 3}
+      propertyPath: mantleSpeed
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462530191677806004, guid: 2edd16c9f06c9d8458f1270286e62995, type: 3}
+      propertyPath: mantleDistance
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462530191677806004, guid: 2edd16c9f06c9d8458f1270286e62995, type: 3}
+      propertyPath: distanceToLedge
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462530191677806004, guid: 2edd16c9f06c9d8458f1270286e62995, type: 3}
       propertyPath: ledgeLayer.m_Bits
       value: 512
       objectReference: {fileID: 0}
-    - target: {fileID: 7112013218673749765, guid: 2edd16c9f06c9d8458f1270286e62995, type: 3}
-      propertyPath: groundLayer.m_Bits
-      value: 520
-      objectReference: {fileID: 0}
     - target: {fileID: 7595168421172547601, guid: 2edd16c9f06c9d8458f1270286e62995, type: 3}
-      propertyPath: m_BodyType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9073677300857649992, guid: 2edd16c9f06c9d8458f1270286e62995, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.0526
-      objectReference: {fileID: 0}
-    - target: {fileID: 9073677300857649992, guid: 2edd16c9f06c9d8458f1270286e62995, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.0222
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
