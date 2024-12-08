@@ -10,12 +10,14 @@ public class Climb : MonoBehaviour
     private Rigidbody2D rb; // Reference to the player's Rigidbody2D
     private Collider2D ladderCollider; // Current ladder the player is on
     private Collider2D playerCollider; // Player's collider
+    private Animator animator;
 
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<Collider2D>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -26,6 +28,7 @@ public class Climb : MonoBehaviour
             // Press up on stick or interact button
             if (Mathf.Abs(Input.GetAxis("Vertical")) > 0.1f || Input.GetKeyDown(KeyCode.E))
             {
+                animator.SetBool("Climbing", true);
                 isClimbing = true;
                 rb.gravityScale = 0f; // Disable gravity while climbing
 
@@ -44,6 +47,7 @@ public class Climb : MonoBehaviour
         if (isClimbing)
         {
             float verticalInput = Input.GetAxis("Vertical");
+            animator.SetFloat("Vertical Input", Mathf.Abs(verticalInput));
             rb.velocity = new Vector2(rb.velocity.x, verticalInput * climbSpeed);
 
             // Optional: Dismount when pressing down
@@ -57,6 +61,8 @@ public class Climb : MonoBehaviour
     private void StopClimbing()
     {
         isClimbing = false;
+        animator.SetBool("Climbing", false);
+        animator.SetFloat("Vertical Input", 0f);
         rb.gravityScale = 1f; // Restore gravity
 
         // Re-enable collisions with platforms

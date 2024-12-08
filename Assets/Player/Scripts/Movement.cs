@@ -40,7 +40,7 @@ public class Movement : MonoBehaviour
         // Movement animation logic and param
         if (moveInput.magnitude > 0)  {
             animator.SetBool("Move", true);
-            animator.SetFloat("Horizontal Input", moveInput.x);
+            animator.SetFloat("Horizontal Input", Mathf.Abs(moveInput.x));
             animator.SetFloat("Move Speed Multiplyer", moveSpeedMultiplier * moveInput.x);
 
             if (interactable == null || interactable.GetType() != typeof(Grab)) 
@@ -62,6 +62,8 @@ public class Movement : MonoBehaviour
 
         // Set jump and fall animation param
         animator.SetFloat("Vertical Velocity", rb.velocity.y);
+        animator.SetFloat("Horizontal Velocity", rb.velocity.x);
+        Debug.Log(rb.velocity.magnitude);
 
         // Ground check
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer) && !mantle.MantleEnabled;

@@ -136,6 +136,5 @@ public class Mantle : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(mantleTarget, 0.05f);
         Gizmos.DrawSphere(upwardRayOrigin, 0.05f);
-
     }
 }
