@@ -994,7 +994,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!210 &7012979401527296226
 SortingGroup:
@@ -1060,9 +1060,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ccc13fc36341ca4ba3c638a1e743147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mantleDistance: 0.14
-  climbHeight: 0.19
-  forwardMove: 1.66
+  distanceToLedge: 0.1
+  climbableHeight: 0.17
+  upwardDistance: 0.25
+  forwardDistance: 0.18
   mantleSpeed: 1.4
 --- !u!114 &437987150564362286
 MonoBehaviour:

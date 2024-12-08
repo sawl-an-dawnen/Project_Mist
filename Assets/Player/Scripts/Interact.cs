@@ -20,6 +20,7 @@ public class Interact : MonoBehaviour
 
     void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.E)) // Grab/Release toggle
         {
 
@@ -40,6 +41,7 @@ public class Interact : MonoBehaviour
                 }
             }
         }
+        */
     }
 
     private void Action(Interactable interactObj)
@@ -68,6 +70,26 @@ public class Interact : MonoBehaviour
     }
 
     public bool Interacting() { return interacting; }
+
+    public void OnInteract()
+    {
+        if (interacting)
+        {
+            CounterAction(interactable);
+            return;
+        }
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(interactPoint.position, interactRange);
+
+        foreach (Collider2D hit in hits)
+        {
+            if (hit.gameObject.TryGetComponent(out Interactable obj) && !interacting)
+            {
+                Action(obj);
+                break;
+            }
+        }
+    }
 
     void OnDrawGizmos()
     {
