@@ -11,6 +11,7 @@ public class Climb : MonoBehaviour
     private Collider2D ladderCollider; // Current ladder the player is on
     private Collider2D playerCollider; // Player's collider
     private Animator animator;
+    private Movement move;
 
 
     void Awake()
@@ -18,6 +19,7 @@ public class Climb : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
+        move = GetComponent<Movement>();
     }
 
     void Update()
@@ -26,7 +28,7 @@ public class Climb : MonoBehaviour
         if (ladderCollider != null)
         {
             // Press up on stick or interact button
-            if (Mathf.Abs(Input.GetAxis("Vertical")) > 0.1f || Input.GetKeyDown(KeyCode.E))
+            if ((Mathf.Abs(Input.GetAxis("Vertical")) > 0.1f || Input.GetKeyDown(KeyCode.E)) && !move.Interacting())
             {
                 animator.SetBool("Climbing", true);
                 isClimbing = true;
@@ -47,8 +49,17 @@ public class Climb : MonoBehaviour
         if (isClimbing)
         {
             float verticalInput = Input.GetAxis("Vertical");
-            animator.SetFloat("Vertical Input", Mathf.Abs(verticalInput));
-            rb.velocity = new Vector2(rb.velocity.x, verticalInput * climbSpeed);
+            float horizontalInput = Input.GetAxis("Horizontal");
+            animator.SetFloat("Vertical Climb", Mathf.Abs(rb.velocity.y));
+            animator.SetFloat("Horizontal Climb", Mathf.Abs(rb.velocity.x));
+            if (Mathf.Abs(verticalInput) > Mathf.Abs(horizontalInput))
+            {
+                rb.velocity = new Vector2(0f, verticalInput * climbSpeed);
+            }
+            else 
+            {
+                rb.velocity = new Vector2(horizontalInput * climbSpeed, 0f);
+            }
 
             // Optional: Dismount when pressing down
             if (Input.GetAxis("Vertical") < -0.1f && ladderCollider == null || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Space))
@@ -62,7 +73,8 @@ public class Climb : MonoBehaviour
     {
         isClimbing = false;
         animator.SetBool("Climbing", false);
-        animator.SetFloat("Vertical Input", 0f);
+        animator.SetFloat("Vertical Climb", 0f);
+        animator.SetFloat("Horizontal Climb", 0f);
         rb.gravityScale = 1f; // Restore gravity
 
         // Re-enable collisions with platforms
@@ -76,6 +88,11 @@ public class Climb : MonoBehaviour
         {
             ladderCollider = collision;
         }
+    }
+
+    public bool Climbing() 
+    {
+        return isClimbing;
     }
 
     private void OnTriggerExit2D(Collider2D collision)

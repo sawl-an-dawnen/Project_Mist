@@ -79,10 +79,10 @@ AnimatorStateMachine:
     m_Position: {x: 100, y: 320, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2052754308862771608}
-    m_Position: {x: 410, y: 450, z: 0}
+    m_Position: {x: 410, y: 390, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5614151610375960424}
-    m_Position: {x: 710, y: 360, z: 0}
+    m_Position: {x: 680, y: 390, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -542,7 +542,7 @@ AnimatorStateTransition:
     m_ConditionEvent: Climbing
     m_EventTreshold: 0
   - m_ConditionMode: 3
-    m_ConditionEvent: Horizontal Input
+    m_ConditionEvent: Horizontal Climb
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5614151610375960424}
@@ -656,13 +656,13 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: Horizontal Input
+  - m_Name: Horizontal Climb
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: Vertical Input
+  - m_Name: Vertical Climb
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -1118,7 +1118,7 @@ AnimatorStateTransition:
     m_ConditionEvent: Climbing
     m_EventTreshold: 0
   - m_ConditionMode: 3
-    m_ConditionEvent: Vertical Input
+    m_ConditionEvent: Vertical Climb
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2052754308862771608}

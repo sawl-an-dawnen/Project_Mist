@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -25,6 +26,7 @@ public class Movement : MonoBehaviour
 
     private Grab grabScript;
     private Mantle mantle;
+    private Climb climb;
     private Interactable interactable;
 
     void Awake()
@@ -33,6 +35,7 @@ public class Movement : MonoBehaviour
         animator = GetComponent<Animator>();
         playerScale = gameObject.transform.localScale;
         grabScript = GetComponent<Grab>();
+        climb = GetComponent<Climb>();  
         mantle = GetComponent<Mantle>();
     }
     void Update()
@@ -40,7 +43,6 @@ public class Movement : MonoBehaviour
         // Movement animation logic and param
         if (moveInput.magnitude > 0)  {
             animator.SetBool("Move", true);
-            animator.SetFloat("Horizontal Input", Mathf.Abs(moveInput.x));
             animator.SetFloat("Move Speed Multiplyer", moveSpeedMultiplier * moveInput.x);
 
             if (interactable == null || interactable.GetType() != typeof(Grab)) 
@@ -59,11 +61,9 @@ public class Movement : MonoBehaviour
             animator.SetBool("Move", false);
         }
 
-
         // Set jump and fall animation param
         animator.SetFloat("Vertical Velocity", rb.velocity.y);
         animator.SetFloat("Horizontal Velocity", rb.velocity.x);
-        Debug.Log(rb.velocity.magnitude);
 
         // Ground check
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer) && !mantle.MantleEnabled;
@@ -87,7 +87,10 @@ public class Movement : MonoBehaviour
     void FixedUpdate()
     {
         // Horizontal movement
+        if (!climb.Climbing()) 
+        { 
         rb.velocity = new Vector2(moveInput.x * moveSpeed * moveSpeedMultiplier, rb.velocity.y);
+        }
     }
 
     public void OnMove(InputValue value)
@@ -122,6 +125,15 @@ public class Movement : MonoBehaviour
     public void SetInteraction(Interactable interaction) 
     {
         interactable = interaction;
+    }
+
+    public bool Interacting() 
+    {
+        if (interactable == null) 
+        {
+            return false;
+        }
+        return true;
     }
 
     public float GetLastYCoordinate() 
