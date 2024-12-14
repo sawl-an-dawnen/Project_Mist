@@ -21,4 +21,14 @@ public class Inverter : MonoBehaviour
         }
     }
 
+    public void TriggerInversion() 
+    {
+        Invertable[] objs = GameObject.FindObjectsOfType<MonoBehaviour>(true).OfType<Invertable>().ToArray();
+
+        foreach (Invertable obj in objs)
+        {
+            obj.Invert();
+        }
+    }
+
 }
