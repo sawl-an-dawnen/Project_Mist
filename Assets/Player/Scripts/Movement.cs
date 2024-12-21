@@ -16,9 +16,12 @@ public class Movement : MonoBehaviour
 
     private Rigidbody2D rb;
     private Vector2 moveInput;
+    private float velocityX = 0f;
     private float jumpYCoordinate;
     private bool isGrounded;
     private bool jumpPressed;
+    private float coyoteTime = 0.2f;
+    private float coyoteTimeCounter;
 
     private Animator animator;
     private Vector3 playerScale;
@@ -70,26 +73,28 @@ public class Movement : MonoBehaviour
         if (isGrounded)   {
             jumpYCoordinate = transform.position.y;
             animator.SetBool("Grounded", true);
+            coyoteTimeCounter = coyoteTime;
         }
         else {
             animator.SetBool("Grounded", false);
+            coyoteTimeCounter -= Time.deltaTime;
         }
 
         // Jump logic
-        if (jumpPressed && isGrounded && !mantle.MantleEnabled)
+        if (jumpPressed && coyoteTimeCounter > 0f && !mantle.MantleEnabled)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
-
         jumpPressed = false; // Reset jump flag
     }
 
     void FixedUpdate()
     {
+        velocityX = Mathf.Lerp(velocityX, moveInput.x * moveSpeed, Time.deltaTime * 8f);
         // Horizontal movement
         if (!climb.Climbing()) 
-        { 
-        rb.velocity = new Vector2(moveInput.x * moveSpeed * moveSpeedMultiplier, rb.velocity.y);
+        {
+            rb.velocity = new Vector2(velocityX, rb.velocity.y);
         }
     }
 
@@ -107,11 +112,7 @@ public class Movement : MonoBehaviour
 
     }
 
-    public bool CheckGrounded() 
-    {
-        if (isGrounded) return true;
-        return false;
-    }
+    public bool CheckGrounded() => isGrounded;
 
     public void SetMoveSpeedMultiplier(float m) 
     { 

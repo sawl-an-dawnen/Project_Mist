@@ -77,9 +77,13 @@ public class Mantle : MonoBehaviour
     IEnumerator CompleteMantle(Vector2 ledgePoint)
     {
         // Mantle logic here (move the player to the mantle target)
-        objectBodyType = objectRigidbody.bodyType;
-        objectRigidbody.bodyType = RigidbodyType2D.Kinematic;
-        objectRigidbody.velocity = Vector2.zero;
+        if (objectRigidbody != null)
+        {
+            objectBodyType = objectRigidbody.bodyType;
+            objectRigidbody.bodyType = RigidbodyType2D.Kinematic;        
+            objectRigidbody.velocity = Vector2.zero;
+        }
+
 
         // Calculate target position for mantling
         mantleTarget = new Vector2(ledgePoint.x + (forwardDistance * Mathf.Sign(transform.localScale.x)), ledgePoint.y + upwardDistance); // Adjust height as needed
@@ -94,7 +98,10 @@ public class Mantle : MonoBehaviour
         yield return new WaitForSeconds(0.6f); // Adjust based on mantle duration
 
         // Re-enable collision after mantle is complete
-        objectRigidbody.bodyType = objectBodyType;
+        if (objectRigidbody != null)
+        {
+            objectRigidbody.bodyType = objectBodyType;
+        }
         isMantling = false;
         animator.SetBool("Mantle", false);
         rb.gravityScale = 1f;
@@ -112,7 +119,10 @@ public class Mantle : MonoBehaviour
             // Stop mantling when the target is reached
             if (Vector2.Distance(transform.position, mantleTarget) < 0.1f || mantleHit.collider != null || Mathf.Sign(transform.localScale.x) != currentScale)
             {
-                objectRigidbody.bodyType = objectBodyType;
+                if (objectRigidbody != null)
+                {
+                    objectRigidbody.bodyType = objectBodyType;
+                }
                 isMantling = false;
                 animator.SetBool("Mantle", false);
                 rb.gravityScale = 1f;

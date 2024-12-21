@@ -6,6 +6,8 @@ public class Grab : Interactable
     public float damping = 2f; // Resistance for smoother dragging
     public float frequency = 5f; // Frequency for spring-like effect
     public float weight = 1f;
+    public float maxAngle = 50f;
+    public float minAngle = -40f;
 
     private bool held = false;
     private Transform holdPoint; // A point near the character where the object will be held
@@ -119,8 +121,8 @@ public class Grab : Interactable
 
         // Configure angle limits
         JointAngleLimits2D limits = new JointAngleLimits2D();
-        limits.min = -30f; // Limit rotation to -30 degrees
-        limits.max = 30f;  // Limit rotation to +30 degrees
+        limits.min = minAngle; // Limit rotation to -30 degrees
+        limits.max = maxAngle;  // Limit rotation to +30 degrees
         joint.limits = limits;
         joint.useLimits = true;
     }

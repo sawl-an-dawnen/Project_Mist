@@ -6,6 +6,7 @@ public class ColorInverter : MonoBehaviour, Invertable
 {
     public Color color01;
     public Color color02;
+    private float transitionSpeed = 3f;
     private SpriteRenderer sprite;
     private bool inverted = false;
 
@@ -19,6 +20,7 @@ public class ColorInverter : MonoBehaviour, Invertable
 
     public void Invert() 
     {
+        /*
         if (inverted)
         {
             sprite.color = color01;
@@ -28,5 +30,19 @@ public class ColorInverter : MonoBehaviour, Invertable
             sprite.color = color02;
         }
         inverted = !inverted;
+        */
+
+        StopAllCoroutines(); // Stop any ongoing transitions
+        StartCoroutine(SmoothInvert(inverted ? color01 : color02));
+        inverted = !inverted;
+    }
+
+    private IEnumerator SmoothInvert(Color targetColor)
+    {
+        while (sprite.color != targetColor)
+        {
+            sprite.color = Color.Lerp(sprite.color, targetColor, Time.deltaTime * transitionSpeed);
+            yield return null;
+        }
     }
 }
