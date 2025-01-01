@@ -6,6 +6,7 @@ using static Unity.VisualScripting.Member;
 public class Death : MonoBehaviour
 {
     public GameObject ragdollPrefab;
+    public Transform mainParent;
 
     private Ragdoll ragdoll;
     private Rigidbody2D target;
@@ -18,7 +19,7 @@ public class Death : MonoBehaviour
 
     public void TriggerDeath(float targetGravity)
     {
-        GameObject clone = Object.Instantiate(ragdollPrefab, gameObject.transform.position, gameObject.transform.rotation);
+        GameObject clone = Object.Instantiate(ragdollPrefab, gameObject.transform.position, gameObject.transform.rotation, mainParent);
         target = clone.GetComponent<Rigidbody2D>();
 
 
@@ -32,8 +33,9 @@ public class Death : MonoBehaviour
         ragdoll.head.GetComponent<Rigidbody2D>().gravityScale = targetGravity;
 
         // Copy velocity-related properties
-        //apply slight force up for water!!!
+        target.velocity = source.velocity;
         target.angularVelocity = source.angularVelocity;
+        target.AddForce(Vector2.up*2f,ForceMode2D.Impulse);
 
         // Copy constraints
         //target.constraints = source.constraints;
@@ -43,7 +45,7 @@ public class Death : MonoBehaviour
 
     public void TriggerDeath() 
     {
-        GameObject clone = Object.Instantiate(ragdollPrefab, gameObject.transform.position, gameObject.transform.rotation);
+        GameObject clone = Object.Instantiate(ragdollPrefab, gameObject.transform.position, gameObject.transform.rotation, mainParent);
         target = clone.GetComponent<Rigidbody2D>();
 
         // Copy velocity-related properties

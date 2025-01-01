@@ -250,6 +250,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1285319241074275281}
+  - component: {fileID: 103525270013008162}
   m_Layer: 7
   m_Name: Sprites
   m_TagString: Untagged
@@ -281,6 +282,24 @@ Transform:
   - {fileID: 4227511662079441832}
   m_Father: {fileID: 3969860185939062347}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &103525270013008162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 319838429650039816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 667cb60342a94ff4498b3b98cabd205c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  head: {fileID: 2548481429059613163}
+  body: {fileID: 16720721111913401}
+  leftArm: {fileID: 4367964025494288654}
+  rightArm: {fileID: 7151370346437480085}
+  leftLeg: {fileID: 4974889228622809859}
+  rightLeg: {fileID: 3031254086702528009}
 --- !u!1 &534135831759497338
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,7 +557,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0.7
-  jumpForce: 1.6
+  jumpForce: 2
   groundCheck: {fileID: 2951357513313928480}
   groundCheckRadius: 0.05
   groundLayer:
@@ -615,8 +634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57718d69793bf554f9223fee7d17ea1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ragdoll: {fileID: 7390502743626582656, guid: 2c818e3bef2c9254ebed466cd8be09e2, type: 3}
-  sprite: {fileID: 319838429650039816}
+  ragdollPrefab: {fileID: 3206806555279270895, guid: 1ebde43d6bc0a4b45ad3bdb2b518da8d, type: 3}
 --- !u!1 &2043555274158725789
 GameObject:
   m_ObjectHideFlags: 0
