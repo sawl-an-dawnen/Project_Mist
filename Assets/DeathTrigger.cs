@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DeathTrigger : MonoBehaviour
 {
+    public bool water = false;
     private Death death;
     // Start is called before the first frame update
     void Awake()
@@ -16,7 +17,14 @@ public class DeathTrigger : MonoBehaviour
         if (other.tag == "Player") 
         {
             Debug.Log("TriggerDeath");
-            death.TriggerDeath();
+            if (water)
+            {
+                death.TriggerDeath(.01f);
+            }
+            else 
+            {
+                death.TriggerDeath();
+            }
         }
 
     }
