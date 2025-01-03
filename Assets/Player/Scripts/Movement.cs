@@ -8,6 +8,7 @@ public class Movement : MonoBehaviour
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
+    public float horizontalJumpMultiplyer = 5f;
 
     [Header("Ground Detection")]
     public Transform groundCheck;

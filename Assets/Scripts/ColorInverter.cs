@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ColorInverter : MonoBehaviour, Invertable
 {
-    public Color color01;
-    public Color color02;
+    public Color color01 = Color.black;
+    public Color color02 = Color.white;
     private float transitionSpeed = 3f;
     private SpriteRenderer sprite;
     private bool inverted = false;
