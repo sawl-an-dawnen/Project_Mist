@@ -48,24 +48,30 @@ public class Grab : Interactable
         {
             Transform target = grabbedObject.gameObject.transform;
             // Calculate direction from arm bone to the object
-            Vector2 direction = target.position - rightArmBoneHolding.position;
-            float facingMultiplier = player.gameObject.transform.localScale.x >= 0 ? 1 : -1; // Check if facing right (positive scale) or left (negative scale)
-            bool isFacingRight = player.gameObject.transform.localScale.x >= 0;
+            if (rightArmBoneHolding != null) {
+                Vector2 direction = target.position - rightArmBoneHolding.position;
+                float facingMultiplier = player.gameObject.transform.localScale.x >= 0 ? 1 : -1; // Check if facing right (positive scale) or left (negative scale)
+                bool isFacingRight = player.gameObject.transform.localScale.x >= 0;
 
-            // Convert direction to an angle
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            if (!isFacingRight)
-            {
-                angle = 180 - angle; // Adjust the angle for flipping
+                // Convert direction to an angle
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                if (!isFacingRight)
+                {
+                    angle = 180 - angle; // Adjust the angle for flipping
+                }
+                angle *= facingMultiplier;
+
+                // Apply rotation to the arm bone
+                rightArmBoneHolding.rotation = Quaternion.Euler(0, 0, angle);
+                leftArmBoneHolding.rotation = Quaternion.Euler(0, 0, angle);
+
+                Debug.DrawLine(rightArmBoneHolding.position, target.position, Color.red);  // First arm to target
+                Debug.DrawLine(leftArmBoneHolding.position, target.position, Color.green); // Second arm to target
             }
-            angle *= facingMultiplier;
-
-            // Apply rotation to the arm bone
-            rightArmBoneHolding.rotation = Quaternion.Euler(0, 0, angle);
-            leftArmBoneHolding.rotation = Quaternion.Euler(0, 0, angle);
-
-            Debug.DrawLine(rightArmBoneHolding.position, target.position, Color.red);  // First arm to target
-            Debug.DrawLine(leftArmBoneHolding.position, target.position, Color.green); // Second arm to target
+            if (player.velocity.magnitude >= 1f) 
+            {
+                Release();
+            }
         }
     }
 

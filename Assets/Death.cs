@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,18 +12,20 @@ public class Death : MonoBehaviour
     private Ragdoll ragdoll;
     private Rigidbody2D target;
     private Rigidbody2D source;
+
+    private CinemachineVirtualCamera m_Camera;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         source = GetComponent<Rigidbody2D>();
+        m_Camera = GameObject.FindGameObjectWithTag("VirtualCamera").GetComponent<CinemachineVirtualCamera>();
     }
 
     public void TriggerDeath(float targetGravity)
     {
         GameObject clone = Object.Instantiate(ragdollPrefab, gameObject.transform.position, gameObject.transform.rotation, mainParent);
         target = clone.GetComponent<Rigidbody2D>();
-
-
+        m_Camera.Follow = clone.transform;
         ragdoll = clone.GetComponent<Ragdoll>();
 
         ragdoll.leftArm.GetComponent<Rigidbody2D>().gravityScale = targetGravity;
@@ -47,6 +50,7 @@ public class Death : MonoBehaviour
     {
         GameObject clone = Object.Instantiate(ragdollPrefab, gameObject.transform.position, gameObject.transform.rotation, mainParent);
         target = clone.GetComponent<Rigidbody2D>();
+        m_Camera.Follow = clone.transform;
 
         // Copy velocity-related properties
         target.velocity = source.velocity;

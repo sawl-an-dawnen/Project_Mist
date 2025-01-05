@@ -11,12 +11,14 @@ public class ColorInvert_Particle : MonoBehaviour, Invertable
     private bool inverted = false;
 
     // Start is called before the first frame update
+    [System.Obsolete]
     void Awake()
     {
         particles = GetComponent<ParticleSystem>();
         particles.startColor = color01;
     }
 
+    [System.Obsolete]
     public void Invert()
     {
         /*
@@ -36,6 +38,7 @@ public class ColorInvert_Particle : MonoBehaviour, Invertable
         inverted = !inverted;
     }
 
+    [System.Obsolete]
     private IEnumerator SmoothInvertParticle(Color targetColor)
     {
         while (particles.startColor != targetColor)

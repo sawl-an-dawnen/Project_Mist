@@ -21,11 +21,19 @@ public class DeathTrigger : MonoBehaviour
             {
                 death.TriggerDeath(.01f);
             }
-            else 
+            else
             {
                 death.TriggerDeath();
             }
         }
 
+    }
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        Debug.Log(other.name);
+        if (other.tag == "Player")
+        {
+            death.TriggerDeath();
+        }
     }
 }

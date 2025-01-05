@@ -29,22 +29,25 @@ public class SceneReframe : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (active && transitionIn)
+        if (cameraPositionTransform != null)
         {
-            temp.position = Vector3.Lerp(temp.position, newCameraPositionTransform.position , Time.deltaTime * transitionSpeed);
-            if (Vector3.Distance(temp.position, newCameraPositionTransform.position) < .1f) 
+            if (active && transitionIn)
             {
-                m_Camera.Follow = newCameraPositionTransform;
-                active = false;
+                temp.position = Vector3.Lerp(temp.position, newCameraPositionTransform.position, Time.deltaTime * transitionSpeed);
+                if (Vector3.Distance(temp.position, newCameraPositionTransform.position) < .1f)
+                {
+                    m_Camera.Follow = newCameraPositionTransform;
+                    active = false;
+                }
             }
-        }
-        if (active && !transitionIn) 
-        {
-            temp.position = Vector3.Lerp(temp.position, cameraPositionTransform.position, Time.deltaTime * transitionSpeed);
-            if (Vector3.Distance(temp.position, cameraPositionTransform.position) < 1f)
+            if (active && !transitionIn)
             {
-                m_Camera.Follow = cameraPositionTransform;
-                active = false;
+                temp.position = Vector3.Lerp(temp.position, cameraPositionTransform.position, Time.deltaTime * transitionSpeed);
+                if (Vector3.Distance(temp.position, cameraPositionTransform.position) < 1f)
+                {
+                    m_Camera.Follow = cameraPositionTransform;
+                    active = false;
+                }
             }
         }
     }

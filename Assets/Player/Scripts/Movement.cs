@@ -14,6 +14,8 @@ public class Movement : MonoBehaviour
     public Transform groundCheck;
     public float groundCheckRadius = 0.2f;
     public LayerMask groundLayer;
+    public float fallingMaxSpeed = 3f;
+    private float fallingSpeed;
 
     private Rigidbody2D rb;
     private Vector2 moveInput;
@@ -65,6 +67,7 @@ public class Movement : MonoBehaviour
             animator.SetBool("Move", false);
         }
 
+        Debug.Log("Tracker: " + rb.velocity.y);
         // Set jump and fall animation param
         animator.SetFloat("Vertical Velocity", rb.velocity.y);
         animator.SetFloat("Horizontal Velocity", rb.velocity.x);
@@ -74,11 +77,17 @@ public class Movement : MonoBehaviour
         if (isGrounded)   {
             jumpYCoordinate = transform.position.y;
             animator.SetBool("Grounded", true);
+            Debug.Log("Last Recorded: " + fallingSpeed);
             coyoteTimeCounter = coyoteTime;
+            if (fallingSpeed <= -fallingMaxSpeed) 
+            {
+                GetComponent<Death>().TriggerDeath();
+            }
         }
         else {
             animator.SetBool("Grounded", false);
             coyoteTimeCounter -= Time.deltaTime;
+            fallingSpeed = rb.velocity.y;
         }
 
         // Jump logic
