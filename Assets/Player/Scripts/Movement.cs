@@ -66,8 +66,6 @@ public class Movement : MonoBehaviour
         else {
             animator.SetBool("Move", false);
         }
-
-        Debug.Log("Tracker: " + rb.velocity.y);
         // Set jump and fall animation param
         animator.SetFloat("Vertical Velocity", rb.velocity.y);
         animator.SetFloat("Horizontal Velocity", rb.velocity.x);
@@ -77,7 +75,6 @@ public class Movement : MonoBehaviour
         if (isGrounded)   {
             jumpYCoordinate = transform.position.y;
             animator.SetBool("Grounded", true);
-            Debug.Log("Last Recorded: " + fallingSpeed);
             coyoteTimeCounter = coyoteTime;
             if (fallingSpeed <= -fallingMaxSpeed) 
             {

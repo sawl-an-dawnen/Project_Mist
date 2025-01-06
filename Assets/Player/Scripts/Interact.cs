@@ -69,6 +69,12 @@ public class Interact : MonoBehaviour
         return interactable;
     }
 
+    public void CancelInteraction() 
+    {
+        interacting = false;
+        interactable = null;
+    }
+
     public bool Interacting() { return interacting; }
 
     public void OnInteract()

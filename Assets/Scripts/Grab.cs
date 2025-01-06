@@ -23,6 +23,7 @@ public class Grab : Interactable
     private LayerMask layerStateDefaultValue;
     private Rigidbody2D player;
     private Movement moveScript;
+    private Interact interactor;
     private HingeJoint2D joint;
 
     private void Awake()
@@ -35,6 +36,7 @@ public class Grab : Interactable
         holdPoint = GameObject.FindGameObjectWithTag("HoldPoint").transform;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
         moveScript = player.gameObject.GetComponent<Movement>();
+        interactor = player.gameObject.GetComponent<Interact>();
 
         rightArmBoneHolding = GameObject.FindGameObjectWithTag("Left_arm_bone").transform;
         leftArmBoneHolding = GameObject.FindGameObjectWithTag("Right_arm_bone").transform;
@@ -68,9 +70,10 @@ public class Grab : Interactable
                 Debug.DrawLine(rightArmBoneHolding.position, target.position, Color.red);  // First arm to target
                 Debug.DrawLine(leftArmBoneHolding.position, target.position, Color.green); // Second arm to target
             }
-            if (player.velocity.magnitude >= 1f) 
+            if (player.velocity.magnitude >= 2.5f) 
             {
                 Release();
+                interactor.CancelInteraction();
             }
         }
     }

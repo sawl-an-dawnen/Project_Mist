@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5592062617275155753}
   - component: {fileID: 2382193932280242507}
   - component: {fileID: 1539597216857715725}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: rightLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -203,7 +203,7 @@ GameObject:
   - component: {fileID: 655459180242480841}
   - component: {fileID: 6255190297715529286}
   - component: {fileID: 9033118325124564293}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: leftArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -392,7 +392,7 @@ GameObject:
   - component: {fileID: 8864495042947468475}
   - component: {fileID: 5370577847598694503}
   - component: {fileID: 233616131855769866}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -581,7 +581,7 @@ GameObject:
   - component: {fileID: 8322690553675846714}
   - component: {fileID: 4351991752853258078}
   - component: {fileID: 3795756920561311617}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Ragdoll
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -769,7 +769,7 @@ GameObject:
   - component: {fileID: 7072837819458994594}
   - component: {fileID: 2559860597041909314}
   - component: {fileID: 2696580913364515667}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: leftLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -955,7 +955,7 @@ GameObject:
   - component: {fileID: 8815002121733706368}
   - component: {fileID: 2372319238671661160}
   - component: {fileID: 1851731992995096907}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1057,7 +1057,7 @@ GameObject:
   - component: {fileID: 7263636068828473955}
   - component: {fileID: 1966682928385521817}
   - component: {fileID: 2022104334886497213}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: rightArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
