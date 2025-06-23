@@ -12,6 +12,14 @@ TagManager:
   - Arms_holding
   - VirtualCamera
   - CameraPosition
+  - UI_Black
+  - UI_Pause
+  - UI_Settings
+  - UI_Title
+  - Player_Wakeup
+  - UI_TitleText
+  - UI_Vignette
+  - UI_TitleInstructions
   layers:
   - Default
   - TransparentFX
@@ -69,4 +77,7 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 126331975
+    locked: 0
+  - name: UI
+    uniqueID: 1722223491
     locked: 0
