@@ -35,6 +35,9 @@ public class Movement : MonoBehaviour
     private Climb climb;
     private Interactable interactable;
 
+    private GameObject gameController;
+    private PauseController pauseController;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -43,6 +46,8 @@ public class Movement : MonoBehaviour
         grabScript = GetComponent<Grab>();
         climb = GetComponent<Climb>();  
         mantle = GetComponent<Mantle>();
+        gameController = GameObject.FindWithTag("GameController");
+        pauseController = gameController.GetComponent<PauseController>();
     }
     void Update()
     {
@@ -117,6 +122,12 @@ public class Movement : MonoBehaviour
         //Debug.Log("OnMove Called");
         jumpPressed = true;
 
+    }
+
+    public void OnPause()
+    {
+        Debug.Log("from player pause pressed");
+        pauseController.OnPause();
     }
 
     public bool CheckGrounded() => isGrounded;

@@ -7,9 +7,9 @@ public class GameData
     public float musicVolume;
     public float sfxVolume;
 
-    public GameData(GameManager gameManager) {
+    public GameData(GameManager gameManager, GameSettings gameSettings) {
         level = gameManager.GetLevel();
-        musicVolume = gameManager.GetMusicVolume();
-        sfxVolume = gameManager.GetSfxVolume();
+        musicVolume = gameSettings.GetMusicVolume();
+        sfxVolume = gameSettings.GetSfxVolume();
     }
 }

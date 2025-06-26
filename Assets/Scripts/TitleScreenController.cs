@@ -18,6 +18,7 @@ public class TitleScreenController : MonoBehaviour
 
     private Coroutine coroutine;
 
+
     void Awake() {
         titleScreen = GameObject.FindWithTag("UI_Title");
         vignette = GameObject.FindWithTag("UI_Vignette").GetComponent<RawImage>();
@@ -56,8 +57,8 @@ public class TitleScreenController : MonoBehaviour
         // Wait for delay
         yield return new WaitForSeconds(4f);
         titleText.Trigger();
-        inControl = true;
         yield return new WaitForSeconds(4f);
+        inControl = true;
         instructionText.Trigger();
         yield return null;
     }

@@ -7,6 +7,8 @@ public class WakeUp : MonoBehaviour
     public GameObject realPlayer;
     private Animator animator;
 
+    private GameManager gameManager = GameManager.Instance;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -24,6 +26,7 @@ public class WakeUp : MonoBehaviour
 
     public void OnAnimationEnd() { 
         realPlayer.SetActive(true);
+        gameManager.SetInControl(true);
         Destroy(gameObject);
     }
 }
