@@ -50,41 +50,49 @@ public class UIController : MonoBehaviour
     IEnumerator FadeCoroutineTMP(TextMeshProUGUI tmp, float alpha, float duration, float wait)
     {
         if (tmp == null) yield break;
+        bool running = true;
         duration *= 100f;
         yield return new WaitForSeconds(wait);
         float elapsed = 0f;
         Color originalColor = tmp.color;
 
-        while (elapsed < duration)
+        while (elapsed < duration && running)
         {
             elapsed += Time.deltaTime;
             float alphaTarget = Mathf.Lerp(tmp.color.a, alpha, elapsed / duration);
             tmp.color = new Color(originalColor.r, originalColor.g, originalColor.b, alphaTarget);
+            Debug.Log(Mathf.Abs(tmp.color.a - alpha));
+            if (Mathf.Abs(tmp.color.a - alpha) <= 0.005) { running = false; }
             yield return null;
         }
 
         // Ensure it's fully visible at the end
         tmp.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+        yield return null;
     }
 
     IEnumerator FadeCoroutineRawImage(RawImage tmp, float alpha, float duration, float wait)
     {
         if (tmp == null) yield break;
+        bool running = true;
         duration *= 1000f;
         yield return new WaitForSeconds(wait);
         float elapsed = 0f;
         Color originalColor = tmp.color;
 
-        while (elapsed < duration)
+        while (elapsed < duration && running)
         {
             elapsed += Time.deltaTime;
             float alphaTarget = Mathf.Lerp(tmp.color.a, alpha, elapsed / duration);
             tmp.color = new Color(originalColor.r, originalColor.g, originalColor.b, alphaTarget);
+            Debug.Log(Mathf.Abs(tmp.color.a - alpha));
+            if (Mathf.Abs(tmp.color.a - alpha) <= 0.005) { running = false; }
             yield return null;
         }
 
         // Ensure it's fully transparent at the end
         tmp.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+        yield return null;
     }
 
     #endregion

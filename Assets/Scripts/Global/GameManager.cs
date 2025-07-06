@@ -5,10 +5,8 @@ using UnityEngine;
 
 public class GameManager
 {
-
     private static GameManager gameManager;
     static readonly GameSettings gameSettings = GameSettings.Instance;
-
     private int level;
     private bool inverted = false;
     private bool paused = false;
@@ -48,7 +46,6 @@ public class GameManager
     public bool Paused() { return paused; }
     public void SetPause(bool state) { paused = state; }
 
-
     //save game
     public void Save() {
         SaveSystem.SaveGame(this, gameSettings);
@@ -69,6 +66,12 @@ public class GameManager
             gameSettings.SetMusicVolume(50f);
             gameSettings.SetSfxVolume(50f);
         }
+    }
+
+    public void Reset() {
+        paused = false;
+        inverted = false;
+        inControl = false;
     }
 
 }

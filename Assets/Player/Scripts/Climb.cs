@@ -12,6 +12,7 @@ public class Climb : MonoBehaviour
     private Collider2D playerCollider; // Player's collider
     private Animator animator;
     private Movement move;
+    private GameManager gameManager;
 
 
     void Awake()
@@ -20,6 +21,7 @@ public class Climb : MonoBehaviour
         playerCollider = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
         move = GetComponent<Movement>();
+        gameManager = GameManager.Instance;
     }
 
     void Update()
@@ -28,7 +30,7 @@ public class Climb : MonoBehaviour
         if (ladderCollider != null)
         {
             // Press up on stick or interact button
-            if ((Mathf.Abs(Input.GetAxis("Vertical")) > 0.1f || Input.GetKeyDown(KeyCode.E)) && !move.Interacting())
+            if ((Mathf.Abs(Input.GetAxis("Vertical")) > 0.1f || Input.GetKeyDown(KeyCode.E)) && !move.Interacting() && gameManager.InControl() && !gameManager.Paused())
             {
                 animator.SetBool("Climbing", true);
                 isClimbing = true;

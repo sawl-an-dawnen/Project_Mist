@@ -20,6 +20,7 @@ TagManager:
   - UI_TitleText
   - UI_Vignette
   - UI_TitleInstructions
+  - Player_wrapper
   layers:
   - Default
   - TransparentFX

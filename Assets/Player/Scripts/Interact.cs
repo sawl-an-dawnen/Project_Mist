@@ -15,34 +15,13 @@ public class Interact : MonoBehaviour
 
     private bool interacting = false;
     private Interactable interactable;
+    private GameManager gameManager;
 
-    private void Awake() { }
-
-    void Update()
+    public void Awake()
     {
-        /*
-        if (Input.GetKeyDown(KeyCode.E)) // Grab/Release toggle
-        {
-
-            if (interacting) 
-            { 
-                CounterAction(interactable);
-                return;
-            }
-
-            Collider2D[] hits = Physics2D.OverlapCircleAll(interactPoint.position, interactRange);
-
-            foreach (Collider2D hit in hits)
-            {
-                if (hit.gameObject.TryGetComponent(out Interactable obj) && !interacting)
-                {
-                    Action(obj);
-                    break;
-                }
-            }
-        }
-        */
+        gameManager = GameManager.Instance;
     }
+
 
     private void Action(Interactable interactObj)
     {
@@ -79,20 +58,22 @@ public class Interact : MonoBehaviour
 
     public void OnInteract()
     {
-        if (interacting)
-        {
-            CounterAction(interactable);
-            return;
-        }
-
-        Collider2D[] hits = Physics2D.OverlapCircleAll(interactPoint.position, interactRange);
-
-        foreach (Collider2D hit in hits)
-        {
-            if (hit.gameObject.TryGetComponent(out Interactable obj) && !interacting)
+        if (gameManager.InControl() && !gameManager.Paused()) {
+            if (interacting)
             {
-                Action(obj);
-                break;
+                CounterAction(interactable);
+                return;
+            }
+
+            Collider2D[] hits = Physics2D.OverlapCircleAll(interactPoint.position, interactRange);
+
+            foreach (Collider2D hit in hits)
+            {
+                if (hit.gameObject.TryGetComponent(out Interactable obj) && !interacting)
+                {
+                    Action(obj);
+                    break;
+                }
             }
         }
     }

@@ -10,14 +10,23 @@ interface Invertable
 
 public class Inverter : MonoBehaviour
 {
+    GameManager gameManager;
+    public void Awake()
+    {
+        gameManager = GameManager.Instance;
+    }
+
     public void OnInvert() 
     {
-        Debug.Log("INVERT!");
-        Invertable[] objs = GameObject.FindObjectsOfType<MonoBehaviour>(true).OfType<Invertable>().ToArray();
+        if (gameManager.InControl() & !gameManager.Paused()) {
+            Debug.Log("INVERT!");
+            Invertable[] objs = GameObject.FindObjectsOfType<MonoBehaviour>(true).OfType<Invertable>().ToArray();
+            gameManager.Invert();
 
-        foreach (Invertable obj in objs) 
-        {
-            obj.Invert();
+            foreach (Invertable obj in objs)
+            {
+                obj.Invert();
+            }
         }
     }
 

@@ -20,6 +20,7 @@ public class PauseController : MonoBehaviour
         pauseUI.SetActive(isPaused);
         pauseMenu.SetActive(isPaused);
         settingsMenu.SetActive(false);
+        Time.timeScale = 0;
     }
 
     //unpause game
@@ -29,6 +30,7 @@ public class PauseController : MonoBehaviour
         gameManager.SetPause(isPaused);
         pauseUI.SetActive(isPaused);
         settingsMenu.SetActive(isPaused);
+        Time.timeScale = 1;
     }
 
     public void OnPause()
@@ -48,6 +50,5 @@ public class PauseController : MonoBehaviour
         else {
             Debug.Log("PauseController: NOT IN CONTROL");
         }
-
     }
 }

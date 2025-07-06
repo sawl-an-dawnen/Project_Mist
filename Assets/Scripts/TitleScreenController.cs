@@ -12,11 +12,9 @@ public class TitleScreenController : MonoBehaviour
     private TextFadeInPulse instructionText;
     private UIController uiController;
     private WakeUp player;
-
     private bool inControl = false;
     private bool readyToStart = false;
-
-    private Coroutine coroutine;
+    private bool titleSequenceComplete = false;
 
 
     void Awake() {
@@ -31,7 +29,13 @@ public class TitleScreenController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        coroutine = StartCoroutine(TitleSequence());
+        if (!titleSequenceComplete)
+        {
+            StartCoroutine(TitleSequence());
+        }
+        else {
+            StartCoroutine(Respawn());
+        }
     }
 
     // Update is called once per frame
@@ -70,6 +74,15 @@ public class TitleScreenController : MonoBehaviour
         uiController.FadeRawImage(vignette);
         yield return new WaitForSeconds(2f);
         player.TriggerWakeUp();
+        titleSequenceComplete = true;
         yield return null;
+    }
+    IEnumerator Respawn() {
+        uiController.FadeIn();
+        // Wait for delay
+        yield return new WaitForSeconds(2f);
+        uiController.FadeRawImage(vignette);
+        inControl = true;
+        player.TriggerWakeUp();
     }
 }

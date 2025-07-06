@@ -22,6 +22,7 @@ public class Mantle : MonoBehaviour
     private Grab grabScript;
     private Animator animator;
     private Interact interactor;
+    private GameManager gameManager;
 
     private void Awake()
     {
@@ -31,16 +32,7 @@ public class Mantle : MonoBehaviour
         animator = GetComponent<Animator>();
         interactor = GetComponent<Interact>();
         climbableLayer = LayerMask.GetMask("Climbable");
-    }
-
-    private void Update()
-    {
-        /*
-        if (!isMantling && !interactor.Interacting() && Input.GetKey(KeyCode.Space)) // Check for mantle input (Space)
-        {
-            CheckForLedge();
-        }
-        */
+        gameManager = GameManager.Instance;
     }
 
     private void CheckForLedge()
@@ -134,7 +126,7 @@ public class Mantle : MonoBehaviour
 
     public void OnMantle() 
     {
-        if (!isMantling && !interactor.Interacting()) // Check for mantle input (Space)
+        if (!isMantling && !interactor.Interacting() && gameManager.InControl() && !gameManager.Paused()) // Check for mantle input (Space)
         {
             CheckForLedge();
         }

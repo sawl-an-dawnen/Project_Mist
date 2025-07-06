@@ -35,6 +35,7 @@ public class Movement : MonoBehaviour
     private Climb climb;
     private Interactable interactable;
 
+    private GameManager gameManager;
     private GameObject gameController;
     private PauseController pauseController;
 
@@ -46,6 +47,7 @@ public class Movement : MonoBehaviour
         grabScript = GetComponent<Grab>();
         climb = GetComponent<Climb>();  
         mantle = GetComponent<Mantle>();
+        gameManager = GameManager.Instance;
         gameController = GameObject.FindWithTag("GameController");
         pauseController = gameController.GetComponent<PauseController>();
     }
@@ -111,17 +113,21 @@ public class Movement : MonoBehaviour
     }
 
     public void OnMove(InputValue value)
-    {   
-        moveInput = value.Get<Vector2>();
+    {
+        if (gameManager.InControl() && !gameManager.Paused()) { moveInput = value.Get<Vector2>(); }
+        else { moveInput = Vector2.zero; }
+
         //Debug.Log("OnMove Called");
         //Debug.Log(moveInput);
     }
 
     public void OnJump()
     {
-        //Debug.Log("OnMove Called");
-        jumpPressed = true;
-
+        if (gameManager.InControl() && !gameManager.Paused())
+        {
+            //Debug.Log("OnMove Called");
+            jumpPressed = true;
+        }
     }
 
     public void OnPause()
