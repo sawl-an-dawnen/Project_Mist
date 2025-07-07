@@ -35,7 +35,7 @@ public class PauseController : MonoBehaviour
 
     public void OnPause()
     {
-        Debug.Log("Pause Pressed");
+        //Debug.Log("Pause Pressed");
         if (gameManager.InControl())
         {
             if (isPaused)

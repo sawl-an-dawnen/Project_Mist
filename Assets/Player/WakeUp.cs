@@ -12,7 +12,7 @@ public class WakeUp : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        animator = animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
     }
 
     private void Start()

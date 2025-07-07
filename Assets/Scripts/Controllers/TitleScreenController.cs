@@ -7,37 +7,26 @@ using TMPro;
 public class TitleScreenController : MonoBehaviour
 {
     private GameObject titleScreen;
-    private RawImage vignette;
     private TextFadeInPulse titleText;
     private TextFadeInPulse instructionText;
-    private UIController uiController;
+    private UIUtility uiController;
     private WakeUp player;
     private bool inControl = false;
     private bool readyToStart = false;
-    private bool titleSequenceComplete = false;
-
 
     void Awake() {
         titleScreen = GameObject.FindWithTag("UI_Title");
-        vignette = GameObject.FindWithTag("UI_Vignette").GetComponent<RawImage>();
         titleText = GameObject.FindWithTag("UI_TitleText").GetComponent<TextFadeInPulse>();
         instructionText = GameObject.FindWithTag("UI_TitleInstructions").GetComponent<TextFadeInPulse>();
-        uiController = GameObject.FindWithTag("GameController").GetComponent<UIController>();
+        uiController = GameObject.FindWithTag("GameController").GetComponent<UIUtility>();
         player = GameObject.FindWithTag("Player_Wakeup").GetComponent<WakeUp>();
     }
     
     // Start is called before the first frame update
     void Start()
     {
-        if (!titleSequenceComplete)
-        {
-            StartCoroutine(TitleSequence());
-        }
-        else {
-            StartCoroutine(Respawn());
-        }
+        StartCoroutine(TitleSequence());
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -53,10 +42,9 @@ public class TitleScreenController : MonoBehaviour
             }
         }
     }
-
     IEnumerator TitleSequence()
     {
-        Debug.Log("Enter Title Sequence...");
+        Debug.Log("TSC: Enter Title Sequence...");
         uiController.FadeIn();
         // Wait for delay
         yield return new WaitForSeconds(4f);
@@ -66,23 +54,16 @@ public class TitleScreenController : MonoBehaviour
         instructionText.Trigger();
         yield return null;
     }
-
-    IEnumerator StartingGame() {
-        Debug.Log("Starting game...");
+    IEnumerator StartingGame() 
+    {
+        Debug.Log("TSC: Starting game...");
         titleText.FadeAway();
         instructionText.FadeAway();
-        uiController.FadeRawImage(vignette);
+        uiController.TransitionRawImage(uiController.GetVignette());
         yield return new WaitForSeconds(2f);
         player.TriggerWakeUp();
-        titleSequenceComplete = true;
+        Destroy(titleScreen);
+        Destroy(this);
         yield return null;
-    }
-    IEnumerator Respawn() {
-        uiController.FadeIn();
-        // Wait for delay
-        yield return new WaitForSeconds(2f);
-        uiController.FadeRawImage(vignette);
-        inControl = true;
-        player.TriggerWakeUp();
     }
 }

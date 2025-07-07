@@ -3,7 +3,7 @@ using Unity.Profiling;
 [System.Serializable]
 public class GameData
 {
-    public int level;
+    public string level;
     public float musicVolume;
     public float sfxVolume;
 

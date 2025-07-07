@@ -7,7 +7,7 @@ public class GameManager
 {
     private static GameManager gameManager;
     static readonly GameSettings gameSettings = GameSettings.Instance;
-    private int level;
+    private string level = null;
     private bool inverted = false;
     private bool paused = false;
     private bool inControl = false;
@@ -31,9 +31,13 @@ public class GameManager
         inverted = false;
     }
 
-    public int GetLevel() { return level; }
-    public void SetLevel(int i) {
-        level = i;
+    public string GetLevel() {
+        if (level == null) {
+            return "Forest";
+        }
+        return level; }
+    public void SetLevel(string name) {
+        level = name;
         Save();
     }
 
@@ -62,7 +66,7 @@ public class GameManager
         }
         else
         {
-            level = 0;
+            level = "Forest";
             gameSettings.SetMusicVolume(50f);
             gameSettings.SetSfxVolume(50f);
         }

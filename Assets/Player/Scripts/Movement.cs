@@ -132,7 +132,6 @@ public class Movement : MonoBehaviour
 
     public void OnPause()
     {
-        Debug.Log("from player pause pressed");
         pauseController.OnPause();
     }
 

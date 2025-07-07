@@ -13,7 +13,6 @@ public class SpawnController : MonoBehaviour
     void Awake()
     {
         sceneController = GameObject.FindWithTag("GameController").GetComponent<SceneController>();
-        Debug.Log(sceneController.name);
         player = GameObject.FindWithTag("Player_wrapper").transform;
     }
 

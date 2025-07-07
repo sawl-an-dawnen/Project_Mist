@@ -66302,7 +66302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4901b799c3f0e9f4da845f47f72c90f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeDuration: 5
+  transitionDuration: 3
 --- !u!114 &1531551347
 MonoBehaviour:
   m_ObjectHideFlags: 0

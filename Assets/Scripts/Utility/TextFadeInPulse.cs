@@ -17,14 +17,14 @@ public class TextFadeInPulse : MonoBehaviour
     private float amplitude;
     private float offset;
 
-    private UIController uiController;
+    private UIUtility uiUtility;
     private bool pulsing = true;
 
     void Awake() {
         text = gameObject.GetComponent<TextMeshProUGUI>();
         originalColor = text.color;
         text.color = new Color(0f, 0f, 0f, 0f);
-        uiController = GameObject.FindWithTag("GameController").GetComponent<UIController>();
+        uiUtility = GameObject.FindWithTag("GameController").GetComponent<UIUtility>();
     }
 
     void Start()
@@ -41,7 +41,7 @@ public class TextFadeInPulse : MonoBehaviour
 
     public void Trigger() {
         // Start the coroutine
-        Debug.Log("Trigger TFIP...");
+        Debug.Log("TFIP: Trigger...");
         StartCoroutine(FadeInAndPulse());
     }
 
@@ -84,6 +84,6 @@ public class TextFadeInPulse : MonoBehaviour
     public void FadeAway() {
         Debug.Log("TFIP: FadeAway()...");
         pulsing = false;
-        uiController.FadeTMP(text, 0f, fadeDuration);
+        uiUtility.TransitionTMP(text, 0f, fadeDuration);
     }
 }
