@@ -36020,7 +36020,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00048828125, y: -0.00021362305}
+  m_AnchoredPosition: {x: -0.00048828125, y: -0.00024414062}
   m_SizeDelta: {x: 1551.3, y: 872.44}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &860430132
@@ -47232,27 +47232,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1087897457}
-  - component: {fileID: 1087897456}
   m_Layer: 0
-  m_Name: SpawnController
+  m_Name: Spawns
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1087897456
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1087897455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 608eb2c596f9e2b489cd9cf55f158ab3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultSpawn: {fileID: 1288640128}
 --- !u!4 &1087897457
 Transform:
   m_ObjectHideFlags: 0
@@ -47262,7 +47248,7 @@ Transform:
   m_GameObject: {fileID: 1087897455}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -54.398006, y: -0.1469444, z: 0.15144977}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -54711,7 +54697,7 @@ Transform:
   m_GameObject: {fileID: 1288640127}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.23077, y: -0.8280233, z: -0.15144977}
+  m_LocalPosition: {x: -56.628777, y: -0.9749677, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -54900,7 +54886,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1531551347}
         m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: Reset
+        m_MethodName: ResetGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -66225,9 +66211,10 @@ GameObject:
   - component: {fileID: 1531551342}
   - component: {fileID: 1531551341}
   - component: {fileID: 1531551346}
-  - component: {fileID: 1531551345}
   - component: {fileID: 1531551343}
   - component: {fileID: 1531551347}
+  - component: {fileID: 1531551345}
+  - component: {fileID: 1531551348}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -66315,6 +66302,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ceafc8328f22e445a6764a11562a393, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1531551348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1531551339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 608eb2c596f9e2b489cd9cf55f158ab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultSpawn: {fileID: 1288640128}
 --- !u!1 &1535235725
 GameObject:
   m_ObjectHideFlags: 0
@@ -72935,7 +72935,7 @@ Transform:
   m_GameObject: {fileID: 1751824928}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 23.103, y: -0.37, z: -0.15144977}
+  m_LocalPosition: {x: -31.295006, y: -0.5169444, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -72982,7 +72982,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -89524,6 +89524,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8193781031988660645, guid: 4c59c7faa7d689f409e6a44eab7d6b97, type: 3}
+      propertyPath: m_TagString
+      value: Player_wrapper
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -89534,9 +89538,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1531551342}
+  - {fileID: 1087897457}
   - {fileID: 306024468}
   - {fileID: 1312068742}
-  - {fileID: 1087897457}
   - {fileID: 323788543}
   - {fileID: 304740806}
   - {fileID: 174035213406974935}

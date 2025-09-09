@@ -1,8 +1,6 @@
 
 using UnityEngine;
 using Cinemachine;
-using Unity.VisualScripting;
-using UnityEditor;
 
 public class SceneReframe : MonoBehaviour
 {
@@ -16,8 +14,6 @@ public class SceneReframe : MonoBehaviour
 
     public float newOrtho;
     public float transitionSpeed = 1f;
-
-
 
     // Start is called before the first frame update
     void Awake()
@@ -77,16 +73,7 @@ public class SceneReframe : MonoBehaviour
             m_Camera.Follow = temp;
             active = true;
             transitionIn = false;
-            Debug.Log(transitionIn);
+            //Debug.Log(transitionIn);
         }
     }
-    /*
-    private float EaseInOutQuad(float t) 
-    {
-        return t < 0.5 ? 2 * t * t : 1 - Mathf.Pow(-2 * t, 2) / 2;
-    }
-
-    private float EasedLerp()
-    function easedLerp(start, end, t) { const easedT = easeInOutQuad(t); return start + (end - start) * easedT; }
-    */
 }

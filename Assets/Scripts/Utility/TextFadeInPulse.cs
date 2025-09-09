@@ -12,13 +12,11 @@ public class TextFadeInPulse : MonoBehaviour
     public bool deleteOnFade = true;
 
     private TextMeshProUGUI text;
+    private UIUtility uiUtility;
     private Color originalColor;
-    private Vector3 originalScale;
+    private bool pulsing = true;
     private float amplitude;
     private float offset;
-
-    private UIUtility uiUtility;
-    private bool pulsing = true;
 
     void Awake() {
         text = gameObject.GetComponent<TextMeshProUGUI>();
@@ -43,6 +41,12 @@ public class TextFadeInPulse : MonoBehaviour
         // Start the coroutine
         Debug.Log("TFIP: Trigger...");
         StartCoroutine(FadeInAndPulse());
+    }
+
+    public void FadeAway() {
+        Debug.Log("TFIP: FadeAway()...");
+        pulsing = false;
+        uiUtility.TransitionTMP(text, 0f, fadeDuration);
     }
 
     IEnumerator FadeInAndPulse()
@@ -76,14 +80,9 @@ public class TextFadeInPulse : MonoBehaviour
                 yield return null;
             }
         }
-        else {
+        else
+        {
             yield return null;
         }
-    }
-
-    public void FadeAway() {
-        Debug.Log("TFIP: FadeAway()...");
-        pulsing = false;
-        uiUtility.TransitionTMP(text, 0f, fadeDuration);
     }
 }

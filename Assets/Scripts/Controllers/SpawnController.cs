@@ -16,6 +16,8 @@ public class SpawnController : MonoBehaviour
         player = GameObject.FindWithTag("Player_wrapper").transform;
     }
 
+
+
     void Start() {
         GameObject tempSpawn = sceneController.GetCheckpoint();
 
@@ -23,6 +25,26 @@ public class SpawnController : MonoBehaviour
             spawn = tempSpawn.transform;
         }
         if (spawn == null) {
+            spawn = defaultSpawn;
+        }
+
+        player.position = spawn.position;
+    }
+    public void ResetController()
+    {
+        sceneController = GameObject.FindWithTag("GameController").GetComponent<SceneController>();
+        player = GameObject.FindWithTag("Player_wrapper").transform;
+    }
+
+    public void Spawn() {
+        GameObject tempSpawn = sceneController.GetCheckpoint();
+
+        if (tempSpawn != null)
+        {
+            spawn = tempSpawn.transform;
+        }
+        if (spawn == null)
+        {
             spawn = defaultSpawn;
         }
 

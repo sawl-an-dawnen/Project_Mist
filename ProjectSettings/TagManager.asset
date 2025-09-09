@@ -21,6 +21,7 @@ TagManager:
   - UI_Vignette
   - UI_TitleInstructions
   - Player_wrapper
+  - SpawnController
   layers:
   - Default
   - TransparentFX

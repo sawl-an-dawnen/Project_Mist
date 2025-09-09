@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ColorInverter : MonoBehaviour, Invertable
@@ -20,6 +19,11 @@ public class ColorInverter : MonoBehaviour, Invertable
 
     public void Invert() 
     {
+        if (gameObject.activeSelf == true) {
+            StopAllCoroutines(); // Stop any ongoing transitions
+            StartCoroutine(SmoothInvert(inverted ? color01 : color02));
+            inverted = !inverted;
+        }
         /*
         if (inverted)
         {
@@ -32,9 +36,7 @@ public class ColorInverter : MonoBehaviour, Invertable
         inverted = !inverted;
         */
 
-        StopAllCoroutines(); // Stop any ongoing transitions
-        StartCoroutine(SmoothInvert(inverted ? color01 : color02));
-        inverted = !inverted;
+
     }
 
     private IEnumerator SmoothInvert(Color targetColor)

@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Runtime.InteropServices.WindowsRuntime;
 
 
 public class UIUtility : MonoBehaviour
@@ -16,7 +15,7 @@ public class UIUtility : MonoBehaviour
         vignette = GameObject.FindWithTag("UI_Vignette").GetComponent<RawImage>();
     }
 
-    public void Reset()
+    public void ResetUtility()
     {
         blackScreen = GameObject.FindWithTag("UI_Black").GetComponent<RawImage>();
         vignette = GameObject.FindWithTag("UI_Vignette").GetComponent<RawImage>();

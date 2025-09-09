@@ -6,16 +6,16 @@ using TMPro;
 
 public class TitleScreenController : MonoBehaviour
 {
-    private GameObject titleScreen;
     private TextFadeInPulse titleText;
     private TextFadeInPulse instructionText;
     private UIUtility uiController;
     private WakeUp player;
     private bool inControl = false;
     private bool readyToStart = false;
+    private bool gameStarted = false;
 
     void Awake() {
-        titleScreen = GameObject.FindWithTag("UI_Title");
+        //titleScreen = GameObject.FindWithTag("UI_Title");
         titleText = GameObject.FindWithTag("UI_TitleText").GetComponent<TextFadeInPulse>();
         instructionText = GameObject.FindWithTag("UI_TitleInstructions").GetComponent<TextFadeInPulse>();
         uiController = GameObject.FindWithTag("GameController").GetComponent<UIUtility>();
@@ -42,6 +42,15 @@ public class TitleScreenController : MonoBehaviour
             }
         }
     }
+
+    public void ResetScene() {
+        titleText = GameObject.FindWithTag("UI_TitleText").GetComponent<TextFadeInPulse>();
+        instructionText = GameObject.FindWithTag("UI_TitleInstructions").GetComponent<TextFadeInPulse>();
+        uiController = GameObject.FindWithTag("GameController").GetComponent<UIUtility>();
+        player = GameObject.FindWithTag("Player_Wakeup").GetComponent<WakeUp>();
+        StartCoroutine(RespawnSequence());
+    }
+
     IEnumerator TitleSequence()
     {
         Debug.Log("TSC: Enter Title Sequence...");
@@ -49,9 +58,20 @@ public class TitleScreenController : MonoBehaviour
         // Wait for delay
         yield return new WaitForSeconds(4f);
         titleText.Trigger();
+        gameStarted = true;
         yield return new WaitForSeconds(4f);
         inControl = true;
         instructionText.Trigger();
+        yield return null;
+    }
+    IEnumerator RespawnSequence()
+    {
+        Debug.Log("TSC: Enter Respawn Sequence...");
+        uiController.FadeIn();
+        yield return new WaitForSeconds(2f);
+        uiController.TransitionRawImage(uiController.GetVignette());
+        yield return new WaitForSeconds(2f);
+        player.TriggerWakeUp();
         yield return null;
     }
     IEnumerator StartingGame() 
@@ -62,8 +82,6 @@ public class TitleScreenController : MonoBehaviour
         uiController.TransitionRawImage(uiController.GetVignette());
         yield return new WaitForSeconds(2f);
         player.TriggerWakeUp();
-        Destroy(titleScreen);
-        Destroy(this);
         yield return null;
     }
 }

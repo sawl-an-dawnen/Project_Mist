@@ -14,11 +14,13 @@ public class Death : MonoBehaviour
     private Rigidbody2D source;
 
     private CinemachineVirtualCamera m_Camera;
+    private SceneController sceneController;
     // Start is called before the first frame update
     void Awake()
     {
         source = GetComponent<Rigidbody2D>();
         m_Camera = GameObject.FindGameObjectWithTag("VirtualCamera").GetComponent<CinemachineVirtualCamera>();
+        sceneController = GameObject.FindGameObjectWithTag("GameController").GetComponent<SceneController>();
     }
 
     public void TriggerDeath(float targetGravity)
@@ -43,6 +45,7 @@ public class Death : MonoBehaviour
         // Copy constraints
         //target.constraints = source.constraints;
 
+        sceneController.ResetGame();
         Destroy(gameObject);
     }
 
@@ -59,6 +62,7 @@ public class Death : MonoBehaviour
         // Copy constraints
         //target.constraints = source.constraints;
 
+        sceneController.ResetGame();
         Destroy(gameObject);
     }
 }

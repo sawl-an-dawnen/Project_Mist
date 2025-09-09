@@ -72,7 +72,7 @@ public class GameManager
         }
     }
 
-    public void Reset() {
+    public void ResetManager() {
         paused = false;
         inverted = false;
         inControl = false;
