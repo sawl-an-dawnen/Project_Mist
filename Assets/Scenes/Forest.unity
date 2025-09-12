@@ -36071,7 +36071,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color01: {r: 0, g: 0, b: 0, a: 1}
-  color02: {r: 1, g: 1, b: 1, a: 1}
+  color02: {r: 1, g: 1, b: 1, a: 0.48235294}
 --- !u!1 &860462396
 GameObject:
   m_ObjectHideFlags: 0
@@ -66224,11 +66224,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1531551342}
   - component: {fileID: 1531551341}
-  - component: {fileID: 1531551346}
-  - component: {fileID: 1531551343}
-  - component: {fileID: 1531551347}
   - component: {fileID: 1531551345}
+  - component: {fileID: 1531551347}
   - component: {fileID: 1531551348}
+  - component: {fileID: 1531551343}
+  - component: {fileID: 1531551346}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -89550,11 +89550,11 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1531551342}
-  - {fileID: 1087897457}
-  - {fileID: 306024468}
   - {fileID: 1312068742}
   - {fileID: 323788543}
   - {fileID: 304740806}
   - {fileID: 174035213406974935}
   - {fileID: 1886752418}
+  - {fileID: 1087897457}
+  - {fileID: 306024468}
+  - {fileID: 1531551342}

@@ -19,11 +19,11 @@ public class DeathTrigger : MonoBehaviour
             Debug.Log("TriggerDeath");
             if (water)
             {
-                death.TriggerDeath(.01f);
+                death.TriggerDeath(.01f, 2f);
             }
             else
             {
-                death.TriggerDeath();
+                death.TriggerDeath(2f);
             }
         }
 
@@ -33,7 +33,7 @@ public class DeathTrigger : MonoBehaviour
         Debug.Log(other.name);
         if (other.tag == "Player")
         {
-            death.TriggerDeath();
+            death.TriggerDeath(2f);
         }
     }
 }

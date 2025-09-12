@@ -55,6 +55,14 @@ public class SceneController : MonoBehaviour
         }
         StartCoroutine(ResetCoroutine());
     }
+    public void DelayedResetGame(float t)
+    {
+        if (gameManager.Paused())
+        {
+            pauseController.Resume();
+        }
+        StartCoroutine(DelayedResetCoroutine(t));
+    }
     public void CloseGame()
     {
         if (gameManager.Paused())
@@ -66,7 +74,16 @@ public class SceneController : MonoBehaviour
     public IEnumerator ResetCoroutine()
     {
         gameManager.SetInControl(false);
-        //StartCoroutine(FadeOutScene());
+        uiUtility.FadeToBlack();
+        yield return new WaitForSeconds(4f);
+        yield return StartCoroutine(LoadSceneAsync(gameManager.GetLevel()));
+        SceneControllerReset();
+        yield return null;
+    }
+    public IEnumerator DelayedResetCoroutine(float t)
+    {
+        gameManager.SetInControl(false);
+        yield return new WaitForSeconds(t);
         uiUtility.FadeToBlack();
         yield return new WaitForSeconds(4f);
         yield return StartCoroutine(LoadSceneAsync(gameManager.GetLevel()));

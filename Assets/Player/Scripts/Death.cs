@@ -23,7 +23,7 @@ public class Death : MonoBehaviour
         sceneController = GameObject.FindGameObjectWithTag("GameController").GetComponent<SceneController>();
     }
 
-    public void TriggerDeath(float targetGravity)
+    public void TriggerDeath(float targetGravity, float resetDelay = 2f)
     {
         GameObject clone = Object.Instantiate(ragdollPrefab, gameObject.transform.position, gameObject.transform.rotation, mainParent);
         target = clone.GetComponent<Rigidbody2D>();
@@ -42,14 +42,11 @@ public class Death : MonoBehaviour
         target.angularVelocity = source.angularVelocity;
         target.AddForce(Vector2.up*2f,ForceMode2D.Impulse);
 
-        // Copy constraints
-        //target.constraints = source.constraints;
-
-        sceneController.ResetGame();
+        sceneController.DelayedResetGame(resetDelay);
         Destroy(gameObject);
     }
 
-    public void TriggerDeath() 
+    public void TriggerDeath(float resetDelay = 2f) 
     {
         GameObject clone = Object.Instantiate(ragdollPrefab, gameObject.transform.position, gameObject.transform.rotation, mainParent);
         target = clone.GetComponent<Rigidbody2D>();
@@ -62,7 +59,7 @@ public class Death : MonoBehaviour
         // Copy constraints
         //target.constraints = source.constraints;
 
-        sceneController.ResetGame();
+        sceneController.DelayedResetGame(resetDelay);
         Destroy(gameObject);
     }
 }

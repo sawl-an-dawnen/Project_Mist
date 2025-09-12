@@ -85,7 +85,7 @@ public class Movement : MonoBehaviour
             coyoteTimeCounter = coyoteTime;
             if (fallingSpeed <= -fallingMaxSpeed) 
             {
-                GetComponent<Death>().TriggerDeath();
+                GetComponent<Death>().TriggerDeath(2f);
             }
         }
         else {
