@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpawnController : MonoBehaviour
 {
-    public Transform defaultSpawn;
+    private Transform defaultSpawn;
     private Transform spawn = null;
     private Transform player;
     private SceneController sceneController;
@@ -14,9 +14,8 @@ public class SpawnController : MonoBehaviour
     {
         sceneController = GameObject.FindWithTag("GameController").GetComponent<SceneController>();
         player = GameObject.FindWithTag("Player_wrapper").transform;
+        defaultSpawn = GameObject.FindWithTag("Default_Spawn").transform;
     }
-
-
 
     void Start() {
         GameObject tempSpawn = sceneController.GetCheckpoint();
@@ -34,6 +33,7 @@ public class SpawnController : MonoBehaviour
     {
         sceneController = GameObject.FindWithTag("GameController").GetComponent<SceneController>();
         player = GameObject.FindWithTag("Player_wrapper").transform;
+        defaultSpawn = GameObject.FindWithTag("Default_Spawn").transform;
     }
 
     public void Spawn() {
