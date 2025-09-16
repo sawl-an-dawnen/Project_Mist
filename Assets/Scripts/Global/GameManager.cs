@@ -11,6 +11,8 @@ public class GameManager
     private bool inverted = false;
     private bool paused = false;
     private bool inControl = false;
+    private bool canInvert = false;
+    private bool invertAbilityLock = false;
 
     public static GameManager Instance
     {
@@ -44,6 +46,12 @@ public class GameManager
     public bool Inverted() { return inverted; }
     public void Invert() { inverted = !inverted; }
 
+    public bool CanInvert() { return canInvert; }
+    public void SetCanInvert(bool state) { canInvert = state; }
+
+    public bool InvertAbilityLock() { return invertAbilityLock; }
+    public void SetInvertAbilityLock(bool state) { invertAbilityLock = state; }
+
     public bool InControl() { return inControl; }
     public void SetInControl(bool state) { inControl = state; }
 
@@ -76,6 +84,12 @@ public class GameManager
         paused = false;
         inverted = false;
         inControl = false;
+        if(!invertAbilityLock) {
+            canInvert = false;
+        }
+        else {
+            canInvert = true;
+        }
     }
 
 }

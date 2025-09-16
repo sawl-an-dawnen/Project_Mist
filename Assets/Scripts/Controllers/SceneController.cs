@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,6 +24,16 @@ public class SceneController : MonoBehaviour
         titleScreenController = temp.GetComponent<TitleScreenController>();
         spawnController = temp.GetComponent<SpawnController>();
         uiUtility = temp.GetComponent<UIUtility>();
+    }
+
+    public void TriggerInversion()
+    {
+        Invertable[] objs = GameObject.FindObjectsOfType<MonoBehaviour>(true).OfType<Invertable>().ToArray();
+        gameManager.Invert();
+        foreach (Invertable obj in objs)
+        {
+            obj.Invert();
+        }
     }
     public void SceneControllerReset() 
     {
@@ -74,6 +85,10 @@ public class SceneController : MonoBehaviour
     public IEnumerator ResetCoroutine()
     {
         gameManager.SetInControl(false);
+        if (gameManager.Inverted())
+        {
+            TriggerInversion();
+        }
         uiUtility.FadeToBlack();
         yield return new WaitForSeconds(4f);
         yield return StartCoroutine(LoadSceneAsync(gameManager.GetLevel()));
@@ -83,6 +98,10 @@ public class SceneController : MonoBehaviour
     public IEnumerator DelayedResetCoroutine(float t)
     {
         gameManager.SetInControl(false);
+        if (gameManager.Inverted())
+        {
+            TriggerInversion();
+        }
         yield return new WaitForSeconds(t);
         uiUtility.FadeToBlack();
         yield return new WaitForSeconds(4f);
@@ -93,6 +112,10 @@ public class SceneController : MonoBehaviour
     public IEnumerator CloseGameCoroutine()
     {
         gameManager.SetInControl(false);
+        if (gameManager.Inverted())
+        {
+            TriggerInversion();
+        }
         uiUtility.FadeToBlack();
         yield return new WaitForSeconds(4f);
         Application.Quit();

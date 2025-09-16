@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
+    public bool lockInvertAbility = false;
     private SceneController controller;
+    private GameManager gameManager = GameManager.Instance;
 
     public void Awake() {
         controller = GameObject.FindWithTag("GameController").GetComponent<SceneController>();
@@ -12,6 +14,11 @@ public class Checkpoint : MonoBehaviour
     // Called when another collider enters this trigger (2D only)
     private void OnTriggerEnter2D(Collider2D other)
     {
-        controller.SetCheckpoint(gameObject);
+        if (other.CompareTag("Player")) {
+            controller.SetCheckpoint(gameObject);
+            if (lockInvertAbility) {
+                gameManager.SetInvertAbilityLock(true);
+            }
+        }
     }
 }

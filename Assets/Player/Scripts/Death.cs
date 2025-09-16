@@ -52,12 +52,8 @@ public class Death : MonoBehaviour
         target = clone.GetComponent<Rigidbody2D>();
         m_Camera.Follow = clone.transform;
 
-        // Copy velocity-related properties
         target.velocity = source.velocity;
         target.angularVelocity = source.angularVelocity;
-
-        // Copy constraints
-        //target.constraints = source.constraints;
 
         sceneController.DelayedResetGame(resetDelay);
         Destroy(gameObject);

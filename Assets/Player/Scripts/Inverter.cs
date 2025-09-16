@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,10 +19,10 @@ public class Inverter : MonoBehaviour
 
     public void OnInvert() 
     {
-        if (gameManager.InControl() & !gameManager.Paused()) {
-            Debug.Log("INVERT!");
+        if (gameManager.InControl() && !gameManager.Paused() && gameManager.CanInvert()) {
             Invertable[] objs = GameObject.FindObjectsOfType<MonoBehaviour>(true).OfType<Invertable>().ToArray();
             gameManager.Invert();
+            Debug.Log(gameManager.Inverted());
 
             foreach (Invertable obj in objs)
             {
@@ -29,15 +30,4 @@ public class Inverter : MonoBehaviour
             }
         }
     }
-
-    public void TriggerInversion() 
-    {
-        Invertable[] objs = GameObject.FindObjectsOfType<MonoBehaviour>(true).OfType<Invertable>().ToArray();
-
-        foreach (Invertable obj in objs)
-        {
-            obj.Invert();
-        }
-    }
-
 }

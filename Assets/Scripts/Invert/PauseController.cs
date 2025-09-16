@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PauseController : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class PauseController : MonoBehaviour
     public GameObject pauseUI;
     public GameObject pauseMenu;
     public GameObject settingsMenu;
+    public GameObject firstButton;
+    public EventSystem eventSystem;
 
     static GameManager gameManager = GameManager.Instance;
     private bool isPaused = false;
@@ -20,6 +23,7 @@ public class PauseController : MonoBehaviour
         pauseUI.SetActive(isPaused);
         pauseMenu.SetActive(isPaused);
         settingsMenu.SetActive(false);
+        eventSystem.SetSelectedGameObject(firstButton);
         Time.timeScale = 0;
     }
 

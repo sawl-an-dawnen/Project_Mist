@@ -22,7 +22,8 @@ public class Movement : MonoBehaviour
     private float velocityX = 0f;
     private float jumpYCoordinate;
     private bool isGrounded;
-    private bool jumpPressed;
+    private bool jumpPressed = false;
+    private float jumpTimer = 0.2f;
     private float coyoteTime = 0.2f;
     private float coyoteTimeCounter;
 
@@ -77,12 +78,27 @@ public class Movement : MonoBehaviour
         animator.SetFloat("Vertical Velocity", rb.velocity.y);
         animator.SetFloat("Horizontal Velocity", rb.velocity.x);
 
+
+
+        // Jump logic
+        if (jumpPressed && coyoteTimeCounter > 0f && !mantle.MantleEnabled && jumpTimer <= 0f)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            jumpTimer = .3f;
+        }
+        jumpPressed = false;
+        if (jumpTimer > 0f)
+        {
+            jumpTimer -= Time.deltaTime;
+        }
+
         // Ground check
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer) && !mantle.MantleEnabled;
         if (isGrounded)   {
             jumpYCoordinate = transform.position.y;
             animator.SetBool("Grounded", true);
             coyoteTimeCounter = coyoteTime;
+            fallingSpeed = 0f;
             if (fallingSpeed <= -fallingMaxSpeed) 
             {
                 GetComponent<Death>().TriggerDeath(2f);
@@ -93,13 +109,6 @@ public class Movement : MonoBehaviour
             coyoteTimeCounter -= Time.deltaTime;
             fallingSpeed = rb.velocity.y;
         }
-
-        // Jump logic
-        if (jumpPressed && coyoteTimeCounter > 0f && !mantle.MantleEnabled)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-        }
-        jumpPressed = false; // Reset jump flag
     }
 
     void FixedUpdate()
