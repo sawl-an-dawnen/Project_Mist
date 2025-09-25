@@ -15,6 +15,16 @@ public class PauseController : MonoBehaviour
     static GameManager gameManager = GameManager.Instance;
     private bool isPaused = false;
 
+    void Awake() { 
+        pauseUI = GameObject.FindWithTag("UI_Pause");
+        pauseMenu = GameObject.FindWithTag("UI_Pause_Menu");
+        settingsMenu = GameObject.FindWithTag("UI_Settings");
+        firstButton = GameObject.FindWithTag("UI_Resume_Button");
+        eventSystem = GameObject.FindWithTag("EventSystem").GetComponent<EventSystem>();
+        settingsMenu.SetActive(false);
+        pauseUI.SetActive(false);
+    }
+
     //pause game
     public void Pause()
     {
@@ -36,6 +46,10 @@ public class PauseController : MonoBehaviour
         settingsMenu.SetActive(isPaused);
         Time.timeScale = 1;
     }
+
+    //public void ResetController() { 
+    
+    //}
 
     public void OnPause()
     {

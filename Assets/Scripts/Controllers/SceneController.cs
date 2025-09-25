@@ -41,6 +41,7 @@ public class SceneController : MonoBehaviour
         gameManager.ResetManager();
         GameObject temp = GameObject.FindWithTag("GameController");
         pauseController = temp.GetComponent<PauseController>();
+        //pauseController.ResetController();
         uiUtility = temp.GetComponent<UIUtility>();
         uiUtility.ResetUtility();
         titleScreenController = temp.GetComponent<TitleScreenController>();

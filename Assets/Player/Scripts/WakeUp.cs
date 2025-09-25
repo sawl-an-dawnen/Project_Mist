@@ -8,6 +8,7 @@ public class WakeUp : MonoBehaviour
     private Animator animator;
 
     private GameManager gameManager = GameManager.Instance;
+    public SpriteFadeInPulse[] targets;
 
     // Start is called before the first frame update
     void Awake()
@@ -28,5 +29,12 @@ public class WakeUp : MonoBehaviour
         realPlayer.SetActive(true);
         gameManager.SetInControl(true);
         Destroy(gameObject);
+        foreach (SpriteFadeInPulse sfip in targets)
+        {
+            if (sfip != null)
+            {
+                sfip.Trigger();
+            }
+        }
     }
 }

@@ -23,6 +23,8 @@ TagManager:
   - Player_wrapper
   - Default_Spawn
   - EventSystem
+  - UI_Pause_Menu
+  - UI_Resume_Button
   layers:
   - Default
   - TransparentFX
