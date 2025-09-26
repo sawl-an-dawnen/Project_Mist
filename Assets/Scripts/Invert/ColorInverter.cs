@@ -24,19 +24,6 @@ public class ColorInverter : MonoBehaviour, Invertable
             StartCoroutine(SmoothInvert(inverted ? color01 : color02));
             inverted = !inverted;
         }
-        /*
-        if (inverted)
-        {
-            sprite.color = color01;
-        }
-        else
-        {
-            sprite.color = color02;
-        }
-        inverted = !inverted;
-        */
-
-
     }
 
     private IEnumerator SmoothInvert(Color targetColor)
