@@ -53,7 +53,6 @@ public class TitleScreenController : MonoBehaviour
 
     IEnumerator TitleSequence()
     {
-        Debug.Log("TSC: Enter Title Sequence...");
         uiController.FadeIn();
         // Wait for delay
         yield return new WaitForSeconds(4f);
@@ -66,7 +65,6 @@ public class TitleScreenController : MonoBehaviour
     }
     IEnumerator RespawnSequence()
     {
-        Debug.Log("TSC: Enter Respawn Sequence...");
         uiController.FadeIn();
         yield return new WaitForSeconds(2f);
         uiController.TransitionRawImage(uiController.GetVignette());
@@ -76,7 +74,6 @@ public class TitleScreenController : MonoBehaviour
     }
     IEnumerator StartingGame() 
     {
-        Debug.Log("TSC: Starting game...");
         titleText.FadeAway();
         instructionText.FadeAway();
         uiController.TransitionRawImage(uiController.GetVignette());

@@ -25,7 +25,6 @@ public class Interact : MonoBehaviour
 
     private void Action(Interactable interactObj)
     {
-        Debug.Log("Action called.");
         if (!interactObj.oneShot) 
         {
             interacting = true;
@@ -37,7 +36,6 @@ public class Interact : MonoBehaviour
 
     private void CounterAction(Interactable interactObj) 
     {
-        Debug.Log("Counter Action Called.");
         interacting = false;
         interactable = null;
         interactObj.Release();

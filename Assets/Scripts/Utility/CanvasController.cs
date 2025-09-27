@@ -10,6 +10,7 @@ public class CanvasController : MonoBehaviour
     public EventSystem eventSystem;
 
     public void Trigger() {
+        eventSystem = GameObject.FindWithTag("EventSystem").GetComponent<EventSystem>();
         activate.SetActive(true);
         deactivate.SetActive(false);
         eventSystem.SetSelectedGameObject(firstSelected);

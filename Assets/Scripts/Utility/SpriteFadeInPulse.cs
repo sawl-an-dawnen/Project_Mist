@@ -56,7 +56,6 @@ public class SpriteFadeInPulse : MonoBehaviour
     {
         if (!pulsing)
         {
-            Debug.Log("SFIP: Triggering fade-in and pulse...");
             pulsing = true;
             StartCoroutine(FadeInAndPulse());
         }
@@ -70,7 +69,6 @@ public class SpriteFadeInPulse : MonoBehaviour
         fading = true;
         if (pulsing)
         {
-            Debug.Log("SFIP: Triggering fade-out...");
             pulsing = false;
             StartCoroutine(FadeOut());
         }

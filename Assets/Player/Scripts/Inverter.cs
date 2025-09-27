@@ -22,7 +22,6 @@ public class Inverter : MonoBehaviour
         if (gameManager.InControl() && !gameManager.Paused() && gameManager.CanInvert()) {
             Invertable[] objs = GameObject.FindObjectsOfType<MonoBehaviour>(true).OfType<Invertable>().ToArray();
             gameManager.Invert();
-            Debug.Log(gameManager.Inverted());
 
             foreach (Invertable obj in objs)
             {

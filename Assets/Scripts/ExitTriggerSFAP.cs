@@ -16,8 +16,6 @@ public class ExitTriggerSFAP : MonoBehaviour
 
         if (string.IsNullOrEmpty(triggeringTag) || other.CompareTag(triggeringTag))
         {
-            Debug.Log("ExitTriggerSFAP: Triggering FadeAway on SpriteFadeInPulse array...");
-
             foreach (SpriteFadeInPulse sfip in targets)
             {
                 if (sfip != null)

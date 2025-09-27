@@ -39,12 +39,10 @@ public class TextFadeInPulse : MonoBehaviour
 
     public void Trigger() {
         // Start the coroutine
-        Debug.Log("TFIP: Trigger...");
         StartCoroutine(FadeInAndPulse());
     }
 
     public void FadeAway() {
-        Debug.Log("TFIP: FadeAway()...");
         pulsing = false;
         uiUtility.TransitionTMP(text, 0f, fadeDuration);
     }

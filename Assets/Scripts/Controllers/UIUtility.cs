@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-
 public class UIUtility : MonoBehaviour
 {
     public float transitionDuration = 3f;
@@ -35,7 +34,6 @@ public class UIUtility : MonoBehaviour
 
     public void FadeToBlack(float duration = -1)
     {
-        Debug.Log("UIU: FadeOut()");
         blackScreen.color = new Color(blackScreen.color.r, blackScreen.color.g, blackScreen.color.b, 0f);
         if (duration <= -1)
         {
@@ -49,7 +47,6 @@ public class UIUtility : MonoBehaviour
 
     public void FadeIn(float duration = -1, float wait = 1f) 
     {
-        Debug.Log("UIU: FadeIn()");
         blackScreen.color = new Color(blackScreen.color.r, blackScreen.color.g, blackScreen.color.b, 1f);
         if (duration <= -1)
         {

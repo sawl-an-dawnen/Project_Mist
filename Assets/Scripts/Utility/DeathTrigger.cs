@@ -30,7 +30,6 @@ public class DeathTrigger : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D other)
     {
-        Debug.Log(other.name);
         if (other.tag == "Player")
         {
             death.TriggerDeath(2f);

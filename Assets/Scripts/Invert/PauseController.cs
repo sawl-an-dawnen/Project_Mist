@@ -6,11 +6,11 @@ using UnityEngine.EventSystems;
 public class PauseController : MonoBehaviour
 {
 
-    public GameObject pauseUI;
-    public GameObject pauseMenu;
-    public GameObject settingsMenu;
-    public GameObject firstButton;
-    public EventSystem eventSystem;
+    private GameObject pauseUI;
+    private GameObject pauseMenu;
+    private GameObject settingsMenu;
+    private GameObject firstButton;
+    private EventSystem eventSystem;
 
     static GameManager gameManager = GameManager.Instance;
     private bool isPaused = false;
@@ -28,6 +28,7 @@ public class PauseController : MonoBehaviour
     //pause game
     public void Pause()
     {
+        eventSystem = GameObject.FindWithTag("EventSystem").GetComponent<EventSystem>();
         isPaused = true;
         gameManager.SetPause(isPaused);
         pauseUI.SetActive(isPaused);
@@ -46,10 +47,6 @@ public class PauseController : MonoBehaviour
         settingsMenu.SetActive(isPaused);
         Time.timeScale = 1;
     }
-
-    //public void ResetController() { 
-    
-    //}
 
     public void OnPause()
     {
