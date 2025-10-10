@@ -1,0 +1,176 @@
+🌲 FOREST (Easy / Introductory Tier)
+
+Theme: Natural, quiet, mysterious beginnings.
+
+Teaches inversion fundamentals and simple visibility puzzles.
+
+Objects feel organic: fallen logs, stones, vines, mushrooms.
+
+Puzzles are framed as natural obstacles — ravines, overgrowth, ruins.
+
+Puzzle 1 — The Clearing
+
+Concept: Basic inversion.
+Setting: A broken log bridge crosses a stream.
+Mechanic: Invert to switch between solid mossy logs (visible in light mode) and ghostly roots (solid in dark mode).
+Lesson: The world has two states — life/light and shadow/death.
+
+Puzzle 2 — Hollow Roots
+
+Concept: Visibility ≠ solidity.
+Setting: A series of floating root platforms that vanish when inverted.
+Goal: Hop across roots by inverting mid-air.
+Visual Cue: Glowing spores on visible roots fade out when inverted.
+Lesson: Introduces timed inversion traversal.
+
+Puzzle 3 — Stone and Spores
+
+Concept: Weight shift.
+Setting: Heavy stone (normal) and light mushroom cap (inverted).
+Goal: Carry a stone across a log; invert to lighten and jump higher.
+Lesson: Objects change physics with inversion.
+
+Puzzle 4 — Vine Ladder
+
+Concept: Split ladder traversal.
+Setting: Broken vine ladder hanging from a tree.
+Goal: Climb up, invert mid-way to grab onto shadow vines.
+Lesson: Teach inversion timing while in motion.
+
+Puzzle 5 — The Vanishing Bridge
+
+Concept: Tangibility toggling.
+Setting: Fallen tree bridge visible in daylight state; ghost bridge at night.
+Goal: Invert to bypass branches or low-hanging vines.
+Lesson: Blend traversal with obstacle management.
+
+Puzzle 6 — Buried Path
+
+Concept: Reveal hidden routes.
+Setting: Overgrown clearing with hidden stone steps beneath the grass (visible only when inverted).
+Goal: Invert to reveal path downward into ruins.
+Lesson: Environmental storytelling + discovery via inversion.
+
+🏙️ CITY STREETS (Medium / Intermediate Tier)
+
+Theme: Abandoned city in twilight; mechanical and societal decay.
+
+Adds pressure plates, timing, multi-object puzzles.
+
+Objects become manmade: crates, switches, traffic barriers, streetlamps.
+
+Puzzles feel like “reactivating” or navigating old machinery.
+
+Puzzle 7 — Power Switch
+
+Concept: Pressure plate basics.
+Setting: Streetlight-controlled gate.
+Goal: Place a crate on a floor switch to open a shutter.
+Lesson: Interaction between weight and mechanism.
+
+Puzzle 8 — The Vanishing Crate
+
+Concept: State-dependent pressure.
+Setting: Old delivery box disappears when inverted (light flickers out).
+Goal: Use crate to open door, invert to pass before it vanishes.
+Lesson: Timing and awareness of inversion persistence.
+
+Puzzle 9 — Two-State Circuit
+
+Concept: Multi-state plate logic.
+Setting: Power panels connected to neon conduits.
+Goal: One circuit activates in normal mode, the other in inverted; both must power a gate simultaneously.
+Lesson: Alternating logic — planning around dual activation.
+
+Puzzle 10 — Ghost Alley
+
+Concept: Phasing through solid objects.
+Setting: Crumbling city wall that only exists in daylight.
+Goal: Invert mid-jump to pass through the barrier and land on inverted fire escapes.
+Lesson: Traversal using phase transitions.
+
+Puzzle 11 — Anti-Gravity Sign
+
+Concept: Gravity inversion with visibility.
+Setting: A floating street sign or billboard that reverses gravity when inverted.
+Goal: Use it to lift yourself upward to a higher ledge.
+Lesson: Combine inversion + physical forces.
+
+Puzzle 12 — The Vanishing Box Trick
+
+Concept: Object juggling between states.
+Setting: Two boxes: one real-world delivery box, one ghostly holographic crate.
+Goal: Place one to hold a gate open, invert to activate the second and continue.
+Lesson: Manage multiple object states simultaneously.
+
+Puzzle 13 — The Chain Reaction
+
+Concept: Cascading consequences.
+Setting: Old city power substation with pressure plates and magnetic locks.
+Goal: One inversion deactivates a magnetic hold, freeing a floating object that triggers another plate.
+Lesson: Understand domino-style inversion events.
+
+⚙️ FACTORY (Hard / Advanced Tier)
+
+Theme: Industrial labyrinth of gears, electricity, and unstable physics.
+
+Complex puzzles combining gravity, inversion, timing, and multiple objects.
+
+Feels like controlling or restoring the heart of a dead machine.
+
+Objects: gears, pistons, conveyor belts, magnetic boxes, turbines.
+
+Puzzle 14 — Layered Presses
+
+Concept: Multi-layer plate logic.
+Setting: Factory floor with stacked conveyor systems.
+Goal: Some plates exist only in normal mode; others only in inverted. Use crates strategically across both.
+Lesson: Thinking in parallel dimensions.
+
+Puzzle 15 — Gravity Leap
+
+Concept: Inversion-assisted movement.
+Setting: Lift platform above molten metal vat.
+Goal: Grab a reverse-gravity crate, invert mid-jump to be pulled upward onto a catwalk.
+Lesson: Combines gravity, inversion, and traversal timing.
+
+Puzzle 16 — The Sacrifice
+
+Concept: Emotional & mechanical payoff.
+Setting: Reactor core door powered by a glowing energy orb.
+Goal: Leave orb on a plate to keep door open, but inversion causes it to vanish — find alternate route to escape.
+Lesson: Consequence and permanent choice.
+
+Puzzle 17 — Magnetic Inversion
+
+Concept: Polarity reversal.
+Setting: Electromagnets change pull/push based on inversion.
+Goal: Use inversion bursts to sling a metal ball into a socket.
+Lesson: Motion and polarity mastery.
+
+Puzzle 18 — Inversion Conveyor
+
+Concept: Directional state shifts.
+Setting: Assembly line where belts switch direction on inversion.
+Goal: Push parts onto belts, invert timing to deliver them precisely to switches.
+Lesson: Controlled environment dynamics.
+
+Puzzle 19 — Cascading Core
+
+Concept: Rapid multi-switch timing.
+Setting: Factory reactor with gates, pistons, and pressure plates activating differently per state.
+Goal: Sprint through a gauntlet, chaining inversions in sync with machine rhythm.
+Lesson: Reflex-based logic.
+
+Puzzle 20 — Mirror Foundry (Finale)
+
+Concept: Full mastery.
+Setting: Split-level machine chamber — one side active in normal mode, the other in inverted.
+Goal: Move crates, flip gravity, and manipulate plates across mirrored dimensions to unlock the final gate.
+Lesson: Integrates all previous mechanics; ultimate test of spatial reasoning.
+
+🧭 PROGRESSION OVERVIEW
+Setting	Levels	Focus	Key Mechanics	Visual/Emotional Tone
+🌲 Forest	1–6	Introduction	Inversion basics, visibility, physics	Calm, mysterious, nature vs. corruption
+🏙️ City Streets	7–13	Intermediate	Pressure plates, timing, dual-state puzzles	Lonely decay, humanity’s remnants
+⚙️ Factory	14–20	Advanced	Gravity, chain logic, polarity, complex timing	Industrial chaos, control and mastery
