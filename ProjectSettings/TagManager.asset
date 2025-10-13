@@ -25,6 +25,7 @@ TagManager:
   - EventSystem
   - UI_Pause_Menu
   - UI_Resume_Button
+  - CameraPositionHigh
   layers:
   - Default
   - TransparentFX

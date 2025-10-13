@@ -7,19 +7,27 @@ public class SceneReframe : MonoBehaviour
     private Transform cameraPositionTransform;
     public Transform newCameraPositionTransform;
     public Transform temp;
+
+    public float newOrtho;
+    public float transitionSpeed = 1f;
+
+    private float oldOrtho;
     private CinemachineVirtualCamera m_Camera;
 
     private bool active = false;
     private bool transitionIn;
 
-    public float newOrtho;
-    public float transitionSpeed = 1f;
 
     // Start is called before the first frame update
     void Awake()
     {
         m_Camera = GameObject.FindGameObjectWithTag("VirtualCamera").GetComponent<CinemachineVirtualCamera>();
         cameraPositionTransform = GameObject.FindGameObjectWithTag("CameraPosition").transform;
+    }
+
+    private void Start()
+    {
+        m_Camera.m_Lens.OrthographicSize = 2f;
     }
 
     // Update is called once per frame
@@ -57,6 +65,8 @@ public class SceneReframe : MonoBehaviour
                 temp.position = cameraPositionTransform.position;
             }
             m_Camera.Follow = temp;
+            oldOrtho = m_Camera.m_Lens.OrthographicSize;
+            m_Camera.m_Lens.OrthographicSize = newOrtho;
             active = true;
             transitionIn = true;
         }
@@ -71,6 +81,7 @@ public class SceneReframe : MonoBehaviour
                 temp.position = newCameraPositionTransform.position;
             }
             m_Camera.Follow = temp;
+            m_Camera.m_Lens.OrthographicSize = oldOrtho;
             active = true;
             transitionIn = false;
             //Debug.Log(transitionIn);
