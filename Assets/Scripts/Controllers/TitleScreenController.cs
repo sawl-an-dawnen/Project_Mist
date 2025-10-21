@@ -1,18 +1,16 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+
 
 public class TitleScreenController : MonoBehaviour
 {
+    public bool skipTitle = false;
     private TextFadeInPulse titleText;
     private TextFadeInPulse instructionText;
     private UIUtility uiController;
     private WakeUp player;
     private bool inControl = false;
     private bool readyToStart = false;
-    private bool gameStarted = false;
 
     void Awake() {
         //titleScreen = GameObject.FindWithTag("UI_Title");
@@ -25,6 +23,10 @@ public class TitleScreenController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (skipTitle) {
+            StartCoroutine(RespawnSequence());
+            return;
+        }
         StartCoroutine(TitleSequence());
     }
     // Update is called once per frame
@@ -57,7 +59,6 @@ public class TitleScreenController : MonoBehaviour
         // Wait for delay
         yield return new WaitForSeconds(4f);
         titleText.Trigger();
-        gameStarted = true;
         yield return new WaitForSeconds(4f);
         inControl = true;
         instructionText.Trigger();
