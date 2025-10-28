@@ -26,6 +26,7 @@ TagManager:
   - UI_Pause_Menu
   - UI_Resume_Button
   - CameraPositionHigh
+  - TriggerKey
   layers:
   - Default
   - TransparentFX

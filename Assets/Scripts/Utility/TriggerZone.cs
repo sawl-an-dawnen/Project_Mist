@@ -1,15 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TriggerZone : MonoBehaviour
 {
     public GameObject[] activate;
     public GameObject[] deactivate;
+    public bool playerTrigger = true;
+    public bool keyTrigger = false;
 
     public void OnTriggerEnter2D(Collider2D other) 
     {
-        if (other.tag == "Player") 
+        if ((playerTrigger && other.tag == "Player") || (keyTrigger && other.tag == "TriggerKey")) 
         {
             foreach (GameObject obj in activate) 
             {
