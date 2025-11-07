@@ -13,6 +13,7 @@ public class GameManager
     private bool inControl = false;
     private bool canInvert = false;
     private bool invertAbilityLock = false;
+    private bool newSession = true;
 
     public static GameManager Instance
     {
@@ -58,6 +59,10 @@ public class GameManager
     public bool Paused() { return paused; }
     public void SetPause(bool state) { paused = state; }
 
+    public bool IsNewSession() { return newSession; }
+
+    public void SetNewSession(bool state) { newSession = state; }
+
     //save game
     public void Save() {
         SaveSystem.SaveGame(this, gameSettings);
@@ -66,6 +71,12 @@ public class GameManager
     //load game
     public void Load() {
         GameData data = SaveSystem.LoadGame();
+        newSession = true;
+        inverted = false;
+        paused = false;
+        inControl = false;
+        canInvert = false;
+        invertAbilityLock = false;
         if (data != null)
         {
             level = data.level;

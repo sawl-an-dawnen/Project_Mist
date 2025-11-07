@@ -35,14 +35,11 @@ public class SpawnController : MonoBehaviour
     }
 
     public void Spawn() {
-        GameObject tempSpawn = sceneController.GetCheckpoint();
-
-        if (tempSpawn != null)
-        {
+        try {
+            GameObject tempSpawn = sceneController.GetCheckpoint();
             spawn = tempSpawn.transform;
         }
-        if (spawn == null)
-        {
+        catch {
             spawn = defaultSpawn;
         }
 

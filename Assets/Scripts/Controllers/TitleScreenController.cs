@@ -8,6 +8,7 @@ public class TitleScreenController : MonoBehaviour
     private TextFadeInPulse titleText;
     private TextFadeInPulse instructionText;
     private UIUtility uiController;
+    private GameManager gameManager;
     private WakeUp player;
     private bool inControl = false;
     private bool readyToStart = false;
@@ -17,13 +18,14 @@ public class TitleScreenController : MonoBehaviour
         titleText = GameObject.FindWithTag("UI_TitleText").GetComponent<TextFadeInPulse>();
         instructionText = GameObject.FindWithTag("UI_TitleInstructions").GetComponent<TextFadeInPulse>();
         uiController = GameObject.FindWithTag("GameController").GetComponent<UIUtility>();
+        gameManager = GameManager.Instance;
         player = GameObject.FindWithTag("Player_Wakeup").GetComponent<WakeUp>();
     }
     
     // Start is called before the first frame update
     void Start()
     {
-        if (skipTitle) {
+        if (skipTitle || !gameManager.IsNewSession()) {
             StartCoroutine(RespawnSequence());
             return;
         }
@@ -46,9 +48,11 @@ public class TitleScreenController : MonoBehaviour
     }
 
     public void ResetScene() {
+        Debug.Log("TitleScreenReset");
         titleText = GameObject.FindWithTag("UI_TitleText").GetComponent<TextFadeInPulse>();
         instructionText = GameObject.FindWithTag("UI_TitleInstructions").GetComponent<TextFadeInPulse>();
         uiController = GameObject.FindWithTag("GameController").GetComponent<UIUtility>();
+        gameManager = GameManager.Instance;
         player = GameObject.FindWithTag("Player_Wakeup").GetComponent<WakeUp>();
         StartCoroutine(RespawnSequence());
     }

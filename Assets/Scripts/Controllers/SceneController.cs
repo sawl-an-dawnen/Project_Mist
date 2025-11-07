@@ -5,19 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
-    private GameManager gameManager;
-    private PauseController pauseController;
-    private TitleScreenController titleScreenController;
-    private SpawnController spawnController;
-    private GameObject checkpoint = null;
+    public GameManager gameManager;
+    public PauseController pauseController;
+    public TitleScreenController titleScreenController;
+    public SpawnController spawnController;
+    public GameObject checkpoint = null;
 
     //UI
-    private UIUtility uiUtility;
+    public UIUtility uiUtility;
     //private Coroutine currentTransition;
     //private float duration = 2f;
 
     void Awake()
     {
+        Debug.Log("Scene Controller Activated: " + this);
         gameManager = GameManager.Instance;
         GameObject temp = GameObject.FindWithTag("GameController");
         pauseController = temp.GetComponent<PauseController>();
@@ -37,6 +38,7 @@ public class SceneController : MonoBehaviour
     }
     public void SceneControllerReset() 
     {
+        Debug.Log("SCR: Active");
         gameManager = GameManager.Instance;
         gameManager.ResetManager();
         GameObject temp = GameObject.FindWithTag("GameController");
@@ -46,8 +48,10 @@ public class SceneController : MonoBehaviour
         uiUtility.ResetUtility();
         titleScreenController = temp.GetComponent<TitleScreenController>();
         titleScreenController.ResetScene();
+        spawnController = temp.GetComponent<SpawnController>();
         spawnController.ResetController();
         spawnController.Spawn();
+        Debug.Log("SCR: Complete");
     }
     public GameObject GetCheckpoint() {
         if (checkpoint == null) { return null; }
@@ -96,6 +100,24 @@ public class SceneController : MonoBehaviour
         SceneControllerReset();
         yield return null;
     }
+
+    public IEnumerator LoadNextScene(string sceneName) 
+    {
+        Debug.Log("LNS: Remove Control");
+        gameManager.SetInControl(false);
+        gameManager.SetNewSession(false);
+        if (gameManager.Inverted())
+        {
+            TriggerInversion();
+        }
+        Debug.Log("LNS: FadeTOBlack");
+        uiUtility.FadeToBlack();
+        gameManager.SetLevel(sceneName);
+        Debug.Log("LNS: set level ->" + gameManager.GetLevel());
+        yield return new WaitForSeconds(4f);
+        CleanupDontDestroyOnLoad();
+        yield return StartCoroutine(LoadSceneAsync(gameManager.GetLevel()));
+    }
     public IEnumerator DelayedResetCoroutine(float t)
     {
         gameManager.SetInControl(false);
@@ -124,27 +146,53 @@ public class SceneController : MonoBehaviour
     }
     private IEnumerator LoadSceneAsync(string sceneName)
     {
+        Debug.Log($"Loading scene async: {sceneName}");
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
 
-        // Optional: don't allow the scene to activate until we're ready
+        if (asyncLoad == null)
+        {
+            Debug.LogError("LoadSceneAsync returned null! Check scene name or build settings.");
+            yield break;
+        }
+
         asyncLoad.allowSceneActivation = false;
 
-        // Wait until the scene is fully loaded (progress reaches 0.9)
         while (!asyncLoad.isDone)
         {
+            Debug.Log($"Loading progress: {asyncLoad.progress}, allowSceneActivation: {asyncLoad.allowSceneActivation}");
             if (asyncLoad.progress >= 0.9f)
             {
-                // Scene is ready. Perform your logic here, then allow activation.
-                Debug.Log("Scene loaded. Performing post-load logic...");
-
-                // Activate the scene
+                Debug.Log("Scene loaded to 90%, activating...");
                 asyncLoad.allowSceneActivation = true;
             }
-
             yield return null;
         }
 
-        // Optional: Do something immediately after activation
-        Debug.Log("Scene activated.");
+        Debug.Log("Scene activated successfully.");
+    }
+    private void CleanupDontDestroyOnLoad()
+    {
+        Debug.Log("[SceneController] Cleaning DontDestroyOnLoad scene...");
+
+        // Create a temporary scene to move persistent objects into
+        Scene tempScene = SceneManager.CreateScene("TempCleanupScene");
+
+        // Find all root GameObjects, including those in DontDestroyOnLoad
+        GameObject[] rootObjects = FindObjectsOfType<GameObject>();
+
+        foreach (GameObject obj in rootObjects)
+        {
+            if (obj.scene.name == "DontDestroyOnLoad")
+            {
+                Debug.Log($"[SceneController] Destroying persistent object: {obj.name}");
+                SceneManager.MoveGameObjectToScene(obj, tempScene);
+                Destroy(obj);
+            }
+        }
+
+        void OnDestroy()
+        {
+            Debug.Log("SceneController destroyed!" + this);
+        }
     }
 }
