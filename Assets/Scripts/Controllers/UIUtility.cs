@@ -6,8 +6,9 @@ using TMPro;
 public class UIUtility : MonoBehaviour
 {
     public float transitionDuration = 3f;
-    private RawImage blackScreen;
-    private RawImage vignette;
+    #nullable enable
+    private RawImage? blackScreen;
+    private RawImage? vignette;
 
     void Awake() {
         blackScreen = GameObject.FindWithTag("UI_Black").GetComponent<RawImage>();

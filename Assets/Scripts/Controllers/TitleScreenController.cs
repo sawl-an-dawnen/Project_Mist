@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TitleScreenController : MonoBehaviour
 {
+    public bool guarunteeInversionControl = true;
     public bool skipTitle = false;
     private TextFadeInPulse titleText;
     private TextFadeInPulse instructionText;
@@ -25,6 +26,10 @@ public class TitleScreenController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (guarunteeInversionControl) {
+            gameManager.SetCanInvert(true);
+            gameManager.SetInvertAbilityLock(true);
+        }
         if (skipTitle || !gameManager.IsNewSession()) {
             StartCoroutine(RespawnSequence());
             return;
@@ -70,12 +75,23 @@ public class TitleScreenController : MonoBehaviour
     }
     IEnumerator RespawnSequence()
     {
-        uiController.FadeIn();
-        yield return new WaitForSeconds(2f);
-        uiController.TransitionRawImage(uiController.GetVignette());
-        yield return new WaitForSeconds(2f);
-        player.TriggerWakeUp();
-        yield return null;
+        if (gameManager.ActiveOnNextRespawnCheck())
+        {
+            player.TriggerWakeUp();
+            uiController.FadeIn();
+            yield return new WaitForSeconds(1f);
+            uiController.TransitionRawImage(uiController.GetVignette());
+            yield return null;
+        }
+        else 
+        {
+            uiController.FadeIn();
+            yield return new WaitForSeconds(2f);
+            uiController.TransitionRawImage(uiController.GetVignette());
+            yield return new WaitForSeconds(2f);
+            player.TriggerWakeUp();
+            yield return null;
+        }
     }
     IEnumerator StartingGame() 
     {

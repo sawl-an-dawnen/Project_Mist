@@ -27,6 +27,7 @@ TagManager:
   - UI_Resume_Button
   - CameraPositionHigh
   - TriggerKey
+  - UI_Backup_Black
   layers:
   - Default
   - TransparentFX

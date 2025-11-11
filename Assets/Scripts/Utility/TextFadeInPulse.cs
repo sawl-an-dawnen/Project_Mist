@@ -9,6 +9,7 @@ public class TextFadeInPulse : MonoBehaviour
     public float fadeDuration = 1f;
     public float pulseSpeed = 1.5f;
     public float lowerLimit = 0f;
+    public bool startOnStart = false;
     public bool deleteOnFade = true;
 
     private TextMeshProUGUI text;
@@ -35,6 +36,9 @@ public class TextFadeInPulse : MonoBehaviour
 
         amplitude = (1f - lowerLimit) / 2f;
         offset = lowerLimit + amplitude;
+        if (startOnStart) {
+            StartCoroutine(FadeInAndPulse());
+        }
     }
 
     public void Trigger() {

@@ -22,12 +22,17 @@ public class WakeUp : MonoBehaviour
     }
 
     public void TriggerWakeUp() {
+        if (gameManager.ActiveOnNextRespawnCheck()) {
+            OnAnimationEnd();
+            return;
+        }
         animator.SetBool("WakeUp", true);
     }
 
     public void OnAnimationEnd() { 
         realPlayer.SetActive(true);
         gameManager.SetInControl(true);
+        gameManager.SetActiveOnNextRespawn(false);
         Destroy(gameObject);
         foreach (SpriteFadeInPulse sfip in targets)
         {

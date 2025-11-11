@@ -101,7 +101,7 @@ public class SceneController : MonoBehaviour
         yield return null;
     }
 
-    public IEnumerator LoadNextScene(string sceneName) 
+    public IEnumerator PrepNextScene(string sceneName) 
     {
         Debug.Log("LNS: Remove Control");
         gameManager.SetInControl(false);
@@ -115,8 +115,7 @@ public class SceneController : MonoBehaviour
         gameManager.SetLevel(sceneName);
         Debug.Log("LNS: set level ->" + gameManager.GetLevel());
         yield return new WaitForSeconds(4f);
-        CleanupDontDestroyOnLoad();
-        yield return StartCoroutine(LoadSceneAsync(gameManager.GetLevel()));
+        CleanupDontDestroy();
     }
     public IEnumerator DelayedResetCoroutine(float t)
     {
@@ -170,7 +169,7 @@ public class SceneController : MonoBehaviour
 
         Debug.Log("Scene activated successfully.");
     }
-    private void CleanupDontDestroyOnLoad()
+    private void CleanupDontDestroy()
     {
         Debug.Log("[SceneController] Cleaning DontDestroyOnLoad scene...");
 
@@ -189,10 +188,9 @@ public class SceneController : MonoBehaviour
                 Destroy(obj);
             }
         }
-
-        void OnDestroy()
-        {
-            Debug.Log("SceneController destroyed!" + this);
-        }
+    }
+    void OnDestroy()
+    {
+        Debug.Log("SceneController destroyed!" + this);
     }
 }
