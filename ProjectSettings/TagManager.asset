@@ -28,6 +28,8 @@ TagManager:
   - CameraPositionHigh
   - TriggerKey
   - UI_Backup_Black
+  - CameraPositionLow
+  - TransitionCamera
   layers:
   - Default
   - TransparentFX
