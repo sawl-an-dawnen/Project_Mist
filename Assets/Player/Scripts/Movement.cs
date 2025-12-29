@@ -8,13 +8,13 @@ public class Movement : MonoBehaviour
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
-    public float horizontalJumpMultiplyer = 5f;
+    //public float horizontalJumpMultiplyer = 5f;
 
     [Header("Ground Detection")]
     public Transform groundCheck;
     public float groundCheckRadius = 0.2f;
     public LayerMask groundLayer;
-    public float fallingMaxSpeed = 3f;
+    //public float fallingMaxSpeed = 3f;
     private float fallingSpeed;
 
     private Rigidbody2D rb;
@@ -99,10 +99,10 @@ public class Movement : MonoBehaviour
             animator.SetBool("Grounded", true);
             coyoteTimeCounter = coyoteTime;
             fallingSpeed = 0f;
-            if (fallingSpeed <= -fallingMaxSpeed) 
-            {
-                GetComponent<Death>().TriggerDeath(2f);
-            }
+            //if (fallingSpeed <= -fallingMaxSpeed) 
+            //{
+                //GetComponent<Death>().TriggerDeath(2f);
+            //}
         }
         else {
             animator.SetBool("Grounded", false);

@@ -19,9 +19,6 @@ public class GameManager
     private bool inControl = false;
     private bool paused = false;
 
-
-
-
     public static GameManager Instance
     {
         get
@@ -43,7 +40,7 @@ public class GameManager
 
     public string GetLevel() {
         if (level == null) {
-            return "Forest";
+            return "01_Forest";
         }
         return level; }
     public void SetLevel(string name) {

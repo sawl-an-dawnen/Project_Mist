@@ -8,6 +8,7 @@ public class Grab : Interactable
     public float weight = 1f;
     public float maxAngle = 50f;
     public float minAngle = -40f;
+    public float maxHoldVelocity = 2.5f;
 
     private bool held = false;
     private Transform holdPoint; // A point near the character where the object will be held
@@ -70,7 +71,7 @@ public class Grab : Interactable
                 Debug.DrawLine(rightArmBoneHolding.position, target.position, Color.red);  // First arm to target
                 Debug.DrawLine(leftArmBoneHolding.position, target.position, Color.green); // Second arm to target
             }
-            if (player.velocity.magnitude >= 2.5f) 
+            if (player.velocity.magnitude >= maxHoldVelocity) 
             {
                 Release();
                 interactor.CancelInteraction();

@@ -15,6 +15,7 @@ public class Mantle : MonoBehaviour
     RigidbodyType2D objectBodyType;
     private bool isMantling = false;
     private float currentScale;
+    private float startingGravityScale;
     private Vector2 mantleTarget;
     private Vector2 upwardRayOrigin;
     private LayerMask climbableLayer; // Layer for ledges
@@ -35,6 +36,32 @@ public class Mantle : MonoBehaviour
         gameManager = GameManager.Instance;
     }
 
+    private void Start() {
+        startingGravityScale = rb.gravityScale;
+    }
+
+
+    private void FixedUpdate()
+    {
+        if (isMantling)
+        {
+            // Smoothly move the player to the mantle target
+            transform.position = Vector2.MoveTowards(transform.position, mantleTarget, mantleSpeed * Time.fixedDeltaTime);
+            RaycastHit2D mantleHit = Physics2D.Raycast(mantleTarget, Vector2.up, 0f, climbableLayer);
+
+            // Stop mantling when the target is reached
+            if (Vector2.Distance(transform.position, mantleTarget) < 0.1f || mantleHit.collider != null || Mathf.Sign(transform.localScale.x) != currentScale)
+            {
+                if (objectRigidbody != null)
+                {
+                    objectRigidbody.bodyType = objectBodyType;
+                }
+                isMantling = false;
+                animator.SetBool("Mantle", false);
+                rb.gravityScale = startingGravityScale;
+            }
+        }
+    }
     private void CheckForLedge()
     {
         // Cast a ray forward to detect the ledge
@@ -61,6 +88,7 @@ public class Mantle : MonoBehaviour
     {
         Vector2 ledgePoint = hit.point;
         objectRigidbody = hit.collider.attachedRigidbody;
+        startingGravityScale = rb.gravityScale;
         animator.SetBool("Mantle", true);
         animator.Play("Player_mantle", 0, 0f);
         StartCoroutine(CompleteMantle(ledgePoint));
@@ -75,7 +103,6 @@ public class Mantle : MonoBehaviour
             objectRigidbody.bodyType = RigidbodyType2D.Kinematic;        
             objectRigidbody.velocity = Vector2.zero;
         }
-
 
         // Calculate target position for mantling
         mantleTarget = new Vector2(ledgePoint.x + (forwardDistance * Mathf.Sign(transform.localScale.x)), ledgePoint.y + upwardDistance); // Adjust height as needed
@@ -96,30 +123,8 @@ public class Mantle : MonoBehaviour
         }
         isMantling = false;
         animator.SetBool("Mantle", false);
-        rb.gravityScale = 1f;
+        rb.gravityScale = startingGravityScale;
         //Physics2D.IgnoreCollision(rb.gameObject.GetComponent<Collider2D>(), objectRigidbody.GetComponent<Collider2D>(), false);
-    }
-
-    private void FixedUpdate()
-    {
-        if (isMantling)
-        {
-            // Smoothly move the player to the mantle target
-            transform.position = Vector2.MoveTowards(transform.position, mantleTarget, mantleSpeed * Time.fixedDeltaTime);
-            RaycastHit2D mantleHit = Physics2D.Raycast(mantleTarget, Vector2.up, 0f, climbableLayer);
-
-            // Stop mantling when the target is reached
-            if (Vector2.Distance(transform.position, mantleTarget) < 0.1f || mantleHit.collider != null || Mathf.Sign(transform.localScale.x) != currentScale)
-            {
-                if (objectRigidbody != null)
-                {
-                    objectRigidbody.bodyType = objectBodyType;
-                }
-                isMantling = false;
-                animator.SetBool("Mantle", false);
-                rb.gravityScale = 1f;
-            }
-        }
     }
 
     public bool MantleEnabled { get { return isMantling; } }

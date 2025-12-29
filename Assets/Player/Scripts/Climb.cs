@@ -7,6 +7,7 @@ public class Climb : MonoBehaviour
     //public string interactButton = "Interact"; // Button for interacting with the ladder
 
     private bool isClimbing = false; // Whether the player is currently climbing
+    private float startingGravityScale;
     private Rigidbody2D rb; // Reference to the player's Rigidbody2D
     private Collider2D ladderCollider; // Current ladder the player is on
     private Collider2D playerCollider; // Player's collider
@@ -77,7 +78,7 @@ public class Climb : MonoBehaviour
         animator.SetBool("Climbing", false);
         animator.SetFloat("Vertical Climb", 0f);
         animator.SetFloat("Horizontal Climb", 0f);
-        rb.gravityScale = 1f; // Restore gravity
+        rb.gravityScale = startingGravityScale; // Restore gravity
 
         // Re-enable collisions with platforms
         Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Platform"), false);
@@ -88,6 +89,7 @@ public class Climb : MonoBehaviour
         // Check if the player enters a ladder
         if (collision.CompareTag("Ladder"))
         {
+            startingGravityScale = rb.gravityScale;
             ladderCollider = collision;
         }
     }
