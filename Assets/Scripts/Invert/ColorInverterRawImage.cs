@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ColorInverterRawImage : MonoBehaviour, Invertable
+public class ColorInverterRawImage : MonoBehaviour, IInvertable
 {
     public Color color01 = Color.black;
     public Color color02 = Color.white;

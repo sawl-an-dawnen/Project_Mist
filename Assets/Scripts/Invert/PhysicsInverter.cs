@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class PhysicsInverter : MonoBehaviour, Invertable
+public class PhysicsInverter : MonoBehaviour, IInvertable
 {
     public bool autoInvert = false;
 

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-interface Invertable
+interface IInvertable
 {
     public void Invert();
 }
@@ -20,10 +20,10 @@ public class Inverter : MonoBehaviour
     public void OnInvert() 
     {
         if (gameManager.InControl() && !gameManager.Paused() && gameManager.CanInvert()) {
-            Invertable[] objs = GameObject.FindObjectsOfType<MonoBehaviour>(true).OfType<Invertable>().ToArray();
+            IInvertable[] objs = GameObject.FindObjectsOfType<MonoBehaviour>(true).OfType<IInvertable>().ToArray();
             gameManager.Invert();
 
-            foreach (Invertable obj in objs)
+            foreach (IInvertable obj in objs)
             {
                 obj.Invert();
             }

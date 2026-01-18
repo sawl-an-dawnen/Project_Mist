@@ -29,9 +29,9 @@ public class SceneController : MonoBehaviour
 
     public void TriggerInversion()
     {
-        Invertable[] objs = GameObject.FindObjectsOfType<MonoBehaviour>(true).OfType<Invertable>().ToArray();
+        IInvertable[] objs = GameObject.FindObjectsOfType<MonoBehaviour>(true).OfType<IInvertable>().ToArray();
         gameManager.Invert();
-        foreach (Invertable obj in objs)
+        foreach (IInvertable obj in objs)
         {
             obj.Invert();
         }

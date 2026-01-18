@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class ColorInverter : MonoBehaviour, Invertable
+public class ColorInverter : MonoBehaviour, IInvertable
 {
     public Color color01 = Color.black;
     public Color color02 = Color.white;

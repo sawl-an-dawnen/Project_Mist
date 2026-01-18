@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ColorInvert_Particle : MonoBehaviour, Invertable
+public class ColorInvert_Particle : MonoBehaviour, IInvertable
 {
     public Color color01;
     public Color color02;
