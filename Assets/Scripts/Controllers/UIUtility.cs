@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 public class UIUtility : MonoBehaviour
 {
@@ -21,8 +22,22 @@ public class UIUtility : MonoBehaviour
         vignette = GameObject.FindWithTag("UI_Vignette").GetComponent<RawImage>();
     }
 
-    public RawImage GetBlackScreen() { return blackScreen;}
-    public RawImage GetVignette() { return vignette;}
+    public RawImage GetBlackScreen() 
+    {
+        if (blackScreen == null) 
+        {
+            blackScreen = GameObject.FindWithTag("UI_Black").GetComponent<RawImage>();
+        }
+        return blackScreen;
+    }
+    public RawImage GetVignette() 
+    { 
+        if (vignette == null) 
+        {
+            vignette = GameObject.FindWithTag("UI_Vignette").GetComponent<RawImage>();
+        }
+        return vignette;
+    }
 
     public void TransitionTMP(TextMeshProUGUI tmp, float alpha = 0f, float duration= 1f, float wait = 1f) {
         StartCoroutine(TransitionTMPCoroutine(tmp, alpha, duration, wait));
@@ -35,6 +50,7 @@ public class UIUtility : MonoBehaviour
 
     public void FadeToBlack(float duration = -1)
     {
+        if (blackScreen == null) return;
         blackScreen.color = new Color(blackScreen.color.r, blackScreen.color.g, blackScreen.color.b, 0f);
         if (duration <= -1)
         {
@@ -48,6 +64,7 @@ public class UIUtility : MonoBehaviour
 
     public void FadeIn(float duration = -1, float wait = 1f) 
     {
+        if (blackScreen == null) return;
         blackScreen.color = new Color(blackScreen.color.r, blackScreen.color.g, blackScreen.color.b, 1f);
         if (duration <= -1)
         {
