@@ -5,12 +5,16 @@ using UnityEngine;
 public class SlidingDoor : MonoBehaviour, IDoor
 {
 
-    private bool isOpen = false;
+    public bool isOpen = false;
     private Animation DoorAnimations;
 
     void Start()
     {
         DoorAnimations = GetComponent<Animation>();
+        if (isOpen) 
+        {
+            OpenDoor();
+        }
     }
 
     public void OpenDoor()
