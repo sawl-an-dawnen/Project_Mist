@@ -36,8 +36,7 @@ public class Interact : MonoBehaviour
 
     private void CounterAction(Interactable interactObj) 
     {
-        interacting = false;
-        interactable = null;
+        CancelInteraction();
         interactObj.Release();
     }
 

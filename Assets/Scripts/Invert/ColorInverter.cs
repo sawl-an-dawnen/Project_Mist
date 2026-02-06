@@ -8,7 +8,7 @@ public class ColorInverter : MonoBehaviour, IInvertable
     private float transitionSpeed = 3f;
     private SpriteRenderer sprite;
     private bool inverted = false;
-
+    private bool active = true;
 
     // Start is called before the first frame update
     void Awake()
@@ -26,8 +26,15 @@ public class ColorInverter : MonoBehaviour, IInvertable
         }
     }
 
+    public void SetActive(bool isActive)
+    {
+        active = isActive;
+    }
+
     private IEnumerator SmoothInvert(Color targetColor)
     {
+        if (!active)
+            yield break;
         while (sprite.color != targetColor && sprite != null)
         {
             sprite.color = Color.Lerp(sprite.color, targetColor, Time.deltaTime * transitionSpeed);

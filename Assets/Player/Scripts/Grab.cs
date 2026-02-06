@@ -20,6 +20,7 @@ public class Grab : Interactable
     private GameObject[] holdingArmSprites;
 
     private Rigidbody2D grabbedObject; // Currently grabbed object's Rigidbody2D
+    private Collider2D grabbedCollider; // Currently grabbed object's Collider2D
     private float gravityScaleDefaultValue;
     private LayerMask layerStateDefaultValue;
     private Rigidbody2D player;
@@ -31,6 +32,7 @@ public class Grab : Interactable
     {
         oneShot = false;
         grabbedObject = GetComponent<Rigidbody2D>();
+        grabbedCollider = GetComponent<Collider2D>();   
         gravityScaleDefaultValue = grabbedObject.gravityScale;
         layerStateDefaultValue = grabbedObject.gameObject.layer;
 
@@ -70,11 +72,21 @@ public class Grab : Interactable
 
                 Debug.DrawLine(rightArmBoneHolding.position, target.position, Color.red);  // First arm to target
                 Debug.DrawLine(leftArmBoneHolding.position, target.position, Color.green); // Second arm to target
+                if (!grabbedCollider.isActiveAndEnabled)
+                {
+                    Release();
+                    interactor.CancelInteraction();
+                }
             }
             if (player.velocity.magnitude >= maxHoldVelocity) 
             {
                 Release();
                 interactor.CancelInteraction();
+            }
+            //If the gravity scale of the object has been changed (by another script) while being held, update the stored gravity scale so it can be reset properly on release
+            if (grabbedObject.gravityScale != 0f && grabbedObject.gravityScale != gravityScaleDefaultValue)
+            {
+                gravityScaleDefaultValue = grabbedObject.gravityScale;
             }
         }
     }
@@ -83,7 +95,10 @@ public class Grab : Interactable
     {
         held = true;
         ToggleArmVisibility();
-        grabbedObject.gravityScale = 1f;
+        if (grabbedObject.gravityScale >= 0f)
+        {
+            grabbedObject.gravityScale = 1f;
+        }
         grabbedObject.gameObject.layer = LayerMask.NameToLayer("Grabbed Layer");
         moveScript.SetMoveSpeedMultiplier(1 / weight);
         moveScript.SetInteraction(GetComponent<Grab>());
