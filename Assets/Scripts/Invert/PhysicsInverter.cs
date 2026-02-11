@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,14 +13,18 @@ public class PhysicsInverter : MonoBehaviour, IInvertable
     public float invertedAngularDrag;
     public float invertedGravityScale;
     private bool inverted = false;
-    private float[] originalParameters = new float[4];
+    private readonly float[] originalParameters = new float[4];
     private Rigidbody2D rb;
 
+    private Pickup pickupScript;
+    private Grab grabScript;
 
     // Start is called before the first frame update
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        pickupScript = GetComponent<Pickup>();
+        grabScript = GetComponent<Grab>();
         originalParameters[0] = rb.mass;
         originalParameters[1] = rb.drag;
         originalParameters[2] = rb.angularDrag;
@@ -38,13 +43,22 @@ public class PhysicsInverter : MonoBehaviour, IInvertable
     {
         if (inverted)
         {
+            //go back to normal
             rb.mass = originalParameters[0];
             rb.drag = originalParameters[1];
             rb.angularDrag = originalParameters[2];
-            rb.gravityScale = originalParameters[3];
+            if (pickupScript != null && pickupScript.IsHeld())
+            {
+                rb.gravityScale = 0f;
+            }
+            else 
+            {
+                rb.gravityScale = originalParameters[3];
+            }
         }
         else
         {
+            //to invert
             rb.mass = invertedMass;
             rb.drag = invertedLinearDrag;
             rb.angularDrag = invertedAngularDrag;

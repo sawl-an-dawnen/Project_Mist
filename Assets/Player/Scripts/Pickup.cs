@@ -95,12 +95,6 @@ public class Pickup : Interactable
                 interactor.CancelInteraction();
             }
         }
-        //If the gravity scale of the object has been changed (by another script) while being held, update the stored gravity scale so it can be reset properly on release
-        if (grabbedObject.gravityScale != 0f && grabbedObject.gravityScale != gravityScaleDefaultValue) 
-        {
-            gravityScaleDefaultValue = grabbedObject.gravityScale;
-        }
-
     }
 
     public override void Interact() 
@@ -130,9 +124,17 @@ public class Pickup : Interactable
             ToggleArmVisibility();
         }
         grabbedObject.gameObject.layer = layerState; // Reset layer
-        grabbedObject.gravityScale = gravityScaleDefaultValue; // Restore gravity
+        if (grabbedObject.gravityScale >= 0f) 
+        {
+            grabbedObject.gravityScale = gravityScaleDefaultValue; // Restore gravity
+        }
         Destroy(joint);
         moveScript.ResetMoveSpeed();
+    }
+
+    public bool IsHeld() 
+    {
+        return held;
     }
 
     void ToggleArmVisibility()
