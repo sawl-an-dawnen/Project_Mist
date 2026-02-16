@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Profiling;
 
 public class Grab : Interactable
 {
@@ -9,6 +8,7 @@ public class Grab : Interactable
     public float maxAngle = 50f;
     public float minAngle = -40f;
     public float maxHoldVelocity = 2.5f;
+    public bool toggleRigidBody = false;
 
     private bool held = false;
     private Transform holdPoint; // A point near the character where the object will be held
@@ -24,6 +24,8 @@ public class Grab : Interactable
     private float gravityScaleDefaultValue;
     private LayerMask layerStateDefaultValue;
     private Rigidbody2D player;
+    private Rigidbody2D rb;
+    private RigidbodyType2D rbTypeDefaultValue;
     private Movement moveScript;
     private Interact interactor;
     private HingeJoint2D joint;
@@ -38,6 +40,7 @@ public class Grab : Interactable
 
         holdPoint = GameObject.FindGameObjectWithTag("HoldPoint").transform;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         moveScript = player.gameObject.GetComponent<Movement>();
         interactor = player.gameObject.GetComponent<Interact>();
 
@@ -93,6 +96,16 @@ public class Grab : Interactable
 
     public override void Interact()
     {
+        if (toggleRigidBody && rb.bodyType == RigidbodyType2D.Static)
+        {
+            rbTypeDefaultValue = rb.bodyType;
+            rb.bodyType = RigidbodyType2D.Dynamic;
+        }
+        else if (toggleRigidBody && rb.bodyType == RigidbodyType2D.Dynamic)
+        {
+            rbTypeDefaultValue = rb.bodyType;
+            rb.bodyType = RigidbodyType2D.Static;
+        }
         held = true;
         ToggleArmVisibility();
         if (grabbedObject.gravityScale >= 0f)
@@ -107,6 +120,14 @@ public class Grab : Interactable
 
     public override void Release()
     {
+        if (toggleRigidBody && rb.bodyType == RigidbodyType2D.Static)
+        {
+            rb.bodyType = RigidbodyType2D.Dynamic;
+        }
+        else if (toggleRigidBody && rb.bodyType == RigidbodyType2D.Dynamic)
+        {
+            rb.bodyType = RigidbodyType2D.Static;
+        }
         held = false;
         ToggleArmVisibility();
         grabbedObject.gameObject.layer = layerStateDefaultValue; // Reset layer
