@@ -10,16 +10,15 @@ public class Climb : MonoBehaviour
     private float startingGravityScale;
     private Rigidbody2D rb; // Reference to the player's Rigidbody2D
     private Collider2D ladderCollider; // Current ladder the player is on
-    private Collider2D playerCollider; // Player's collider
     private Animator animator;
     private Movement move;
     private GameManager gameManager;
+    private int numberOfLadders = 0;
 
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        playerCollider = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
         move = GetComponent<Movement>();
         gameManager = GameManager.Instance;
@@ -74,6 +73,7 @@ public class Climb : MonoBehaviour
 
     private void StopClimbing()
     {
+        Debug.Log("Stopped climbing");
         isClimbing = false;
         animator.SetBool("Climbing", false);
         animator.SetFloat("Vertical Climb", 0f);
@@ -89,8 +89,14 @@ public class Climb : MonoBehaviour
         // Check if the player enters a ladder
         if (collision.CompareTag("Ladder"))
         {
-            startingGravityScale = rb.gravityScale;
+            Debug.Log("Entered ladder");
+            if (numberOfLadders == 0)
+            {
+                startingGravityScale = rb.gravityScale;
+            }
             ladderCollider = collision;
+            numberOfLadders++;
+            Debug.Log("Number of ladders: " + numberOfLadders);
         }
     }
 
@@ -101,8 +107,11 @@ public class Climb : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        Debug.Log("Exited ladder");
+        numberOfLadders--;
+        Debug.Log("Number of ladders: " + numberOfLadders);
         // Check if the player exits a ladder
-        if (collision.CompareTag("Ladder"))
+        if (collision.CompareTag("Ladder") && numberOfLadders == 0)
         {
             ladderCollider = null;
             StopClimbing();
