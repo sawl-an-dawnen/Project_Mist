@@ -5,7 +5,7 @@ public class ColorInverter : MonoBehaviour, IInvertable
 {
     public Color color01 = Color.black;
     public Color color02 = Color.white;
-    private float transitionSpeed = 3f;
+    readonly private float transitionSpeed = 3f;
     private SpriteRenderer sprite;
     private bool inverted = false;
     private bool active = true;

@@ -5,7 +5,7 @@ public class WaterReflection : MonoBehaviour
 {
     [Header("Reflection")]
     [SerializeField] private float yOffset = -0.75f;
-    [SerializeField] private float alpha = 0.18f;
+    [SerializeField] private float alpha = 0.9f;
     [SerializeField] private float verticalScale = 0.65f;
     [SerializeField] private int sortingOrderOffset = -1;
 
@@ -29,7 +29,7 @@ public class WaterReflection : MonoBehaviour
 
         // Create reflection object
         GameObject reflectionObject =
-            new GameObject($"{gameObject.name}_Reflection");
+            new($"{gameObject.name}_Reflection");
 
         reflectionObject.transform.SetParent(transform);
 
