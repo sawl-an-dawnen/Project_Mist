@@ -66,7 +66,6 @@ public class GameManager
     public void SetPause(bool state) { paused = state; }
 
 
-
     //save game
     public void Save() {
         SaveSystem.SaveGame(this, gameSettings);
