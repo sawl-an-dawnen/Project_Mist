@@ -90,13 +90,8 @@ public class Climb : MonoBehaviour
         if (collision.CompareTag("Ladder"))
         {
             Debug.Log("Entered ladder");
-            if (numberOfLadders == 0)
-            {
-                startingGravityScale = rb.gravityScale;
-            }
+            startingGravityScale = rb.gravityScale;
             ladderCollider = collision;
-            numberOfLadders++;
-            Debug.Log("Number of ladders: " + numberOfLadders);
         }
     }
 
@@ -108,10 +103,8 @@ public class Climb : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         Debug.Log("Exited ladder");
-        numberOfLadders--;
-        Debug.Log("Number of ladders: " + numberOfLadders);
         // Check if the player exits a ladder
-        if (collision.CompareTag("Ladder") && numberOfLadders == 0)
+        if (collision.CompareTag("Ladder"))
         {
             ladderCollider = null;
             StopClimbing();

@@ -6,16 +6,25 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
     path: Assets/Scenes/01_Forest.unity
     guid: 241396ce883f74e42bdbdc200ccdab27
   - enabled: 1
     path: Assets/Scenes/02_Forest.unity
     guid: 9d366d31ec92fd54988acf6314e1a721
   - enabled: 1
-    path: Assets/Scenes/03_Forest.unity
-    guid: 5c37484a2c37d464aa77f088a7112426
+    path: Assets/Scenes/03_Swamp.unity
+    guid: 9c40ab99a61ce5a42ba3c6b6b09dbb77
+  - enabled: 1
+    path: Assets/Scenes/04_Warehouse.unity
+    guid: 42b1dfd55377ee84899f9d3e7b7566cf
+  - enabled: 1
+    path: Assets/Scenes/05_Cave.unity
+    guid: 8e993d3911e3c0d4191cb928c3158c49
+  - enabled: 1
+    path: Assets/Scenes/06_Cliff.unity
+    guid: 474fa587f825cb74e9d31e594869d43b
+  - enabled: 1
+    path: Assets/Scenes/TheEnd.unity
+    guid: 9ec4c85c2c1cacd4d9d111d25eadf4ae
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: fd7d3ab9c8ee1944681c63830e83f478, type: 2}

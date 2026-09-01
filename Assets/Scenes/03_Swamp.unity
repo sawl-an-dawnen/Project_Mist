@@ -71978,7 +71978,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3394606544806237908, guid: 949d98830c0c41f4ca349ad33e8fe2d1, type: 3}
       propertyPath: nextLevel
-      value: 03_Warehouse
+      value: 04_Warehouse
       objectReference: {fileID: 0}
     - target: {fileID: 3394606544806237908, guid: 949d98830c0c41f4ca349ad33e8fe2d1, type: 3}
       propertyPath: activeOnNextScene
