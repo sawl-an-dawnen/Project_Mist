@@ -15391,8 +15391,8 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: 0.7163766, y: 0.28694752}
-      - {x: 0.109513946, y: 0.24069437}
-      - {x: -0.2535314, y: 0.24957846}
+      - {x: 0.12804164, y: 0.26759058}
+      - {x: -0.24246138, y: 0.27418596}
       - {x: -0.5356129, y: 0.28059363}
       - {x: -1.1824435, y: 0.27562413}
       - {x: -1.1899999, y: -0.35999998}
@@ -26696,13 +26696,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 212115120}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.047857378, w: 0.9988542}
-  m_LocalPosition: {x: 76.665, y: 0.191, z: 0.07181728}
+  m_LocalRotation: {x: -0, y: -0, z: -0.028631663, w: 0.99959004}
+  m_LocalPosition: {x: 76.668, y: 0.122, z: 0.07181728}
   m_LocalScale: {x: -0.7220501, y: 0.6051187, z: 1.0088}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 444303547}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -5.486}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -3.281}
 --- !u!114 &212115122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33390,13 +33390,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 262759614}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.05210999, w: 0.9986414}
-  m_LocalPosition: {x: 77.97469, y: 0.0710293, z: 0.07181728}
+  m_LocalRotation: {x: -0, y: -0, z: -0.032887593, w: 0.9994591}
+  m_LocalPosition: {x: 77.981, y: 0.053, z: 0.07181728}
   m_LocalScale: {x: -0.47879142, y: 0.6051187, z: 1.0088}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 444303547}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -5.974}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -3.769}
 --- !u!114 &262759616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47501,8 +47501,8 @@ PolygonCollider2D:
     m_Paths:
     - - {x: 0.16571727, y: 0.29001242}
       - {x: -0.095572755, y: 0.26425093}
-      - {x: -0.55542773, y: 0.21857241}
-      - {x: -0.8126016, y: 0.23979995}
+      - {x: -0.54852635, y: 0.25682652}
+      - {x: -0.8376199, y: 0.2608211}
       - {x: -1.1824435, y: 0.27562413}
       - {x: -1.183671, y: 0.17248575}
       - {x: -1.1899999, y: -0.35999998}
@@ -189764,7 +189764,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guarunteeInversionControl: 1
-  skipTitle: 1
+  skipTitle: 0
 --- !u!114 &1531551345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257911,13 +257911,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2111579728}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.0033916729, w: 0.9999943}
-  m_LocalPosition: {x: 74.5763, y: 0.2621, z: 0.07181728}
+  m_LocalRotation: {x: -0, y: -0, z: -0.024068138, w: 0.9997103}
+  m_LocalPosition: {x: 74.586, y: 0.228, z: 0.07181728}
   m_LocalScale: {x: -1.0820187, y: 0.6051187, z: 1.0088}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 444303547}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.389}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -2.758}
 --- !u!114 &2111579730
 MonoBehaviour:
   m_ObjectHideFlags: 0

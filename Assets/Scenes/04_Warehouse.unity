@@ -121698,7 +121698,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guarunteeInversionControl: 1
-  skipTitle: 1
+  skipTitle: 0
 --- !u!114 &1531551345
 MonoBehaviour:
   m_ObjectHideFlags: 0

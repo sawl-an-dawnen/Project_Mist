@@ -88,7 +88,7 @@ public class GameManager
         }
         else
         {
-            level = "Forest";
+            level = "01_Forest";
             gameSettings.SetMusicVolume(50f);
             gameSettings.SetSfxVolume(50f);
         }

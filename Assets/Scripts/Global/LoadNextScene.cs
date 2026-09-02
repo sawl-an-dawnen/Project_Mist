@@ -50,9 +50,15 @@ public class LoadNextScene : MonoBehaviour
         gameManager.SetActiveOnNextRespawn(activeOnNextScene);
         yield return StartCoroutine(sceneController.PrepNextScene(nextLevel));
         backupBlack.enabled = true;
+        gameManager.SetLevel(nextLevel);
         yield return LoadSceneAsync(nextLevel);
     }
 
-    private void OnTriggerEnter2D(Collider2D other) => StartCoroutine(TransitionToNextScene());
-
+    private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                StartCoroutine(TransitionToNextScene());
+            }
+        }
 }
