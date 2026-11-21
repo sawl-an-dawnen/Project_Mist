@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 using UnityEngine.InputSystem;
@@ -17,11 +18,20 @@ public class Movement : MonoBehaviour
     //public float fallingMaxSpeed = 3f;
     private float fallingSpeed;
 
+    // ADDED: Footstep audio
+    [Header("Footstep Audio")]
+    [SerializeField] private AudioClip grassFootstep;
+    [SerializeField] private AudioClip concreteFootstep;
+    [SerializeField] private float stepDistance = 1f;
+    [SerializeField] private AudioSource footstepAudioSource;
+    private float distanceSinceLastStep = 0f;
+
     private Rigidbody2D rb;
     private Vector2 moveInput;
     private float velocityX = 0f;
     private float jumpYCoordinate;
     private bool isGrounded;
+    private bool wasGrounded;
     private bool jumpPressed = false;
     private float jumpTimer = 0.2f;
     private float coyoteTime = 0.2f;
@@ -46,20 +56,22 @@ public class Movement : MonoBehaviour
         animator = GetComponent<Animator>();
         playerScale = gameObject.transform.localScale;
         grabScript = GetComponent<Grab>();
-        climb = GetComponent<Climb>();  
+        climb = GetComponent<Climb>();
         mantle = GetComponent<Mantle>();
         gameManager = GameManager.Instance;
         gameController = GameObject.FindWithTag("GameController");
         pauseController = gameController.GetComponent<PauseController>();
     }
+
     void Update()
     {
         // Movement animation logic and param
-        if (moveInput.magnitude > 0)  {
+        if (Mathf.Abs(moveInput.x) > 0.01f)
+        {
             animator.SetBool("Move", true);
             animator.SetFloat("Move Speed Multiplyer", moveSpeedMultiplier * moveInput.x);
 
-            if (interactable == null || interactable.GetType() != typeof(Grab)) 
+            if (interactable == null || interactable.GetType() != typeof(Grab))
             {
                 if (moveInput.x > 0)
                 {
@@ -94,14 +106,15 @@ public class Movement : MonoBehaviour
 
         // Ground check
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer) && !mantle.MantleEnabled;
-        if (isGrounded)   {
+        if (isGrounded)
+        {
             jumpYCoordinate = transform.position.y;
             animator.SetBool("Grounded", true);
             coyoteTimeCounter = coyoteTime;
             fallingSpeed = 0f;
-            //if (fallingSpeed <= -fallingMaxSpeed) 
+            //if (fallingSpeed <= -fallingMaxSpeed)
             //{
-                //GetComponent<Death>().TriggerDeath(2f);
+            //GetComponent<Death>().TriggerDeath(2f);
             //}
         }
         else {
@@ -109,15 +122,77 @@ public class Movement : MonoBehaviour
             coyoteTimeCounter -= Time.deltaTime;
             fallingSpeed = rb.velocity.y;
         }
+
+        // ADDED: Play a footstep when landing
+        if (isGrounded && !wasGrounded)
+        {
+            PlayFootstep();
+            distanceSinceLastStep = 0f;
+        }
+
+        // ADDED: Remember grounded state for next frame
+        wasGrounded = isGrounded;
+
+        // ADDED: Handle footstep sounds
+        HandleFootsteps();
     }
 
     void FixedUpdate()
     {
         velocityX = Mathf.Lerp(velocityX, moveInput.x * moveSpeed, Time.deltaTime * 8f);
         // Horizontal movement
-        if (!climb.Climbing()) 
+        if (!climb.Climbing())
         {
             rb.velocity = new Vector2(velocityX, rb.velocity.y);
+        }
+    }
+
+    // ADDED: Footstep system
+    private void HandleFootsteps()
+    {
+        if (!isGrounded ||
+            Mathf.Abs(moveInput.x) < 0.01f ||
+            Mathf.Abs(rb.velocity.x) < 0.1f ||
+            climb.Climbing() ||
+            mantle.MantleEnabled ||
+            gameManager.Paused())
+        {
+            distanceSinceLastStep = 0f;
+            return;
+        }
+
+        distanceSinceLastStep += Mathf.Abs(rb.velocity.x) * Time.deltaTime;
+
+        if (distanceSinceLastStep >= stepDistance)
+        {
+            PlayFootstep();
+            distanceSinceLastStep %= Mathf.Max(stepDistance, 0.01f);
+        }
+    }
+
+    private void PlayFootstep()
+    {
+        if (footstepAudioSource == null)
+            return;
+
+        AudioClip selectedFootstep = grassFootstep;
+
+        Collider2D groundCollider = Physics2D.OverlapCircle(
+            groundCheck.position,
+            groundCheckRadius,
+            groundLayer
+        );
+
+        if (groundCollider != null && groundCollider.CompareTag("Concrete"))
+        {
+            selectedFootstep = concreteFootstep;
+        }
+
+        if (selectedFootstep != null)
+        {
+            footstepAudioSource.Stop();
+            footstepAudioSource.clip = selectedFootstep;
+            footstepAudioSource.Play();
         }
     }
 
@@ -146,30 +221,30 @@ public class Movement : MonoBehaviour
 
     public bool CheckGrounded() => isGrounded;
 
-    public void SetMoveSpeedMultiplier(float m) 
-    { 
+    public void SetMoveSpeedMultiplier(float m)
+    {
         moveSpeedMultiplier = m;
     }
-    public void ResetMoveSpeed() 
-    { 
+    public void ResetMoveSpeed()
+    {
         moveSpeedMultiplier = 1f;
     }
 
-    public void SetInteraction(Interactable interaction) 
+    public void SetInteraction(Interactable interaction)
     {
         interactable = interaction;
     }
 
-    public bool Interacting() 
+    public bool Interacting()
     {
-        if (interactable == null) 
+        if (interactable == null)
         {
             return false;
         }
         return true;
     }
 
-    public float GetLastYCoordinate() 
+    public float GetLastYCoordinate()
     {
         return jumpYCoordinate;
     }

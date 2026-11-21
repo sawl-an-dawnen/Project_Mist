@@ -563,6 +563,10 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 1544
+  grassFootstep: {fileID: 8300000, guid: 199a38cf53f75a74b92df940740ef1df, type: 3}
+  concreteFootstep: {fileID: 8300000, guid: 2c9cdf0c04b217845bfc5218aecc83f9, type: 3}
+  stepDistance: 0.25
+  footstepAudioSource: {fileID: 0}
 --- !u!114 &543400869573128618
 MonoBehaviour:
   m_ObjectHideFlags: 0

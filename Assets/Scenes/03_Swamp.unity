@@ -5642,7 +5642,7 @@ GameObject:
   - component: {fileID: 43455300}
   m_Layer: 10
   m_Name: 000 (15)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26836,7 +26836,7 @@ GameObject:
   - component: {fileID: 213354788}
   m_Layer: 3
   m_Name: 000 (25)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28110,7 +28110,7 @@ GameObject:
   - component: {fileID: 224429031}
   m_Layer: 9
   m_Name: box
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38740,7 +38740,7 @@ GameObject:
   - component: {fileID: 308984550}
   m_Layer: 10
   m_Name: 000 (13)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58092,7 +58092,7 @@ GameObject:
   - component: {fileID: 454441946}
   m_Layer: 3
   m_Name: log (4)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62010,7 +62010,7 @@ GameObject:
   - component: {fileID: 479298100}
   m_Layer: 10
   m_Name: 000 (16)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63445,7 +63445,7 @@ GameObject:
   - component: {fileID: 490495640}
   m_Layer: 9
   m_Name: Rock
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71343,7 +71343,7 @@ GameObject:
   - component: {fileID: 543214640}
   m_Layer: 10
   m_Name: 000 (9)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76636,7 +76636,7 @@ GameObject:
   - component: {fileID: 580211482}
   m_Layer: 10
   m_Name: 000 (8)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -88849,7 +88849,7 @@ GameObject:
   - component: {fileID: 687790638}
   m_Layer: 10
   m_Name: 000 (27)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96150,7 +96150,7 @@ GameObject:
   - component: {fileID: 739200896}
   m_Layer: 3
   m_Name: 000 (27)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101135,7 +101135,7 @@ GameObject:
   - component: {fileID: 774058263}
   m_Layer: 9
   m_Name: box (2)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105238,7 +105238,7 @@ GameObject:
   - component: {fileID: 812668930}
   m_Layer: 10
   m_Name: 000 (12)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108265,7 +108265,7 @@ GameObject:
   - component: {fileID: 840541393}
   m_Layer: 10
   m_Name: 000 (7)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109113,7 +109113,7 @@ GameObject:
   - component: {fileID: 845949012}
   m_Layer: 10
   m_Name: 000 (26)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111290,7 +111290,7 @@ GameObject:
   - component: {fileID: 863419079}
   m_Layer: 9
   m_Name: box (8)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125617,7 +125617,7 @@ GameObject:
   - component: {fileID: 995801906}
   m_Layer: 10
   m_Name: 017
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126105,7 +126105,7 @@ GameObject:
   - component: {fileID: 999902001}
   m_Layer: 10
   m_Name: 000 (24)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126805,7 +126805,7 @@ GameObject:
   - component: {fileID: 1005833608}
   m_Layer: 10
   m_Name: 000 (3)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -133672,7 +133672,7 @@ GameObject:
   - component: {fileID: 1064194462}
   m_Layer: 10
   m_Name: 000 (11)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -135351,7 +135351,7 @@ GameObject:
   - component: {fileID: 1080544143}
   m_Layer: 3
   m_Name: 001-005 (32)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -136099,7 +136099,7 @@ GameObject:
   - component: {fileID: 1083930674}
   m_Layer: 3
   m_Name: 001-005 (33)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141506,7 +141506,7 @@ GameObject:
   - component: {fileID: 1135485796}
   m_Layer: 10
   m_Name: 000 (8)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -142133,7 +142133,7 @@ GameObject:
   - component: {fileID: 1144006011}
   m_Layer: 10
   m_Name: 001-003 (3)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -157283,7 +157283,7 @@ GameObject:
   - component: {fileID: 1256939668}
   m_Layer: 3
   m_Name: 000 (28)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -161220,7 +161220,7 @@ GameObject:
   - component: {fileID: 1282085324}
   m_Layer: 10
   m_Name: 000 (9)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -161367,7 +161367,7 @@ GameObject:
   - component: {fileID: 1282479234}
   m_Layer: 3
   m_Name: boulder
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165994,7 +165994,7 @@ GameObject:
   - component: {fileID: 1316757711}
   m_Layer: 9
   m_Name: box (1)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -177084,7 +177084,7 @@ GameObject:
   - component: {fileID: 1409279900}
   m_Layer: 10
   m_Name: 000 (3)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -185572,7 +185572,7 @@ GameObject:
   - component: {fileID: 1488928995}
   m_Layer: 10
   m_Name: 000 (23)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -192838,7 +192838,7 @@ GameObject:
   - component: {fileID: 1554395076}
   m_Layer: 10
   m_Name: 000 (3)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -196866,7 +196866,7 @@ GameObject:
   - component: {fileID: 1592977327}
   m_Layer: 10
   m_Name: 000 (5)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -205144,7 +205144,7 @@ GameObject:
   - component: {fileID: 1675074916}
   m_Layer: 10
   m_Name: 000 (10)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -214025,7 +214025,7 @@ GameObject:
   - component: {fileID: 1752017030}
   m_Layer: 10
   m_Name: 000
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -214271,7 +214271,7 @@ GameObject:
   - component: {fileID: 1752400901}
   m_Layer: 9
   m_Name: box (7)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -223846,6 +223846,7 @@ GameObject:
   - component: {fileID: 1833273797}
   - component: {fileID: 1833273799}
   - component: {fileID: 1833273798}
+  - component: {fileID: 1833273800}
   m_Layer: 0
   m_Name: Water
   m_TagString: Untagged
@@ -223934,6 +223935,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1833273800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833273796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ce2622336dfb6840a922cde89cbae5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  water: 1
 --- !u!1 &1833549513
 GameObject:
   m_ObjectHideFlags: 0
@@ -242289,7 +242303,7 @@ GameObject:
   - component: {fileID: 1988410536}
   m_Layer: 9
   m_Name: box (3)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

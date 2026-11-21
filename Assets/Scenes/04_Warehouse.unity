@@ -1301,7 +1301,7 @@ GameObject:
   - component: {fileID: 23571815}
   m_Layer: 3
   m_Name: 001-005 (44)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1551,7 +1551,7 @@ GameObject:
   - component: {fileID: 25371466}
   m_Layer: 3
   m_Name: BlackFloor (1)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9518,7 +9518,7 @@ GameObject:
   - component: {fileID: 134834774}
   m_Layer: 9
   m_Name: box (1)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13351,7 +13351,7 @@ GameObject:
   - component: {fileID: 176129385}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13392,7 +13392,7 @@ GameObject:
   - component: {fileID: 176679375}
   m_Layer: 3
   m_Name: Wall (4)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14050,7 +14050,7 @@ GameObject:
   - component: {fileID: 180539647}
   m_Layer: 9
   m_Name: box (5)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20623,6 +20623,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 2035091145273601631, guid: 5d0c8ef03628a014fba235b6d86dacb4, type: 3}
+      propertyPath: m_TagString
+      value: Concrete
+      objectReference: {fileID: 0}
     - target: {fileID: 7701074197618806184, guid: 5d0c8ef03628a014fba235b6d86dacb4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.03
@@ -21086,7 +21090,7 @@ GameObject:
   - component: {fileID: 274930293}
   m_Layer: 3
   m_Name: Wall (8)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22076,7 +22080,7 @@ GameObject:
   - component: {fileID: 286977652}
   m_Layer: 9
   m_Name: box (9)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32075,7 +32079,7 @@ GameObject:
   - component: {fileID: 408906005}
   m_Layer: 3
   m_Name: BlackFloor
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32702,7 +32706,7 @@ GameObject:
   - component: {fileID: 416840355}
   m_Layer: 9
   m_Name: box (7)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37243,7 +37247,7 @@ GameObject:
   - component: {fileID: 473796164}
   m_Layer: 3
   m_Name: ElectricFloor
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38443,7 +38447,7 @@ GameObject:
   - component: {fileID: 492354530}
   m_Layer: 3
   m_Name: 001-005 (33)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39501,7 +39505,7 @@ GameObject:
   - component: {fileID: 511850185}
   m_Layer: 3
   m_Name: Stairs
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41288,7 +41292,7 @@ GameObject:
   - component: {fileID: 533106179}
   m_Layer: 3
   m_Name: 001-005 (34)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47242,6 +47246,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4034612308257908975, guid: 28f4a85332b0a4f4cb6a6fc13566931b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.484
+      objectReference: {fileID: 0}
     - target: {fileID: 7015563215022263760, guid: 28f4a85332b0a4f4cb6a6fc13566931b, type: 3}
       propertyPath: m_Distance
       value: 0.005
@@ -52645,7 +52653,7 @@ GameObject:
   - component: {fileID: 668485262}
   m_Layer: 3
   m_Name: 001-005 (41)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53322,7 +53330,7 @@ GameObject:
   - component: {fileID: 677032907}
   m_Layer: 3
   m_Name: Floor (15)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54522,7 +54530,7 @@ GameObject:
   - component: {fileID: 686274843}
   m_Layer: 9
   m_Name: box (8)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54708,7 +54716,7 @@ GameObject:
   - component: {fileID: 687378092}
   m_Layer: 3
   m_Name: Wall (5)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60569,6 +60577,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ReframeZone
       objectReference: {fileID: 0}
+    - target: {fileID: 1193252817411701339, guid: 9f535a55ccc90e54a81b7155566018d7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7053176428179691730, guid: 9f535a55ccc90e54a81b7155566018d7, type: 3}
       propertyPath: m_Color.a
       value: 0
@@ -61153,7 +61165,7 @@ GameObject:
   - component: {fileID: 745985253}
   m_Layer: 10
   m_Name: Wall (7)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -64649,7 +64661,7 @@ GameObject:
   - component: {fileID: 798647027}
   m_Layer: 9
   m_Name: Wall (15)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71922,7 +71934,7 @@ GameObject:
   - component: {fileID: 909073938}
   m_Layer: 3
   m_Name: 001-005 (35)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -72619,7 +72631,7 @@ GameObject:
   - component: {fileID: 919973830}
   m_Layer: 9
   m_Name: Wall (16)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74546,7 +74558,7 @@ GameObject:
   - component: {fileID: 945054645}
   m_Layer: 3
   m_Name: BlackFloor (2)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76410,7 +76422,7 @@ GameObject:
   - component: {fileID: 958813109}
   m_Layer: 9
   m_Name: box (8)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78959,7 +78971,7 @@ GameObject:
   - component: {fileID: 985556252}
   m_Layer: 3
   m_Name: BlackFloor (4)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -82036,7 +82048,7 @@ GameObject:
   - component: {fileID: 1030716350}
   m_Layer: 3
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -82497,7 +82509,7 @@ GameObject:
   - component: {fileID: 1033960894}
   m_Layer: 9
   m_Name: box (4)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -86988,7 +87000,7 @@ GameObject:
   - component: {fileID: 1112949085}
   m_Layer: 9
   m_Name: Wall (10)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -87979,7 +87991,7 @@ GameObject:
   - component: {fileID: 1127688096}
   m_Layer: 9
   m_Name: box (7)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -88807,7 +88819,7 @@ GameObject:
   - component: {fileID: 1134420497}
   m_Layer: 9
   m_Name: box (6)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -94093,7 +94105,7 @@ GameObject:
   - component: {fileID: 1198678863}
   m_Layer: 3
   m_Name: Wall (7)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95317,7 +95329,7 @@ GameObject:
   - component: {fileID: 1207603031}
   m_Layer: 3
   m_Name: 001-005 (36)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100269,7 +100281,7 @@ GameObject:
   - component: {fileID: 1258894005}
   m_Layer: 3
   m_Name: 001-005 (37)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101775,7 +101787,7 @@ GameObject:
   - component: {fileID: 1278866822}
   m_Layer: 3
   m_Name: 001-005 (40)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -106554,7 +106566,7 @@ GameObject:
   - component: {fileID: 1336980621}
   m_Layer: 9
   m_Name: Wall (7)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108171,7 +108183,7 @@ GameObject:
   - component: {fileID: 1360937368}
   m_Layer: 9
   m_Name: Wall (17)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112441,7 +112453,7 @@ GameObject:
   - component: {fileID: 1411277520}
   m_Layer: 10
   m_Name: ElectricFloor (2)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -113514,7 +113526,7 @@ GameObject:
   - component: {fileID: 1423496025}
   m_Layer: 3
   m_Name: Wall (8)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -115331,7 +115343,7 @@ GameObject:
   - component: {fileID: 1447285230}
   m_Layer: 10
   m_Name: ElectricFloor (1)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -115732,7 +115744,7 @@ GameObject:
   - component: {fileID: 1452878358}
   m_Layer: 9
   m_Name: Wall (6)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -116646,7 +116658,7 @@ GameObject:
   - component: {fileID: 1470359271}
   m_Layer: 3
   m_Name: 001-005 (42)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118042,7 +118054,7 @@ GameObject:
   - component: {fileID: 1489392822}
   m_Layer: 3
   m_Name: 001-005 (40)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121149,7 +121161,7 @@ GameObject:
   - component: {fileID: 1528437094}
   m_Layer: 9
   m_Name: box (11)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121885,7 +121897,7 @@ GameObject:
   - component: {fileID: 1533478309}
   m_Layer: 9
   m_Name: box (12)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -127040,7 +127052,7 @@ GameObject:
   - component: {fileID: 1620525523}
   m_Layer: 3
   m_Name: 001-005 (43)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -127192,7 +127204,7 @@ GameObject:
   - component: {fileID: 1620715174}
   m_Layer: 3
   m_Name: IndustrialStairs
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -128365,7 +128377,7 @@ GameObject:
   - component: {fileID: 1639603074}
   m_Layer: 3
   m_Name: 001-005 (45)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -131390,7 +131402,7 @@ GameObject:
   - component: {fileID: 1693897164}
   m_Layer: 3
   m_Name: 001-005 (41)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -132638,7 +132650,7 @@ GameObject:
   - component: {fileID: 1715364916}
   m_Layer: 9
   m_Name: box (10)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -133352,7 +133364,7 @@ GameObject:
   - component: {fileID: 1723441879}
   m_Layer: 3
   m_Name: Wall (9)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -140228,7 +140240,7 @@ GameObject:
   - component: {fileID: 1819550415}
   m_Layer: 9
   m_Name: Wall (18)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -160880,7 +160892,7 @@ GameObject:
   - component: {fileID: 2072667083}
   m_Layer: 9
   m_Name: Wall (17)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -164134,7 +164146,7 @@ GameObject:
   - component: {fileID: 2112558149}
   m_Layer: 3
   m_Name: Wall (8)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165043,7 +165055,7 @@ Transform:
   m_GameObject: {fileID: 2127754931}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 13.380199, y: -1.4837999, z: 0.14725505}
+  m_LocalPosition: {x: 13.394199, y: -1.4837999, z: 0.14725505}
   m_LocalScale: {x: 24.637878, y: 1.6723417, z: 6.7452}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -166157,7 +166169,7 @@ GameObject:
   - component: {fileID: 2145794512}
   m_Layer: 9
   m_Name: box (9)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -166363,7 +166375,7 @@ GameObject:
   - component: {fileID: 2146080468}
   m_Layer: 9
   m_Name: box (10)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -166960,7 +166972,7 @@ SpringJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: -44.888992, y: 0.81347305}
+  m_ConnectedAnchor: {x: -44.888992, y: 0.81697303}
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0
@@ -167122,7 +167134,7 @@ GameObject:
   - component: {fileID: 1192611511791208926}
   m_Layer: 3
   m_Name: TriggerKey
-  m_TagString: TriggerKey
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -167468,8 +167480,8 @@ Transform:
   m_GameObject: {fileID: 2173004870756255918}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.4765015, y: -2.166, z: 0.14725505}
-  m_LocalScale: {x: 0.934557, y: 1.1930106, z: 6.7452}
+  m_LocalPosition: {x: 6.4765015, y: -2.1625, z: 0.14725505}
+  m_LocalScale: {x: 0.9400709, y: 1.2000494, z: 6.784997}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7740163783143928904}

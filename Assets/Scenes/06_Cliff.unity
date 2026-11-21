@@ -7252,7 +7252,7 @@ GameObject:
   - component: {fileID: 128539709}
   m_Layer: 9
   m_Name: 001-019 (42)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13243,7 +13243,7 @@ GameObject:
   - component: {fileID: 217607117}
   m_Layer: 9
   m_Name: 001-019 (27)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13257,8 +13257,8 @@ Transform:
   m_GameObject: {fileID: 217607115}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.9999476, w: 0.010238507}
-  m_LocalPosition: {x: 5.539, y: 10.756, z: 0}
-  m_LocalScale: {x: 2.54999, y: 1.9605674, z: 1.9605675}
+  m_LocalPosition: {x: 5.5382, y: 10.7567, z: -0}
+  m_LocalScale: {x: 2.550755, y: 1.9611557, z: 1.9611558}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 765386889}
@@ -30751,7 +30751,7 @@ GameObject:
   - component: {fileID: 511499704}
   m_Layer: 9
   m_Name: 001-019 (37)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30765,8 +30765,8 @@ Transform:
   m_GameObject: {fileID: 511499702}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.124496736, w: -0.99222004}
-  m_LocalPosition: {x: 12.9, y: 12.713, z: 0}
-  m_LocalScale: {x: 2.54999, y: 1.267742, z: 1.9605675}
+  m_LocalPosition: {x: 12.9017, y: 12.7144, z: -0}
+  m_LocalScale: {x: 2.550755, y: 1.2681224, z: 1.9611558}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 765386889}
@@ -60388,7 +60388,7 @@ GameObject:
   - component: {fileID: 924764771}
   m_Layer: 10
   m_Name: 000 (12)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -65635,7 +65635,7 @@ GameObject:
   - component: {fileID: 1004650472}
   m_Layer: 9
   m_Name: 001-019 (39)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -65649,8 +65649,8 @@ Transform:
   m_GameObject: {fileID: 1004650470}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.12586886, w: 0.99204695}
-  m_LocalPosition: {x: 14.756, y: 13.99, z: 0}
-  m_LocalScale: {x: 2.54999, y: 1.267742, z: 1.9605675}
+  m_LocalPosition: {x: 14.7583, y: 13.9918, z: -0}
+  m_LocalScale: {x: 2.550755, y: 1.2681224, z: 1.9611558}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 765386889}
@@ -67534,7 +67534,7 @@ GameObject:
   - component: {fileID: 1027068234}
   m_Layer: 9
   m_Name: 001-019 (34)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -67548,8 +67548,8 @@ Transform:
   m_GameObject: {fileID: 1027068232}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.3047867, w: -0.95242065}
-  m_LocalPosition: {x: 7.684, y: 11.277, z: 0}
-  m_LocalScale: {x: 2.54999, y: 1.267742, z: 1.9605675}
+  m_LocalPosition: {x: 7.6839, y: 11.2779, z: -0}
+  m_LocalScale: {x: 2.550755, y: 1.2681224, z: 1.9611558}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 765386889}
@@ -80675,7 +80675,7 @@ GameObject:
   - component: {fileID: 1259506361}
   m_Layer: 9
   m_Name: 001-019 (43)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -81317,7 +81317,7 @@ GameObject:
   - component: {fileID: 1264500761}
   m_Layer: 9
   m_Name: 001-019 (21)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -81331,8 +81331,8 @@ Transform:
   m_GameObject: {fileID: 1264500759}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.37017623, w: 0.92896163}
-  m_LocalPosition: {x: 11.8, y: 12.048, z: 0}
-  m_LocalScale: {x: 2.1932003, y: 2.1932, z: 2.1932}
+  m_LocalPosition: {x: 11.8013, y: 12.0491, z: -0}
+  m_LocalScale: {x: 2.1938584, y: 2.1938581, z: 2.1938581}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 923510080}
@@ -83198,7 +83198,7 @@ GameObject:
   - component: {fileID: 1294159798}
   m_Layer: 9
   m_Name: 001-019 (36)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83212,8 +83212,8 @@ Transform:
   m_GameObject: {fileID: 1294159796}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.46850166, w: 0.8834626}
-  m_LocalPosition: {x: 10.16, y: 11.64, z: 0}
-  m_LocalScale: {x: 2.54999, y: 1.267742, z: 1.9605675}
+  m_LocalPosition: {x: 10.1608, y: 11.641, z: -0}
+  m_LocalScale: {x: 2.550755, y: 1.2681224, z: 1.9611558}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 765386889}
@@ -87105,7 +87105,7 @@ GameObject:
   - component: {fileID: 1345864354}
   m_Layer: 3
   m_Name: Floor (25)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -89694,7 +89694,7 @@ GameObject:
   - component: {fileID: 1378986967}
   m_Layer: 9
   m_Name: 001-019 (41)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -90260,7 +90260,7 @@ GameObject:
   - component: {fileID: 1383221267}
   m_Layer: 9
   m_Name: 001-019 (35)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -90274,8 +90274,8 @@ Transform:
   m_GameObject: {fileID: 1383221265}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.22888723, w: -0.973453}
-  m_LocalPosition: {x: 8.971, y: 11.521, z: 0}
-  m_LocalScale: {x: 2.54999, y: 1.267742, z: 1.9605675}
+  m_LocalPosition: {x: 8.9713, y: 11.522, z: -0}
+  m_LocalScale: {x: 2.550755, y: 1.2681224, z: 1.9611558}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 765386889}
@@ -92167,7 +92167,7 @@ GameObject:
   - component: {fileID: 1419937871}
   m_Layer: 9
   m_Name: 001-019 (33)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92181,8 +92181,8 @@ Transform:
   m_GameObject: {fileID: 1419937869}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.9997246, w: 0.023466771}
-  m_LocalPosition: {x: 6.582, y: 11.108, z: 0}
-  m_LocalScale: {x: 2.54999, y: 1.267742, z: 1.9605675}
+  m_LocalPosition: {x: 6.5815, y: 11.1088, z: -0}
+  m_LocalScale: {x: 2.550755, y: 1.2681224, z: 1.9611558}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 765386889}
@@ -95364,7 +95364,7 @@ GameObject:
   - component: {fileID: 1474672280}
   m_Layer: 3
   m_Name: Floor (26)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110115,7 +110115,7 @@ GameObject:
   - component: {fileID: 1685706478}
   m_Layer: 9
   m_Name: 001-019 (40)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110129,8 +110129,8 @@ Transform:
   m_GameObject: {fileID: 1685706476}
   serializedVersion: 2
   m_LocalRotation: {x: -0.0041160565, y: 0.008610577, z: -0.1922908, w: 0.98129165}
-  m_LocalPosition: {x: 15.359, y: 14.032, z: 0.003}
-  m_LocalScale: {x: 2.54999, y: 1.267742, z: 1.9605675}
+  m_LocalPosition: {x: 15.3615, y: 14.0338, z: 0.003}
+  m_LocalScale: {x: 2.550755, y: 1.2681224, z: 1.9611558}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 765386889}
@@ -117933,7 +117933,7 @@ GameObject:
   - component: {fileID: 1792992362}
   m_Layer: 9
   m_Name: 001-019 (28)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -117947,8 +117947,8 @@ Transform:
   m_GameObject: {fileID: 1792992360}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.9999177, w: -0.012830224}
-  m_LocalPosition: {x: 4.006, y: 10.969999, z: 0}
-  m_LocalScale: {x: 2.54999, y: 1.267742, z: 1.9605675}
+  m_LocalPosition: {x: 4.0047, y: 10.9708, z: -0}
+  m_LocalScale: {x: 2.550755, y: 1.2681224, z: 1.9611558}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 765386889}
@@ -132473,7 +132473,7 @@ GameObject:
   - component: {fileID: 1986294823}
   m_Layer: 9
   m_Name: 001-019 (38)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -132487,8 +132487,8 @@ Transform:
   m_GameObject: {fileID: 1986294821}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.49288046, w: 0.87009704}
-  m_LocalPosition: {x: 13.33, y: 13.219, z: 0}
-  m_LocalScale: {x: 2.54999, y: 1.267742, z: 1.9605675}
+  m_LocalPosition: {x: 13.3318, y: 13.2205, z: -0}
+  m_LocalScale: {x: 2.550755, y: 1.2681224, z: 1.9611558}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 765386889}
@@ -138168,7 +138168,7 @@ GameObject:
   - component: {fileID: 2064284402}
   m_Layer: 10
   m_Name: 000 (9)
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -139089,7 +139089,7 @@ Transform:
   m_GameObject: {fileID: 2080840780}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.69152606, w: -0.7223516}
-  m_LocalPosition: {x: 57.939995, y: 5.4599967, z: 0.21907233}
+  m_LocalPosition: {x: 57.93, y: 5.45, z: 0.21907233}
   m_LocalScale: {x: 0.77718294, y: 1.1231053, z: 0.7771829}
   m_ConstrainProportionsScale: 0
   m_Children: []

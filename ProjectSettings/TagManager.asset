@@ -30,6 +30,11 @@ TagManager:
   - UI_Backup_Black
   - CameraPositionLow
   - TransitionCamera
+  - Player_Footsteps
+  - Concrete
+  - music_slider
+  - sfx_slider
+  - SoundController
   layers:
   - Default
   - TransparentFX

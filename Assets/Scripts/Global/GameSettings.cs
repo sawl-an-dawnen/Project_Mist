@@ -5,8 +5,8 @@ using UnityEngine;
 public class GameSettings
 {
     static GameSettings gameSettings = null;
-    private float musicVolume = 50f;
-    private float sfxVolume = 50f;
+    private float musicVolume = 100f;
+    private float sfxVolume = 100f;
 
     public static GameSettings Instance
     {
