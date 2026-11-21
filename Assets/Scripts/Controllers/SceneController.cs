@@ -31,11 +31,19 @@ public class SceneController : MonoBehaviour
     {
         IInvertable[] objs = GameObject.FindObjectsOfType<MonoBehaviour>(true).OfType<IInvertable>().ToArray();
         gameManager.Invert();
+
         foreach (IInvertable obj in objs)
         {
             obj.Invert();
         }
+
+        // Swap music between Track A and Track B
+        if (AudioVolumeController.Instance != null)
+        {
+            AudioVolumeController.Instance.SwapTracks();
+        }
     }
+
     public void SceneControllerReset() 
     {
         Debug.Log("SCR: Active");
@@ -169,6 +177,7 @@ public class SceneController : MonoBehaviour
 
         Debug.Log("Scene activated successfully.");
     }
+
     private void CleanupDontDestroy()
     {
         Debug.Log("[SceneController] Cleaning DontDestroyOnLoad scene...");
@@ -176,19 +185,34 @@ public class SceneController : MonoBehaviour
         // Create a temporary scene to move persistent objects into
         Scene tempScene = SceneManager.CreateScene("TempCleanupScene");
 
-        // Find all root GameObjects, including those in DontDestroyOnLoad
-        GameObject[] rootObjects = FindObjectsOfType<GameObject>();
+        // Find all GameObjects, including those in DontDestroyOnLoad
+        GameObject[] objects = FindObjectsOfType<GameObject>();
 
-        foreach (GameObject obj in rootObjects)
+        foreach (GameObject obj in objects)
         {
-            if (obj.scene.name == "DontDestroyOnLoad")
+            if (obj.scene.name != "DontDestroyOnLoad")
+                continue;
+
+            // Only process root GameObjects
+            if (obj.transform.parent != null)
+                continue;
+
+            // Preserve the AudioController and its children
+            if (obj.GetComponent<AudioVolumeController>() != null)
             {
-                Debug.Log($"[SceneController] Destroying persistent object: {obj.name}");
-                SceneManager.MoveGameObjectToScene(obj, tempScene);
-                Destroy(obj);
+                Debug.Log("[SceneController] Preserving AudioController: " + obj.name);
+                continue;
             }
+
+            Debug.Log("[SceneController] Destroying persistent object: " + obj.name);
+
+            // Move the entire hierarchy into the temporary scene
+            SceneManager.MoveGameObjectToScene(obj, tempScene);
+
+            Destroy(obj);
         }
     }
+
     void OnDestroy()
     {
         Debug.Log("SceneController destroyed!" + this);

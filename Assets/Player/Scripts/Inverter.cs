@@ -27,6 +27,11 @@ public class Inverter : MonoBehaviour
             {
                 obj.Invert();
             }
+
+            if (AudioVolumeController.Instance != null)
+            {
+                AudioVolumeController.Instance.SwapTracks();
+            }
         }
     }
 }

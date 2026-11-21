@@ -53,13 +53,37 @@ public class AudioVolumeController : MonoBehaviour
     // 0 = Track A, 1 = Track B
     private float musicBlend = 0f;
 
-    // Overall fade multipliers
+    // Overall category fade multipliers
     private float musicFade = 1f;
     private float sfxFade = 1f;
 
     private Coroutine crossfadeRoutine;
     private Coroutine musicFadeRoutine;
     private Coroutine sfxFadeRoutine;
+
+    // ---------------------------------------
+    // PENDING SCENE AUDIO SETTINGS
+    // ---------------------------------------
+
+    private bool pendingSceneAudio = false;
+    private string pendingSceneName;
+
+    private bool pendingReplaceMusic;
+    private bool pendingReplaceAmbiance;
+
+    private AudioClip pendingTrackAStart;
+    private AudioClip pendingTrackALoop;
+    private AudioClip pendingTrackBStart;
+    private AudioClip pendingTrackBLoop;
+
+    private AudioClip pendingAmbiance1;
+    private AudioClip pendingAmbiance2;
+
+    private float pendingAudioFadeInDuration;
+
+    // ---------------------------------------
+    // INITIALIZATION
+    // ---------------------------------------
 
     void Awake()
     {
@@ -84,13 +108,13 @@ public class AudioVolumeController : MonoBehaviour
         RegisterSfx(ambiance1);
         RegisterSfx(ambiance2);
 
-        // Register additional SFX objects and their children
+        // Register additional SFX sources
         foreach (GameObject obj in sfxObjects)
         {
             RegisterSfxObject(obj);
         }
 
-        // Music looping configuration
+        // Configure music looping
         if (trackAStart != null)
             trackAStart.loop = false;
 
@@ -115,32 +139,35 @@ public class AudioVolumeController : MonoBehaviour
         if (playMusicOnStart)
             PlayMusic();
 
-        // Automatically fade in ambiance
+        // Automatically fade in ambiance 1
         if (ambiance1 != null && ambiance1.clip != null)
         {
             ambianceFades[ambiance1] = 0f;
             ApplyVolumes();
+
             FadeInAmbiance1(ambianceStartFadeDuration);
         }
 
+        // Automatically fade in ambiance 2
         if (ambiance2 != null && ambiance2.clip != null)
         {
             ambianceFades[ambiance2] = 0f;
             ApplyVolumes();
+
             FadeInAmbiance2(ambianceStartFadeDuration);
         }
     }
 
     void Update()
     {
-        // Reconnect sliders if missing
+        // Reconnect sliders when they become available
         if (music_slider == null)
             FindMusicSlider();
 
         if (sfx_slider == null)
             FindSfxSlider();
 
-        // Reconnect footsteps if missing
+        // Reconnect footsteps if the player respawns
         if (footsteps == null)
             FindFootsteps();
     }
@@ -152,11 +179,18 @@ public class AudioVolumeController : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         RefreshSceneReferences();
+
+        // Complete audio transition only for
+        // the scene we are expecting
+        if (pendingSceneAudio && scene.name == pendingSceneName)
+        {
+            StartCoroutine(CompleteSceneAudioTransition());
+        }
     }
 
     private void RefreshSceneReferences()
     {
-        // Disconnect old slider listeners
+        // Disconnect previous slider listeners
         if (music_slider != null)
             music_slider.onValueChanged.RemoveListener(SetMusicVolume);
 
@@ -166,13 +200,13 @@ public class AudioVolumeController : MonoBehaviour
         music_slider = null;
         sfx_slider = null;
 
-        // Remove previous footstep reference
+        // Remove previous level's footsteps
         if (footsteps != null)
             sfxSources.Remove(footsteps);
 
         footsteps = null;
 
-        // Find current level objects
+        // Find objects in new level
         FindMusicSlider();
         FindSfxSlider();
         FindFootsteps();
@@ -198,7 +232,7 @@ public class AudioVolumeController : MonoBehaviour
 
         music_slider = slider;
 
-        // Set slider position before connecting listener
+        // Restore position before attaching listener
         music_slider.value = gameSettings.GetMusicVolume();
 
         music_slider.onValueChanged.AddListener(SetMusicVolume);
@@ -222,7 +256,7 @@ public class AudioVolumeController : MonoBehaviour
 
         sfx_slider = slider;
 
-        // Set slider position before connecting listener
+        // Restore position before attaching listener
         sfx_slider.value = gameSettings.GetSfxVolume();
 
         sfx_slider.onValueChanged.AddListener(SetSfxVolume);
@@ -306,34 +340,40 @@ public class AudioVolumeController : MonoBehaviour
 
     public void SetMusicVolume(float volume)
     {
-        gameSettings.SetMusicVolume(Mathf.Clamp(volume, 0f, 100f));
+        gameSettings.SetMusicVolume(
+            Mathf.Clamp(volume, 0f, 100f)
+        );
 
         ApplyVolumes();
     }
 
     public void SetSfxVolume(float volume)
     {
-        gameSettings.SetSfxVolume(Mathf.Clamp(volume, 0f, 100f));
+        gameSettings.SetSfxVolume(
+            Mathf.Clamp(volume, 0f, 100f)
+        );
 
         ApplyVolumes();
     }
 
     // ---------------------------------------
-    // APPLY ALL VOLUMES
+    // APPLY ALL AUDIO VOLUMES
     // ---------------------------------------
 
     private void ApplyVolumes()
     {
+        // Master volume ratios
         float musicMultiplier =
             Mathf.Clamp01(gameSettings.GetMusicVolume());
 
         float sfxMultiplier =
             Mathf.Clamp01(gameSettings.GetSfxVolume());
 
+        // Apply overall category fades
         musicMultiplier *= musicFade;
         sfxMultiplier *= sfxFade;
 
-        // Music crossfade multipliers
+        // Apply music crossfade ratio
         float trackAVolume =
             musicMultiplier * (1f - musicBlend);
 
@@ -406,15 +446,32 @@ public class AudioVolumeController : MonoBehaviour
             );
         }
 
+        double aLoopDuration =
+            (double)trackALoop.clip.samples /
+            trackALoop.clip.frequency;
+
+        double bLoopDuration =
+            (double)trackBLoop.clip.samples /
+            trackBLoop.clip.frequency;
+
+        if (System.Math.Abs(aLoopDuration - bLoopDuration) > 0.001)
+        {
+            Debug.LogWarning(
+                "Track A and B loop clips have different lengths!"
+            );
+        }
+
         trackAStart.loop = false;
         trackBStart.loop = false;
 
         trackALoop.loop = true;
         trackBLoop.loop = true;
 
-        // Schedule synchronized music playback
+        // Schedule both versions using DSP timing
         double startTime = AudioSettings.dspTime + 0.2;
-        double loopTime = startTime + aDuration + loopStartOffset;
+
+        double loopTime =
+            startTime + aDuration + loopStartOffset;
 
         ApplyVolumes();
 
@@ -535,7 +592,7 @@ public class AudioVolumeController : MonoBehaviour
 
                 float t = Mathf.Clamp01(elapsed / duration);
 
-                // Smooth easing
+                // Smooth ease in / ease out
                 t = t * t * (3f - 2f * t);
 
                 musicBlend = Mathf.Lerp(start, target, t);
@@ -624,7 +681,6 @@ public class AudioVolumeController : MonoBehaviour
         if (!ambianceFades.ContainsKey(source))
             ambianceFades[source] = 1f;
 
-        // Apply the current fade before starting playback
         ApplyVolumes();
 
         if (target > 0f && source.clip != null && !source.isPlaying)
@@ -664,7 +720,7 @@ public class AudioVolumeController : MonoBehaviour
         ambianceFades[source] = target;
         ApplyVolumes();
 
-        if (target <= 0f)
+        if (target <= 0f && source != null)
             source.Stop();
 
         ambianceRoutines.Remove(source);
@@ -694,6 +750,53 @@ public class AudioVolumeController : MonoBehaviour
     // AMBIANCE CLIP CHANGE WITH FADE
     // ---------------------------------------
 
+    private void TransitionAmbiance(AudioSource source, AudioClip newClip, float fadeOutDuration, float fadeInDuration)
+    {
+        if (source == null)
+            return;
+
+        StartCoroutine(TransitionAmbianceRoutine(source, newClip, fadeOutDuration, fadeInDuration));
+    }
+
+    private IEnumerator TransitionAmbianceRoutine(AudioSource source, AudioClip newClip, float fadeOutDuration, float fadeInDuration)
+    {
+        // Fade out the current ambiance
+        FadeAmbiance(source, 0f, fadeOutDuration);
+
+        yield return new WaitForSecondsRealtime(Mathf.Max(0f, fadeOutDuration));
+
+        // Replace the clip and reset its fade multiplier to zero
+        ChangeAmbiance(source, null);
+
+        source.clip = newClip;
+        ambianceFades[source] = 0f;
+
+        ApplyVolumes();
+
+        // Fade in the new ambiance
+        if (newClip != null)
+        {
+            FadeAmbiance(source, 1f, fadeInDuration);
+        }
+    }
+
+    public void TransitionAmbiance1(AudioClip newClip, float fadeOutDuration, float fadeInDuration)
+    {
+        if (ambiance1 == null || ambiance1.clip == newClip)
+            return;
+
+        TransitionAmbiance(ambiance1, newClip, fadeOutDuration, fadeInDuration);
+    }
+
+    public void TransitionAmbiance2(AudioClip newClip, float fadeOutDuration, float fadeInDuration)
+    {
+        if (ambiance2 == null || ambiance2.clip == newClip)
+            return;
+
+        TransitionAmbiance(ambiance2, newClip, fadeOutDuration, fadeInDuration);
+    }
+
+
     private void ChangeAmbianceWithFade(
         AudioSource source, AudioClip clip, float duration)
     {
@@ -721,6 +824,20 @@ public class AudioVolumeController : MonoBehaviour
     public void SetAmbiance2WithFade(AudioClip clip, float duration)
     {
         ChangeAmbianceWithFade(ambiance2, clip, duration);
+    }
+
+    public void CrossfadeAmbiance(bool useAmbiance2, float duration)
+    {
+        if (useAmbiance2)
+        {
+            FadeOutAmbiance1(duration);
+            FadeInAmbiance2(duration);
+        }
+        else
+        {
+            FadeOutAmbiance2(duration);
+            FadeInAmbiance1(duration);
+        }
     }
 
     // ---------------------------------------
@@ -809,6 +926,114 @@ public class AudioVolumeController : MonoBehaviour
             sfxFade = target;
             sfxFadeRoutine = null;
         }
+
+        ApplyVolumes();
+    }
+
+    // ---------------------------------------
+    // QUEUE AUDIO FOR NEXT SCENE
+    // ---------------------------------------
+
+    public void QueueNextSceneAudio(
+        string sceneName,
+        bool replaceMusic,
+        AudioClip aStart,
+        AudioClip aLoop,
+        AudioClip bStart,
+        AudioClip bLoop,
+        bool replaceAmbiance,
+        AudioClip newAmbiance1,
+        AudioClip newAmbiance2,
+        float fadeInDuration)
+    {
+        pendingSceneAudio = true;
+        pendingSceneName = sceneName;
+
+        pendingReplaceMusic = replaceMusic;
+        pendingReplaceAmbiance = replaceAmbiance;
+
+        pendingTrackAStart = aStart;
+        pendingTrackALoop = aLoop;
+        pendingTrackBStart = bStart;
+        pendingTrackBLoop = bLoop;
+
+        pendingAmbiance1 = newAmbiance1;
+        pendingAmbiance2 = newAmbiance2;
+
+        pendingAudioFadeInDuration = Mathf.Max(
+            0f, fadeInDuration
+        );
+    }
+
+    // ---------------------------------------
+    // COMPLETE SCENE AUDIO TRANSITION
+    // ---------------------------------------
+
+    private IEnumerator CompleteSceneAudioTransition()
+    {
+        // Allow new scene objects to initialize
+        yield return null;
+
+        if (!pendingSceneAudio)
+            yield break;
+
+        pendingSceneAudio = false;
+
+        float fadeDuration = pendingAudioFadeInDuration;
+
+        // ---------------------------------------
+        // REPLACE MUSIC IF REQUESTED
+        // ---------------------------------------
+
+        if (pendingReplaceMusic)
+        {
+            // Ensure old music is completely silent
+            FadeOutMusic(0f);
+
+            StopMusic();
+
+            // Replace Track A clips
+            SetTrackA(
+                pendingTrackAStart,
+                pendingTrackALoop
+            );
+
+            // Replace Track B clips
+            SetTrackB(
+                pendingTrackBStart,
+                pendingTrackBLoop
+            );
+
+            // Start the new song with Track A selected
+            CrossfadeToTrackA(0f);
+
+            // Schedule both synchronized versions
+            PlayMusic();
+
+            // Fade new music in
+            FadeInMusic(fadeDuration);
+        }
+
+        // ---------------------------------------
+        // REPLACE AMBIANCE IF REQUESTED
+        // ---------------------------------------
+
+        if (pendingReplaceAmbiance)
+        {
+            SetAmbiance1(pendingAmbiance1);
+            SetAmbiance2(pendingAmbiance2);
+        }
+
+        // ---------------------------------------
+        // RESTORE SFX IN NEW SCENE
+        // ---------------------------------------
+
+        // Reconnect objects that have spawned
+        if (footsteps == null)
+            FindFootsteps();
+
+        // Always fade SFX back in
+        FadeInSfx(fadeDuration);
 
         ApplyVolumes();
     }
