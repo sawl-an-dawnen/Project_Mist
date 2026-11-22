@@ -3,19 +3,30 @@ using UnityEngine;
 
 public class Climb : MonoBehaviour
 {
+    [Header("Climbing Settings")]
     public float climbSpeed = 5f;
     public LayerMask platformLayer;
 
+    [Header("Animation Settings")]
+    public float directionSwitchThreshold = 0.2f;
+    public float inputDeadzone = 0.1f;
+
     private bool isClimbing = false;
+    private bool climbingVertically = true;
+
     private float startingGravityScale;
+
+    private float verticalInput;
+    private float horizontalInput;
 
     private Rigidbody2D rb;
     private Animator animator;
     private Movement move;
     private GameManager gameManager;
 
-    // Keep track of every ladder collider currently overlapping the player
-    private HashSet<Collider2D> ladderColliders = new HashSet<Collider2D>();
+    // Track all ladder colliders currently overlapping the player
+    private HashSet<Collider2D> ladderColliders =
+        new HashSet<Collider2D>();
 
     void Awake()
     {
@@ -29,52 +40,155 @@ public class Climb : MonoBehaviour
 
     void Update()
     {
-        // Check for climbing activation
-        if (ladderColliders.Count > 0)
+        // Remove invalid ladder colliders
+        ladderColliders.RemoveWhere(c =>
+            c == null ||
+            !c.enabled ||
+            !c.gameObject.activeInHierarchy
+        );
+
+        verticalInput = Input.GetAxis("Vertical");
+        horizontalInput = Input.GetAxis("Horizontal");
+
+        // Stop climbing when leaving all climb zones
+        if (ladderColliders.Count == 0)
         {
-            if ((Mathf.Abs(Input.GetAxis("Vertical")) > 0.1f || Input.GetKeyDown(KeyCode.E))
-                && !move.Interacting()
-                && gameManager.InControl()
-                && !gameManager.Paused())
+            if (isClimbing)
+            {
+                StopClimbing();
+            }
+        }
+
+        // Press Space to stop climbing
+        if (isClimbing && Input.GetKeyDown(KeyCode.Space))
+        {
+            StopClimbing();
+            return;
+        }
+
+        // Start climbing
+        if (!isClimbing &&
+            ladderColliders.Count > 0 &&
+            !move.Interacting() &&
+            gameManager.InControl() &&
+            !gameManager.Paused())
+        {
+            if (Mathf.Abs(verticalInput) > inputDeadzone ||
+                Input.GetKeyDown(KeyCode.E))
             {
                 StartClimbing();
             }
         }
 
-        // If we are climbing but no longer touching ANY ladder,
-        // stop climbing.
-        if (isClimbing && ladderColliders.Count == 0)
+        if (!isClimbing)
+            return;
+
+        // Pause climbing movement
+        if (!gameManager.InControl() || gameManager.Paused())
         {
-            StopClimbing();
+            verticalInput = 0f;
+            horizontalInput = 0f;
+
+            UpdateClimbAnimation(0f, 0f);
+            return;
         }
 
-        // Handle climbing
-        if (isClimbing)
+        UpdateClimbDirection();
+    }
+
+    void FixedUpdate()
+    {
+        if (!isClimbing)
+            return;
+
+        if (!gameManager.InControl() || gameManager.Paused())
         {
-            float verticalInput = Input.GetAxis("Vertical");
-            float horizontalInput = Input.GetAxis("Horizontal");
+            rb.velocity = Vector2.zero;
+            return;
+        }
 
-            animator.SetFloat("Vertical Climb", Mathf.Abs(rb.velocity.y));
-            animator.SetFloat("Horizontal Climb", Mathf.Abs(rb.velocity.x));
+        float verticalSpeed = 0f;
+        float horizontalSpeed = 0f;
 
-            if (Mathf.Abs(verticalInput) > Mathf.Abs(horizontalInput))
-            {
-                rb.velocity = new Vector2(0f, verticalInput * climbSpeed);
-            }
-            else
-            {
-                rb.velocity = new Vector2(horizontalInput * climbSpeed, 0f);
-            }
+        if (climbingVertically)
+        {
+            verticalSpeed = verticalInput;
 
-            // Dismount when pressing down while no longer touching a ladder,
-            // or when pressing E / Space.
-            if ((Input.GetAxis("Vertical") < -0.1f && ladderColliders.Count == 0)
-                || Input.GetKeyDown(KeyCode.E)
-                || Input.GetKeyDown(KeyCode.Space))
+            rb.velocity = new Vector2(
+                0f,
+                verticalSpeed * climbSpeed
+            );
+        }
+        else
+        {
+            horizontalSpeed = horizontalInput;
+
+            rb.velocity = new Vector2(
+                horizontalSpeed * climbSpeed,
+                0f
+            );
+        }
+    }
+
+    private void UpdateClimbDirection()
+    {
+        float absVertical = Mathf.Abs(verticalInput);
+        float absHorizontal = Mathf.Abs(horizontalInput);
+
+        // Ignore tiny input fluctuations
+        if (absVertical < inputDeadzone)
+            absVertical = 0f;
+
+        if (absHorizontal < inputDeadzone)
+            absHorizontal = 0f;
+
+        // Prevent rapid switching between directions
+        if (climbingVertically)
+        {
+            if (absHorizontal >
+                absVertical + directionSwitchThreshold)
             {
-                StopClimbing();
+                climbingVertically = false;
             }
         }
+        else
+        {
+            if (absVertical >
+                absHorizontal + directionSwitchThreshold)
+            {
+                climbingVertically = true;
+            }
+        }
+
+        float verticalSpeed = climbingVertically
+            ? absVertical
+            : 0f;
+
+        float horizontalSpeed = climbingVertically
+            ? 0f
+            : absHorizontal;
+
+        UpdateClimbAnimation(verticalSpeed, horizontalSpeed);
+    }
+
+    private void UpdateClimbAnimation(
+        float verticalSpeed,
+        float horizontalSpeed)
+    {
+        animator.SetInteger(
+            "Climb Direction",
+            climbingVertically ? 1 : 2
+        );
+
+        animator.SetFloat(
+            "Vertical Climb",
+            Mathf.Clamp01(verticalSpeed)
+        );
+
+        animator.SetFloat(
+            "Horizontal Climb",
+            Mathf.Clamp01(horizontalSpeed)
+        );
     }
 
     private void StartClimbing()
@@ -82,22 +196,40 @@ public class Climb : MonoBehaviour
         if (isClimbing)
             return;
 
-        Debug.Log("Started climbing");
+        Debug.Log("[Climb] Started climbing");
 
         isClimbing = true;
 
-        startingGravityScale = rb.gravityScale;
+        // Select initial direction based on input
+        climbingVertically =
+            Mathf.Abs(verticalInput) >=
+            Mathf.Abs(horizontalInput);
 
+        // Disable gravity
         rb.gravityScale = 0f;
+        rb.velocity = Vector2.zero;
 
+        animator.SetInteger(
+            "Climb Direction",
+            climbingVertically ? 1 : 2
+        );
+
+        animator.SetFloat("Vertical Climb", 0f);
+        animator.SetFloat("Horizontal Climb", 0f);
         animator.SetBool("Climbing", true);
 
-        // Ignore collisions with platforms while climbing
-        Physics2D.IgnoreLayerCollision(
-            gameObject.layer,
-            LayerMask.NameToLayer("Platform"),
-            true
-        );
+        // Ignore platform collisions while climbing
+        int platformLayerIndex =
+            LayerMask.NameToLayer("Platform");
+
+        if (platformLayerIndex >= 0)
+        {
+            Physics2D.IgnoreLayerCollision(
+                gameObject.layer,
+                platformLayerIndex,
+                true
+            );
+        }
     }
 
     private void StopClimbing()
@@ -105,50 +237,81 @@ public class Climb : MonoBehaviour
         if (!isClimbing)
             return;
 
-        Debug.Log("Stopped climbing");
+        Debug.Log("[Climb] Stopped climbing");
 
         isClimbing = false;
 
         animator.SetBool("Climbing", false);
+        animator.SetInteger("Climb Direction", 0);
         animator.SetFloat("Vertical Climb", 0f);
         animator.SetFloat("Horizontal Climb", 0f);
 
-        // Restore gravity
+        // Restore original gravity
         rb.gravityScale = startingGravityScale;
 
-        // Re-enable collisions with platforms
-        Physics2D.IgnoreLayerCollision(
-            gameObject.layer,
-            LayerMask.NameToLayer("Platform"),
-            false
-        );
+        // Stop residual climbing movement
+        rb.velocity = Vector2.zero;
+
+        // Restore platform collisions
+        int platformLayerIndex =
+            LayerMask.NameToLayer("Platform");
+
+        if (platformLayerIndex >= 0)
+        {
+            Physics2D.IgnoreLayerCollision(
+                gameObject.layer,
+                platformLayerIndex,
+                false
+            );
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Ladder"))
-        {
-            Debug.Log("Entered ladder: " + collision.name);
+        if (!collision.CompareTag("Ladder"))
+            return;
 
-            ladderColliders.Add(collision);
-        }
+        ladderColliders.Add(collision);
+
+        Debug.Log(
+            "[Climb] Entered ladder: " + collision.name
+        );
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (!collision.CompareTag("Ladder"))
+            return;
+
+        ladderColliders.Add(collision);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Ladder"))
+        if (!collision.CompareTag("Ladder"))
+            return;
+
+        ladderColliders.Remove(collision);
+
+        Debug.Log(
+            "[Climb] Exited ladder: " + collision.name
+        );
+
+        // Stop only after leaving every climb zone
+        if (ladderColliders.Count == 0)
         {
-            Debug.Log("Exited ladder: " + collision.name);
-
-            ladderColliders.Remove(collision);
-
-            // Only stop climbing if we have completely
-            // left ALL ladder colliders.
-            if (ladderColliders.Count == 0)
-            {
-                StopClimbing();
-            }
+            StopClimbing();
         }
+    }
+
+    private void OnDisable()
+    {
+        if (isClimbing)
+        {
+            StopClimbing();
+        }
+
+        ladderColliders.Clear();
     }
 
     public bool Climbing()

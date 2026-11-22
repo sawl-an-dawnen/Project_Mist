@@ -37,7 +37,7 @@ public class BinaryDoorTrigger : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D other)
     {
-        Debug.Log("Touching: " + other.name);
+        //Debug.Log("Touching: " + other.name);
     }
 
     public void ClearTrigger() { isTriggered = false; }

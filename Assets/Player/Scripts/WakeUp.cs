@@ -22,6 +22,7 @@ public class WakeUp : MonoBehaviour
     }
 
     public void TriggerWakeUp() {
+        Debug.Log("[WakeUp] TriggerWakeUp");
         if (gameManager.ActiveOnNextRespawnCheck()) {
             OnAnimationEnd();
             return;

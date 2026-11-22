@@ -7,9 +7,9 @@ using System.Runtime.InteropServices.WindowsRuntime;
 public class UIUtility : MonoBehaviour
 {
     public float transitionDuration = 3f;
-    #nullable enable
-    private RawImage? blackScreen;
-    private RawImage? vignette;
+#nullable enable
+    [SerializeField] private RawImage? blackScreen;
+    [SerializeField] private RawImage? vignette;
 
     void Awake() {
         blackScreen = GameObject.FindWithTag("UI_Black").GetComponent<RawImage>();
@@ -45,6 +45,7 @@ public class UIUtility : MonoBehaviour
 
     public void TransitionRawImage(RawImage tmp, float alpha = 0f, float duration = 1f, float wait = 1f)
     {
+        Debug.Log("[UIUtility] TransitionRawImage");
         StartCoroutine(TransitionRawImageCoroutine(tmp, alpha, duration, wait));
     }
 
@@ -64,8 +65,14 @@ public class UIUtility : MonoBehaviour
 
     public void FadeIn(float duration = -1, float wait = 1f) 
     {
-        if (blackScreen == null) return;
-        blackScreen.color = new Color(blackScreen.color.r, blackScreen.color.g, blackScreen.color.b, 1f);
+        Debug.Log("[UIUtility] FadeIn");
+        if (blackScreen == null)
+        {
+            Debug.Log("[UIUtility] No blackscreen references");
+            return;
+        }
+            blackScreen.color = new Color(blackScreen.color.r, blackScreen.color.g, blackScreen.color.b, 1f);
+        Debug.Log("[UIUtility]" + blackScreen.color);
         if (duration <= -1)
         {
             StartCoroutine(TransitionRawImageCoroutine(blackScreen, 0f, transitionDuration, wait));

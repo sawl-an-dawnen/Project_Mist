@@ -50,6 +50,11 @@ public class Movement : MonoBehaviour
     private GameObject gameController;
     private PauseController pauseController;
 
+    [Header("Boulder Movement")]
+    public float boulderMovementMultiplier = 0.15f;
+    private Rigidbody2D currentBoulderRb;
+
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -69,7 +74,7 @@ public class Movement : MonoBehaviour
         if (Mathf.Abs(moveInput.x) > 0.01f)
         {
             animator.SetBool("Move", true);
-            animator.SetFloat("Move Speed Multiplyer", moveSpeedMultiplier * moveInput.x);
+            animator.SetFloat("Move Speed Multiplyer", moveSpeedMultiplier * Mathf.Abs(moveInput.x));
 
             if (interactable == null || interactable.GetType() != typeof(Grab))
             {
@@ -139,11 +144,31 @@ public class Movement : MonoBehaviour
 
     void FixedUpdate()
     {
-        velocityX = Mathf.Lerp(velocityX, moveInput.x * moveSpeed, Time.deltaTime * 8f);
-        // Horizontal movement
+        float movementMultiplier = currentBoulderRb != null
+            ? boulderMovementMultiplier
+            : 1f;
+
+        // Smooth only the player's own movement
+        float targetRelativeSpeed =
+            moveInput.x * moveSpeed * movementMultiplier;
+
+        velocityX = Mathf.Lerp(
+            velocityX,
+            targetRelativeSpeed,
+            Time.fixedDeltaTime * 8f
+        );
+
+        // Add boulder velocity without smoothing
+        float platformVelocity = currentBoulderRb != null
+            ? currentBoulderRb.velocity.x
+            : 0f;
+
         if (!climb.Climbing())
         {
-            rb.velocity = new Vector2(velocityX, rb.velocity.y);
+            rb.velocity = new Vector2(
+                velocityX + platformVelocity,
+                rb.velocity.y
+            );
         }
     }
 
@@ -247,6 +272,16 @@ public class Movement : MonoBehaviour
     public float GetLastYCoordinate()
     {
         return jumpYCoordinate;
+    }
+
+
+    public Vector2 GetMoveInput()
+    {
+        return moveInput;
+    }
+    public void SetCurrentBoulder(Rigidbody2D boulderRb)
+    {
+        currentBoulderRb = boulderRb;
     }
 
     void OnDrawGizmosSelected()

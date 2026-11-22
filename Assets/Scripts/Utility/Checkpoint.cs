@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Checkpoint : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class Checkpoint : MonoBehaviour
     {
         if (other.CompareTag("Player")) {
             controller.SetCheckpoint(gameObject);
+            gameManager.SetLevel(SceneManager.GetActiveScene().name);
             if (lockInvertAbility) {
                 gameManager.SetInvertAbilityLock(true);
             }

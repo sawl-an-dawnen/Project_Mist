@@ -1840,6 +1840,10 @@ PrefabInstance:
       value: Player.v02
       objectReference: {fileID: 0}
     - target: {fileID: 2502838728977384958, guid: a0ab9ab465d51cc46b2b5c40dd44ce67, type: 3}
+      propertyPath: stepDistance
+      value: 0.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 2502838728977384958, guid: a0ab9ab465d51cc46b2b5c40dd44ce67, type: 3}
       propertyPath: footstepAudioSource
       value: 
       objectReference: {fileID: 5497036159527300305}

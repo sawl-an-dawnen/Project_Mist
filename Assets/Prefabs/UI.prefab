@@ -1954,7 +1954,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activate: {fileID: 6483406959609922659}
   deactivate: {fileID: 3982763130395443304}
-  firstSelected: {fileID: 0}
+  firstSelected: {fileID: 2812856141825028884}
   eventSystem: {fileID: 0}
 --- !u!1 &5644911167072064946
 GameObject:
