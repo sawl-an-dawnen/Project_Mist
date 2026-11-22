@@ -68,6 +68,7 @@ public class Climb : MonoBehaviour
 
         // Start climbing
         if (!isClimbing &&
+            !GetComponent<Mantle>().MantleEnabled &&
             ladderColliders.Count > 0 &&
             !move.Interacting() &&
             gameManager.InControl() &&
@@ -317,5 +318,13 @@ public class Climb : MonoBehaviour
     public bool Climbing()
     {
         return isClimbing;
+    }
+
+    public void StopClimbingForMantle()
+    {
+        if (isClimbing)
+        {
+            StopClimbing();
+        }
     }
 }

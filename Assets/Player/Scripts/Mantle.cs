@@ -3,144 +3,240 @@ using UnityEngine;
 
 public class Mantle : MonoBehaviour
 {
-    public float distanceToLedge = 0.5f; // Distance in front of the player to detect a ledge
-    public float climbableHeight = .17f; // How high the player can jump up
-    public float upwardDistance = .25f;
-    public float forwardDistance = .2f;
-    public float mantleSpeed = 1.3f;     // Speed of the mantling movement
+    [Header("Mantle Settings")]
+    public float distanceToLedge = 0.5f;
+    public float climbableHeight = 0.17f;
+    public float upwardDistance = 0.25f;
+    public float forwardDistance = 0.2f;
+    public float mantleSpeed = 1.3f;
+    public float mantleDuration = 0.6f;
 
-    
     private Rigidbody2D rb;
     private Rigidbody2D objectRigidbody;
-    RigidbodyType2D objectBodyType;
+
+    private RigidbodyType2D objectBodyType;
+
     private bool isMantling = false;
+
     private float currentScale;
     private float startingGravityScale;
+
     private Vector2 mantleTarget;
     private Vector2 upwardRayOrigin;
-    private LayerMask climbableLayer; // Layer for ledges
+
+    private LayerMask climbableLayer;
+
     private Movement moveScript;
     private Grab grabScript;
+    private Climb climbScript;
     private Animator animator;
     private Interact interactor;
     private GameManager gameManager;
 
+    private Coroutine mantleCoroutine;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+
         moveScript = GetComponent<Movement>();
         grabScript = GetComponent<Grab>();
+        climbScript = GetComponent<Climb>();
+
         animator = GetComponent<Animator>();
         interactor = GetComponent<Interact>();
+
         climbableLayer = LayerMask.GetMask("Climbable");
+
         gameManager = GameManager.Instance;
     }
 
-    private void Start() {
-        startingGravityScale = rb.gravityScale;
-    }
-
-
     private void FixedUpdate()
     {
-        if (isMantling)
-        {
-            // Smoothly move the player to the mantle target
-            transform.position = Vector2.MoveTowards(transform.position, mantleTarget, mantleSpeed * Time.fixedDeltaTime);
-            RaycastHit2D mantleHit = Physics2D.Raycast(mantleTarget, Vector2.up, 0f, climbableLayer);
+        if (!isMantling)
+            return;
 
-            // Stop mantling when the target is reached
-            if (Vector2.Distance(transform.position, mantleTarget) < 0.1f || mantleHit.collider != null || Mathf.Sign(transform.localScale.x) != currentScale)
-            {
-                if (objectRigidbody != null)
-                {
-                    objectRigidbody.bodyType = objectBodyType;
-                }
-                isMantling = false;
-                animator.SetBool("Mantle", false);
-                rb.gravityScale = startingGravityScale;
-            }
+        // Smoothly move the player toward the mantle target
+        rb.MovePosition(
+            Vector2.MoveTowards(
+                rb.position,
+                mantleTarget,
+                mantleSpeed * Time.fixedDeltaTime
+            )
+        );
+
+        // Check whether the player reached the target
+        bool reachedTarget =
+            Vector2.Distance(rb.position, mantleTarget) < 0.1f;
+
+        // Check whether the player changed facing direction
+        bool changedDirection =
+            Mathf.Sign(transform.localScale.x) != currentScale;
+
+        if (reachedTarget || changedDirection)
+        {
+            FinishMantle();
         }
     }
+
     private void CheckForLedge()
     {
-        // Cast a ray forward to detect the ledge
-        Vector2 rayOrigin = new Vector2(transform.position.x, transform.position.y);
-        Vector2 rayDirection = transform.right * Mathf.Sign(transform.localScale.x); // Ray direction depends on facing direction
+        Vector2 rayOrigin = transform.position;
 
-        RaycastHit2D hit = Physics2D.Raycast(rayOrigin, rayDirection, distanceToLedge, climbableLayer);
-        if (hit.collider != null)
+        Vector2 rayDirection =
+            transform.right *
+            Mathf.Sign(transform.localScale.x);
+
+        RaycastHit2D hit = Physics2D.Raycast(
+            rayOrigin,
+            rayDirection,
+            distanceToLedge,
+            climbableLayer
+        );
+
+        if (hit.collider == null)
+            return;
+
+        upwardRayOrigin =
+            hit.point +
+            Vector2.up * climbableHeight +
+            Vector2.right * 0.05f *
+            Mathf.Sign(transform.localScale.x);
+
+        RaycastHit2D upwardHit = Physics2D.Raycast(
+            upwardRayOrigin,
+            Vector2.up,
+            0f,
+            climbableLayer
+        );
+
+        if (upwardHit.collider == null &&
+            transform.position.y <=
+            moveScript.GetLastYCoordinate() + 0.03f)
         {
-            // Cast another ray upward from the wall to find the top
-            upwardRayOrigin = hit.point + Vector2.up * climbableHeight + (Vector2.right * .05f * Mathf.Sign(transform.localScale.x));
-            RaycastHit2D upwardHit = Physics2D.Raycast(upwardRayOrigin, Vector2.up, 0f, climbableLayer);
-
-            //Debug.Log(upwardHit.collider.name);
-
-            if (upwardHit.collider == null && (transform.position.y <= moveScript.GetLastYCoordinate() + .03f)) // No collider above means it's climbable, can mantle at the end of jump but only at a reduced or level height
-            {
-                StartMantle(hit);
-            }
+            StartMantle(hit);
         }
     }
 
     private void StartMantle(RaycastHit2D hit)
     {
-        Vector2 ledgePoint = hit.point;
-        objectRigidbody = hit.collider.attachedRigidbody;
-        startingGravityScale = rb.gravityScale;
-        animator.SetBool("Mantle", true);
-        animator.Play("Player_mantle", 0, 0f);
-        StartCoroutine(CompleteMantle(ledgePoint));
-    }
+        if (isMantling)
+            return;
 
-    IEnumerator CompleteMantle(Vector2 ledgePoint)
-    {
-        // Mantle logic here (move the player to the mantle target)
+        // IMPORTANT:
+        // End climbing before saving mantle gravity.
+        if (climbScript != null && climbScript.Climbing())
+        {
+            climbScript.StopClimbingForMantle();
+        }
+
+        // Gravity is now restored by Climb.
+        startingGravityScale = rb.gravityScale;
+
+        objectRigidbody = hit.collider.attachedRigidbody;
+
         if (objectRigidbody != null)
         {
             objectBodyType = objectRigidbody.bodyType;
-            objectRigidbody.bodyType = RigidbodyType2D.Kinematic;        
+
+            objectRigidbody.bodyType =
+                RigidbodyType2D.Kinematic;
+
             objectRigidbody.velocity = Vector2.zero;
         }
 
-        // Calculate target position for mantling
-        mantleTarget = new Vector2(ledgePoint.x + (forwardDistance * Mathf.Sign(transform.localScale.x)), ledgePoint.y + upwardDistance); // Adjust height as needed
-        rb.gravityScale = 0f;
-        rb.velocity = Vector2.zero; // Stop player movement during mantling
+        Vector2 ledgePoint = hit.point;
+
+        mantleTarget = new Vector2(
+            ledgePoint.x +
+            forwardDistance * Mathf.Sign(transform.localScale.x),
+            ledgePoint.y + upwardDistance
+        );
+
         currentScale = Mathf.Sign(transform.localScale.x);
+
         isMantling = true;
-        // Smoothly move the player to the mantle target
-        transform.position = Vector2.MoveTowards(transform.position, mantleTarget, mantleSpeed * Time.fixedDeltaTime);
-        RaycastHit2D mantleHit = Physics2D.Raycast(mantleTarget, Vector2.up, 0f, climbableLayer);
 
-        yield return new WaitForSeconds(0.6f); // Adjust based on mantle duration
+        // Disable gravity for mantle movement
+        rb.gravityScale = 0f;
+        rb.velocity = Vector2.zero;
 
-        // Re-enable collision after mantle is complete
+        animator.SetBool("Mantle", true);
+        animator.Play("Player_mantle", 0, 0f);
+
+        mantleCoroutine = StartCoroutine(MantleTimeout());
+    }
+
+    private IEnumerator MantleTimeout()
+    {
+        yield return new WaitForSeconds(mantleDuration);
+
+        if (isMantling)
+        {
+            FinishMantle();
+        }
+    }
+
+    private void FinishMantle()
+    {
+        if (!isMantling)
+            return;
+
+        isMantling = false;
+
+        // Stop the timeout coroutine if mantle finished early
+        if (mantleCoroutine != null)
+        {
+            StopCoroutine(mantleCoroutine);
+            mantleCoroutine = null;
+        }
+
+        // Restore ledge object's physics
         if (objectRigidbody != null)
         {
             objectRigidbody.bodyType = objectBodyType;
+            objectRigidbody = null;
         }
-        isMantling = false;
-        animator.SetBool("Mantle", false);
+
+        // Restore player gravity
         rb.gravityScale = startingGravityScale;
-        //Physics2D.IgnoreCollision(rb.gameObject.GetComponent<Collider2D>(), objectRigidbody.GetComponent<Collider2D>(), false);
+
+        animator.SetBool("Mantle", false);
+
+        Debug.Log(
+            "[Mantle] Finished. Restored gravity: " +
+            rb.gravityScale
+        );
     }
 
-    public bool MantleEnabled { get { return isMantling; } }
-
-    public void OnMantle() 
+    private void OnDisable()
     {
-        if (!isMantling && !interactor.Interacting() && gameManager.InControl() && !gameManager.Paused()) // Check for mantle input (Space)
+        if (isMantling)
+        {
+            FinishMantle();
+        }
+    }
+
+    public bool MantleEnabled
+    {
+        get { return isMantling; }
+    }
+
+    public void OnMantle()
+    {
+        if (!isMantling &&
+            !interactor.Interacting() &&
+            gameManager.InControl() &&
+            !gameManager.Paused())
         {
             CheckForLedge();
         }
     }
 
-    void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
-        // Visualize grab range in the editor
         Gizmos.color = Color.yellow;
+
         Gizmos.DrawSphere(mantleTarget, 0.05f);
         Gizmos.DrawSphere(upwardRayOrigin, 0.05f);
     }

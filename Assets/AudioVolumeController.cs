@@ -52,6 +52,7 @@ public class AudioVolumeController : MonoBehaviour
 
     // 0 = Track A, 1 = Track B
     private float musicBlend = 0f;
+    private int activeMusicTrack = 0;
 
     // Overall category fade multipliers
     private float musicFade = 1f;
@@ -551,27 +552,39 @@ public class AudioVolumeController : MonoBehaviour
 
     public void CrossfadeToTrackA(float duration)
     {
+        activeMusicTrack = 0;
         CrossfadeTo(0f, duration);
     }
 
     public void CrossfadeToTrackB(float duration)
     {
+        activeMusicTrack = 1;
         CrossfadeTo(1f, duration);
     }
 
     public void SwapTracks()
     {
-        if (musicBlend < 0.5f)
+        // Toggle the intended track, NOT the current blend.
+        if (activeMusicTrack == 0)
+        {
             CrossfadeToTrackB(defaultCrossfadeDuration);
+        }
         else
+        {
             CrossfadeToTrackA(defaultCrossfadeDuration);
+        }
     }
 
     private void CrossfadeTo(float target, float duration)
     {
+        // Cancel the previous crossfade.
         if (crossfadeRoutine != null)
+        {
             StopCoroutine(crossfadeRoutine);
+            crossfadeRoutine = null;
+        }
 
+        // Start a new crossfade from the CURRENT volume blend.
         crossfadeRoutine = StartCoroutine(
             CrossfadeRoutine(target, duration)
         );
@@ -592,7 +605,7 @@ public class AudioVolumeController : MonoBehaviour
 
                 float t = Mathf.Clamp01(elapsed / duration);
 
-                // Smooth ease in / ease out
+                // Smooth easing
                 t = t * t * (3f - 2f * t);
 
                 musicBlend = Mathf.Lerp(start, target, t);
@@ -603,7 +616,9 @@ public class AudioVolumeController : MonoBehaviour
             }
         }
 
+        // Guarantee the intended final track
         musicBlend = target;
+
         ApplyVolumes();
 
         crossfadeRoutine = null;
